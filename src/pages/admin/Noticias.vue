@@ -141,13 +141,13 @@ export default {
         rowsPerPage: 15
         // rowsNumber: xx if getting data from a server
       },
-      data: [{ nome: 'aaa', tipo: 'aaa', email: 'asdadsadsa@email.com', cpf: '', celular: '' }],
+      data: [{ titulo: 'Titulo Teste', tipo: 'Tipo Teste', link: 'asdadsadsa@email.com', dataV: '20/06/2021' }],
       columns: [
         {
-          name: 'nome',
-          label: 'Nome',
+          name: 'titulo',
+          label: 'Título',
+          field: 'titulo',
           align: 'left',
-          field: 'nome',
           sortable: true
         },
         {
@@ -158,9 +158,16 @@ export default {
           sortable: true
         },
         {
-          name: 'email',
-          label: 'E-mail',
-          field: 'email',
+          name: 'link',
+          label: 'Link',
+          field: 'link',
+          align: 'left',
+          sortable: true
+        },
+        {
+          name: 'dataV',
+          label: 'Data Vencimento',
+          field: 'dataV',
           align: 'left',
           sortable: true
         }
