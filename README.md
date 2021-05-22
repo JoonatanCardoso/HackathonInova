@@ -1,6 +1,7 @@
-# Quasar App (hackthoninova)
+# Acelera Ariguaína(hackthoninova)
 
-A Quasar Framework app
+Application made with Quasar.js technology, VueJS.
+Storage and hosting using Firebase
 
 ## Install the dependencies
 ```bash
@@ -9,7 +10,7 @@ yarn
 
 ### Start the app in development mode (hot-code reloading, error reporting, etc.)
 ```bash
-quasar dev
+yarn run dev
 ```
 
 ### Lint the files
@@ -19,7 +20,12 @@ yarn run lint
 
 ### Build the app for production
 ```bash
-quasar build
+yarn run build-pwa
+```
+
+### Build the app for production and deploy to the firebase hosting
+```bash
+yarn run build-pwa-firebase
 ```
 
 ### Customize the configuration
