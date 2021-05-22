@@ -59,7 +59,7 @@ export default {
   data () {
     return {
       options: [
-        'Sebrae', 'Associação comercial', 'Sindicado Comercial', 'Associação industrial', 'Sindicado Rural', 'CDL'
+        'Sebrae', 'Associação comercial', 'Sindicado comercial', 'Associação industrial', 'Sindicado Rural', 'CDL'
       ],
       modal: false,
       id: '',
