@@ -391,10 +391,11 @@ export default {
   computed: {},
   mounted () {
     this.ramosAtividades = this.getCnae()
+    this.addEmpresaData({ dados: this.dados })
   },
   methods: {
     ...mapGetters('usuarios', ['getCnae']),
-    ...mapActions('empresas', ['addEmpresa']),
+    ...mapActions('empresas', ['addEmpresa', 'addEmpresaData']),
     validaCampos () {
       this.$refs.formCadastro.validate().then(success => {
         if (success) {
@@ -513,13 +514,24 @@ export default {
       this.addEmpresa({
         dados: this.dados
       }).then((res) => {
-        console.log('THEN DO SALVAR DADOS')
+        this.addEmpresaData({ dados: res }).then(res => {
+          console.log('🚀 ~ file: CadastroEmp.vue ~ line 517 ~ salvarDados ~ res', res)
+          console.log('THEN DO SALVAR DADOS')
+          this.$q.notify({
+            position: 'bottom',
+            color: 'positive',
+            textColor: 'white',
+            icon: 'check',
+            message: 'Empresa cadastrada com sucesso!'
+          })
+        })
+      }).catch(err => {
         this.$q.notify({
           position: 'bottom',
-          color: 'positive',
+          color: 'negative',
           textColor: 'white',
-          icon: 'check',
-          message: 'Empresa cadastrada com sucesso!'
+          icon: 'close',
+          message: err.message
         })
       })
     }
