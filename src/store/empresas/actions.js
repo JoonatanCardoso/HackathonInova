@@ -82,17 +82,21 @@ export const addEmpresaData = ({ dispatch }, { dados }) => {
 
   console.log('🚀 ~ file: actions.js ~ line 80 ~ addEmpresaData ~ dados', dados)
   return new Promise((resolve, reject) => {
-    Firebase.firestore()
-      .collection('empresas')
-      .doc(dados.uid)
-      .set(dados)
-      .then(function (docRef) {
-        resolve(docRef)
-      })
-      .catch(function (error) {
-        reject(error)
-        console.log('Error getting document:', error)
-      })
+    if (!dados.email) {
+      reject()
+    } else {
+      Firebase.firestore()
+        .collection('empresas')
+        .doc(dados.uid)
+        .set(dados)
+        .then(function (docRef) {
+          resolve(docRef)
+        })
+        .catch(function (error) {
+          reject(error)
+          console.log('Error getting document:', error)
+        })
+    }
   })
 }
 
