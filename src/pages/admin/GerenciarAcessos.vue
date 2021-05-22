@@ -6,10 +6,10 @@
       >
         Acessos
       </div>
-      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-10 col-xs-10 q-my-lg">
+      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-10 col-xs-10" :class="$q.screen.gt.xs ? 'q-my-lg' : ' q-mb-lg'">
         <q-btn
           @click="open()"
-          class="bg-primary text-white text-bold q-mx-md"
+          class="bg-primary text-white text-bold"
           no-caps
           no-wrap
           label="Cadastrar usuário"
@@ -18,7 +18,7 @@
       <add ref="ModalUser"></add>
     </div>
        <div class="row justify-center">
-      <div class="col-xl-8 col-lg-8 col-md-8 col-sm-10 col-xs-10">
+      <div class="col-xl-8 col-lg-8 col-md-8 col-sm-10 col-xs-11">
         <div class="col-xl-11 col-lg-11 col-md-11 col-sm-12 col-xs-12 q-mt-xl">
         <q-table
           class="shadow-1 my-sticky-header-column-table text-weight-medium q-ml-md q-mr-md bg-white q-mb-md"
@@ -147,19 +147,26 @@ export default {
         rowsPerPage: 15
         // rowsNumber: xx if getting data from a server
       },
-      data: [{ pergunta: 'aaa', resposta: 'aaa' }],
+      data: [{ nome: 'aaa', tipo: 'aaa', email: 'asdadsadsa@email.com', cpf: '', celular: '' }],
       columns: [
         {
-          name: 'pergunta',
-          label: 'Pergunta',
+          name: 'nome',
+          label: 'Nome',
           align: 'left',
-          field: 'pergunta',
+          field: 'nome',
           sortable: true
         },
         {
-          name: 'resposta',
-          label: 'Resposta',
-          field: 'resposta',
+          name: 'tipo',
+          label: 'Tipo',
+          field: 'tipo',
+          align: 'left',
+          sortable: true
+        },
+        {
+          name: 'email',
+          label: 'E-mail',
+          field: 'email',
           align: 'left',
           sortable: true
         }
