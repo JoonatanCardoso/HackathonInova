@@ -18,30 +18,32 @@
           Cadastro de usuário
         </div>
       </q-card-section>
-
+<q-form>
       <q-card-section class="q-pt-none text-justify">
-        Nome completo
-        <q-input dense outlined></q-input>
+        Nome completo*
+        <q-input v-model="dados.nome" dense outlined></q-input>
       </q-card-section>
       <q-card-section class="q-pt-none text-justify">
-        E-mail
-        <q-input dense outlined></q-input>
+        E-mail*
+        <q-input  v-model="dados.email" dense outlined></q-input>
       </q-card-section>
       <q-card-section class="q-pt-none text-justify">
-        Tipo
-        <q-input dense outlined></q-input>
+        Tipo*
+        <q-select :options="options" v-model="dados.tipo" dense outlined></q-select>
       </q-card-section>
       <q-card-section class="q-pt-none text-justify">
-        CPF
-        <q-input dense outlined></q-input>
+        CPF*
+        <q-input mask="###.###.###-##" v-model="dados.cpf" dense outlined></q-input>
       </q-card-section>
       <q-card-section class="q-pt-none text-justify">
-        Telefone
-        <q-input dense outlined></q-input>
+        Celular
+        <q-input mask="(##) #####-####" v-model="dados.celular" dense outlined></q-input>
       </q-card-section>
       <q-card-actions align="right">
-        <q-btn flat label="OK" color="primary" v-close-popup />
+        <q-btn flat label="CANCELAR" color="primary" />
+        <q-btn  label="ADICIONAR" color="primary" />
       </q-card-actions>
+      </q-form>
     </q-card>
   </q-dialog>
 </template>
@@ -52,7 +54,11 @@ export default {
   ref: 'ModalUser',
   data () {
     return {
-      modal: false
+      options: [
+        'Sebrae', 'Associação comercial', 'Sindicado Comercial', 'Associação industrial', 'Sindicado Rural', 'CDL'
+      ],
+      modal: false,
+      dados: { nome: '', email: '', cpf: '', tipo: '', celular: '' }
     }
   },
   props: {},
