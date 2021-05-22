@@ -59,42 +59,40 @@ export const getEmpresaById = ({ dispatch }, { docid }) => {
  * @returns {Promise<unknown>}
  */
 export const addEmpresa = ({ dispatch }, { dados }) => {
-  console.log('ADD EMPRESA')
+  dados.create_at = moment().format()
+  dados.update_at = moment().format()
+
   return new Promise((resolve, reject) => {
-    dados.create_at = moment().format()
-    dados.update_at = moment().format()
-
-    console.log('RETURN DO ADD EMPRESA')
-
-    console.log(dados)
-
-    const auth = Firebase.auth()
+    Firebase.auth()
       .createUserWithEmailAndPassword(dados.email, dados.password)
-      .then(user => { return { status: true, user } })
-      .catch(error => { return { status: false, error } })
+      .then(user => {
+        delete dados.password
+        dados.uid = user.user.uid
+        resolve(dados)
+      })
+      .catch(error => {
+        reject({ error, status: false, message: 'Não foi possivel cadastrar a empresa, verifique o email!' })
+      })
+  })
+}
 
-    console.log('🚀 ~ file: actions.js ~ line 71 ~ returnnewPromise ~ auth', auth)
-    if (auth.status) {
-      const empresas = Firebase.firestore()
-        .collection('empresas')
-        .doc(auth.user.user.uid)
-        .set(dados)
-        .then(docRef => {
-          return { status: true, docRef }
-        })
-        .catch(error => {
-          return { status: false, error }
-        })
+export const addEmpresaData = ({ dispatch }, { dados }) => {
+  dados.create_at = moment().format()
+  dados.update_at = moment().format()
 
-      console.log('🚀 ~ file: actions.js ~ line 78 ~ returnnewPromise ~ empresas', empresas)
-      if (empresas.status) {
-        resolve(empresas)
-      } else {
-        reject(empresas)
-      }
-    } else {
-      reject(auth.error)
-    }
+  console.log('🚀 ~ file: actions.js ~ line 80 ~ addEmpresaData ~ dados', dados)
+  return new Promise((resolve, reject) => {
+    Firebase.firestore()
+      .collection('usuarios')
+      .doc(dados.uid)
+      .set(dados)
+      .then(function (docRef) {
+        resolve(docRef)
+      })
+      .catch(function (error) {
+        reject(error)
+        console.log('Error getting document:', error)
+      })
   })
 }
 
