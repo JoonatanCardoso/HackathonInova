@@ -15,28 +15,31 @@
       </q-bar>
       <q-card-section>
         <div class="text-h6 text-center text-weight-bolder text-primary">
-          Cadastro de usuário
+          Cadastro de Notícia
         </div>
       </q-card-section>
 
       <q-card-section class="q-pt-none text-justify">
         Título
-        <q-input dense outlined></q-input>
+        <q-input dense outlined v-model="titulo"></q-input>
       </q-card-section>
       <q-card-section class="q-pt-none text-justify">
         Tipo
-        <q-input dense outlined></q-input>
+        <q-select dense outlined v-model="select"
+                  :options="options" emit-value
+                  map-options/>
       </q-card-section>
       <q-card-section class="q-pt-none text-justify">
         Link
-        <q-input dense outlined></q-input>
+        <q-input dense outlined v-model="link"></q-input>
       </q-card-section>
       <q-card-section class="q-pt-none text-justify">
         Data de Validade
-        <q-input dense outlined></q-input>
+        <q-input dense outlined v-model="dataV"></q-input>
       </q-card-section>
       <q-card-actions align="right">
-        <q-btn flat label="OK" color="primary" v-close-popup />
+        <q-btn label="Cancelar" color="red" v-close-popup />
+        <q-btn label="Cadastrar" color="primary" v-close-popup />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -48,7 +51,38 @@ export default {
   ref: 'modalNoticias',
   data () {
     return {
-      cadNoticias: false
+      cadNoticias: false,
+      select: null,
+      titulo: '',
+      tipo: '',
+      link: '',
+      dataV: '',
+      options: [
+        {
+          label: 'Eventos',
+          value: 'eventos'
+        },
+        {
+          label: 'Webinars',
+          value: 'webinars'
+        },
+        {
+          label: 'Cursos',
+          value: 'cursos'
+        },
+        {
+          label: 'Consultorias',
+          value: 'consultorias'
+        },
+        {
+          label: 'Oficinas',
+          value: 'oficinas'
+        },
+        {
+          label: 'Outros',
+          value: 'outros'
+        }
+      ]
     }
   },
   methods: {

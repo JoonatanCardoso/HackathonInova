@@ -2,10 +2,10 @@
   <q-page>
     <div class="row justify-center bg-grey-3">
       <div class="col-xl-8 col-lg-8 col-md-8 col-sm-10 col-xs-10 text-h4 q-my-lg">
-        Mural
+        Notícias
       </div>
       <div class="col-xl-2 col-lg-2 col-md-2 col-sm-10 col-xs-10" :class="$q.screen.gt.xs ? 'q-my-lg' : ' q-mb-lg'">
-        <q-btn class="bg-primary text-white text-bold q-mx-md" no-caps no-wrap label="Cadastrar Evento" @click="open()"/>
+        <q-btn class="bg-primary text-white text-bold q-mx-md" no-caps no-wrap label="Cadastrar Notícia" @click="open()"/>
       </div>
     </div>
     <div class="row justify-center">
@@ -141,7 +141,7 @@ export default {
         rowsPerPage: 15
         // rowsNumber: xx if getting data from a server
       },
-      data: [{ titulo: 'Titulo Teste', tipo: 'Tipo Teste', link: 'asdadsadsa@email.com', dataV: '20/06/2021' }],
+      data: [{ titulo: 'Titulo Teste', tipo: 'Tipo Teste', link: 'https://www.google.com.br', dataV: '20/06/2021' }],
       columns: [
         {
           name: 'titulo',
