@@ -147,7 +147,7 @@
                   </q-select>
                 </div>
                 <div class="col-lg-6 col-11 col-sm-5 col-md-5 q-px-sm q-mt-sm ">
-                  Quantiade de funcionarios*
+                  Quantidade de funcionarios*
                   <q-input
                     v-model="dados.qtd_funcionarios"
                     outlined
@@ -258,6 +258,24 @@
                     dense
                   ></q-input>
                 </div>
+                <div class="col-lg-8 col-11  col-sm-5 col-md-5 q-px-sm q-mt-sm">
+                  Cidade*
+                  <q-input
+                    v-model="dados.endereco.localidade"
+                    outlined
+                    :disable="loading"
+                    dense
+                  ></q-input>
+                </div>
+                <div class="col-lg-8 col-11  col-sm-5 col-md-5 q-px-sm q-mt-sm">
+                  UF*
+                  <q-input
+                    v-model="dados.endereco.uf"
+                    outlined
+                    :disable="loading"
+                    dense
+                  ></q-input>
+                </div>
                 <div class="col-lg-12 col-11 col-sm-10 col-md-10  q-my-md">
                   <q-separator color="primary"> </q-separator>
                 </div>
@@ -334,7 +352,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'CadastroEm',
   data () {
@@ -357,6 +375,7 @@ export default {
         inscricao_social: '',
         qtd_funcionarios: '',
         link_site: '',
+        estrela: 0,
         endereco: {
           logradouro: '',
           numero: '',
@@ -375,10 +394,12 @@ export default {
   },
   methods: {
     ...mapGetters('usuarios', ['getCnae']),
+    ...mapActions('empresas', ['addEmpresa']),
     validaCampos () {
       this.$refs.formCadastro.validate().then(success => {
         if (success) {
-          console.log('dsadsa')
+          console.log('HEHEHEHEHE')
+          this.salvarDados()
         } else {
           this.$q.notify({
             message:
@@ -485,6 +506,21 @@ export default {
             v.desc.toLowerCase().indexOf(needle) > -1 ||
             v.cod.toLowerCase().indexOf(needle) > -1
         )
+      })
+    },
+    salvarDados () {
+      console.log('SALVAR DADOS')
+      this.addEmpresa({
+        dados: this.dados
+      }).then((res) => {
+        console.log('THEN DO SALVAR DADOS')
+        this.$q.notify({
+          position: 'bottom',
+          color: 'positive',
+          textColor: 'white',
+          icon: 'check',
+          message: 'Empresa cadastrada com sucesso!'
+        })
       })
     }
   }

@@ -59,29 +59,31 @@ export const getEmpresaById = ({ dispatch }, { docid }) => {
  * @returns {Promise<unknown>}
  */
 export const addEmpresa = ({ dispatch }, { dados }) => {
-  dados.create_at = moment().format()
-  dados.update_at = moment().format()
-
+  console.log('ADD EMPRESA')
   return new Promise((resolve, reject) => {
+    dados.create_at = moment().format()
+    dados.update_at = moment().format()
+
+    console.log('RETURN DO ADD EMPRESA')
+
+    console.log(dados)
+
     Firebase.auth()
       .createUserWithEmailAndPassword(dados.email, dados.password)
       .then(user => {
-        delete dados.password
-
+        console.log('USER.USER', user.user)
         Firebase.firestore()
-          .collection('usuarios')
+          .collection('empresas')
           .doc(user.user.uid)
-          .set({ ...dados }, { merge: true })
+          .set(dados)
           .then(function (docRef) {
+            console.log('UHUL')
             resolve(docRef)
           })
           .catch(function (error) {
             reject(error)
             console.log('Error getting document:', error)
           })
-      })
-      .catch(error => {
-        reject({ error, status: false, message: 'Não foi possivel cadastrar a empresa, verifique o email!' })
       })
   })
 }
