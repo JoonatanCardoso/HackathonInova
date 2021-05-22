@@ -20,11 +20,7 @@
       </q-card-section>
 
       <q-card-section class="q-pt-none text-justify">
-        Nome completo
-        <q-input dense outlined></q-input>
-      </q-card-section>
-      <q-card-section class="q-pt-none text-justify">
-        E-mail
+        Título
         <q-input dense outlined></q-input>
       </q-card-section>
       <q-card-section class="q-pt-none text-justify">
@@ -32,11 +28,11 @@
         <q-input dense outlined></q-input>
       </q-card-section>
       <q-card-section class="q-pt-none text-justify">
-        CPF
+        Link
         <q-input dense outlined></q-input>
       </q-card-section>
       <q-card-section class="q-pt-none text-justify">
-        Telefone
+        Data de Validade
         <q-input dense outlined></q-input>
       </q-card-section>
       <q-card-actions align="right">
