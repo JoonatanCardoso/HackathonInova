@@ -14,7 +14,7 @@
           <q-table
             :grid="$q.screen.sm || $q.screen.xs"
             class="shadow-1 my-sticky-header-column-table text-grey-9 text-weight-medium q-mx-md q-mb-lg bg-white"
-            :data="getListaVisitas"
+            :data="dataTable"
             :columns="columns"
             :pagination="initialPagination"
             rows-per-page-label="Items por página"
@@ -119,10 +119,14 @@
         </div>
       </div>
     </div>
+
+    <cad-mural ref="CadMural"/>
   </q-page>
 </template>
 
 <script>
+import CadMural from 'components/admin/CadMural'
+
 export default {
   name: 'CadastroEm',
   data () {
@@ -131,24 +135,11 @@ export default {
       contrato: false,
       loading: false,
       idUser: 5,
-      dados: {
-        razao_social: '',
-        nome_fantasia: '',
-        email: '',
-        cnpj: '',
-        password: '',
-        celular: '',
-        data_abertura: '',
-        inscricao_social: '',
-        endereco: {
-          logradouro: '',
-          numero: '',
-          complemento: '',
-          localidade: '',
-          bairro: '',
-          uf: ''
-        },
-        type: 'pj'
+      dataTable: {
+        titulo: 'Show de Rock',
+        tipo: 'Show',
+        link: 'htpps://www.quasar.dev',
+        dataValidade: '10/06/2021'
       },
       initialPagination: {
         sortBy: 'desc',
@@ -192,6 +183,9 @@ export default {
         }
       ]
     }
+  },
+  components: {
+    CadMural
   },
   computed: {},
   mounted () {},
