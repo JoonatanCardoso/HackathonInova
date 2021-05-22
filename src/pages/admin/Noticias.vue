@@ -5,7 +5,7 @@
         Mural
       </div>
       <div class="col-xl-2 col-lg-2 col-md-2 col-sm-10 col-xs-10 q-my-lg">
-        <q-btn class="bg-primary text-white text-bold q-mx-md" no-caps no-wrap label="Cadastrar Evento"/>
+        <q-btn class="bg-primary text-white text-bold q-mx-md" no-caps no-wrap label="Cadastrar Item" @click="open()"/>
       </div>
     </div>
     <div class="row justify-center">
@@ -14,7 +14,6 @@
           <q-table
             :grid="$q.screen.sm || $q.screen.xs"
             class="shadow-1 my-sticky-header-column-table text-grey-9 text-weight-medium q-mx-md q-mb-lg bg-white"
-            :data="dataTable"
             :columns="columns"
             :pagination="initialPagination"
             rows-per-page-label="Items por página"
@@ -34,42 +33,11 @@
 
             <template v-slot:body="props">
               <q-tr :props="props">
-                <q-td v-for="col in props.cols" :key="col.name" :props="props">
-                  <template v-if="col.name === 'dataVisitaAgendada'">
-                    {{new Date(col.value.seconds * 1000).toLocaleDateString()}}
-                  </template>
-                  <template v-else-if="col.name === 'visitaAtiva'">
-                    <div color="positive" v-if="col.value === true">
-                      <q-icon name="circle" style="color: green; font-size: 16px;" />
-                      Sim
-                    </div>
-                    <div color="grey" v-if="col.value === false">
-                      <q-icon name="circle" style="color: red; font-size: 16px;" />
-                      Não
-                    </div>
-                  </template>
-                  <template v-else>
-                    <template v-if="col.name === 'status'">
-                      <div color="positive" v-if="col.value === true">
-                        <q-icon name="circle" style="color: green; font-size: 16px;" />
-                        Sim
-                      </div>
-                      <div color="grey" v-if="col.value === false">
-                        <q-icon name="circle" style="color: red; font-size: 16px;" />
-                        Não
-                      </div>
-                    </template>
-                    <template v-else>
-                      {{ col.value }}
-                    </template>
-                  </template>
-                </q-td>
                 <q-td auto-width class="q-gutter-x-xs">
                   <!-- @click="abreEditar(props.row)" -->
                   <q-btn
                     class="bg-secondary text-white text-bold"
                     label="Detalhes"
-                    @click="abreDetalhes(props)"
                     size="sm"
                     flat
                   />
@@ -118,29 +86,21 @@
           </q-table>
         </div>
       </div>
+    <cadnot ref="Noticias"></cadnot>
     </div>
-
-    <cad-mural ref="CadMural"/>
   </q-page>
 </template>
 
 <script>
-import CadMural from 'components/admin/CadMural'
-
+import CadMural from 'src/components/admin/Noticias.vue'
 export default {
-  name: 'CadastroEm',
+  name: 'Noticias',
   data () {
     return {
       isPwd: true,
       contrato: false,
       loading: false,
       idUser: 5,
-      dataTable: {
-        titulo: 'Show de Rock',
-        tipo: 'Show',
-        link: 'htpps://www.quasar.dev',
-        dataValidade: '10/06/2021'
-      },
       initialPagination: {
         sortBy: 'desc',
         descending: false,
@@ -185,10 +145,16 @@ export default {
     }
   },
   components: {
-    CadMural
+    cadnot: cadNoticias
   },
   computed: {},
   mounted () {},
-  methods: {}
+  methods: {
+    methods: {
+      open () {
+        this.$refs.cadNoticias.open()
+      }
+    }
+  }
 }
 </script>

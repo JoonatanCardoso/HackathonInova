@@ -11,7 +11,7 @@ const routes = [
       {
         path: '/administrador/mural',
         name: 'mural',
-        component: () => import('src/pages/admin/Mural.vue')
+        component: () => import('pages/admin/Noticias.vue')
       },
       {
         path: '/administrador/servicos',
