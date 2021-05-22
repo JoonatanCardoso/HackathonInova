@@ -1,7 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
 
-// import example from './module-example'
+import usuarios from './usuarios'
+import empresas from './empresas'
+import mural from './mural'
+import servicos from './servicos'
+import userAuth from './user-auth'
 
 Vue.use(Vuex)
 
@@ -17,8 +22,25 @@ Vue.use(Vuex)
 export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
-      // example
+      usuarios,
+      empresas,
+      mural,
+      servicos,
+      userAuth
     },
+    plugins: [
+      createPersistedState({
+        storage: window.localStorage,
+        key: 'acelera-ariguaina-vuex',
+        paths: [
+          'usuarios',
+          'empresas',
+          'mural',
+          'servicos',
+          'userAuth'
+        ]
+      })
+    ],
 
     // enable strict mode (adds overhead!)
     // for dev mode only

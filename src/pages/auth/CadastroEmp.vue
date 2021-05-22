@@ -1,7 +1,7 @@
 <template>
   <q-page>
-    <div class="row justify-center bg-grey-3">
-      <div class="col-lg-8 ">
+    <div class="row justify-center bg-grey-3 q-mb-sm">
+      <div class="col-lg-8 col-md-7 col-sm-10 col-11  ">
         <q-btn
           :to="{ name: 'login' }"
           flat
@@ -11,29 +11,42 @@
           >voltar ao login</q-btn
         >
       </div>
-      <div class="col-lg-8 q-px-sm text-h3 q-my-lg">
+      <div
+        class="col-lg-8 col-md-7 col-11 col-sm-10 text-h3 q-my-lg"
+        :class="$q.screen.lt.md ? 'q-px-sm' : 'q-px-md'"
+      >
         Cadastro de empresa
       </div>
     </div>
     <div class="row justify-center">
-      <div class="col-lg-8">
-        <div class="row justify-center q-mt-lg">
+      <div class="col-lg-8 col-md-8">
+        <div class="row justify-center text-subtitle2 q-mt-lg">
+          <div class="q-px-sm q-mb-md col-11 text-primary col-sm-10 col-lg-12">
+            Dados inicias
+          </div>
           <div class="q-px-sm col-11 col-sm-10 col-lg-12">
             Qual o tipo da sua empresa?
           </div>
           <div class="col-lg-12 col-sm-10 col-11">
-            <q-radio v-model="dados.type" size="sm" val="pf" label="Pequena" />
             <q-radio
               v-model="dados.type"
               size="sm"
-              val="pj"
+              val="pequena"
+              label="Pequena"
+            />
+            <q-radio
+              v-model="dados.type"
+              size="sm"
+              val="media_grande"
               label="Média/Grande"
             />
           </div>
           <div class="col-lg-6">
             <q-form ref="formCadastro">
               <div class="row justify-center  text-subtitle2  q-mt-md">
-                <div class="col-lg-12 col-11 col-sm-5 col-md-5 q-mt-sm q-px-sm">
+                <div
+                  class="col-lg-12 col-11 col-sm-10 col-md-10 q-mt-sm q-px-sm"
+                >
                   Razão social*
                   <q-input
                     :rules="[
@@ -46,7 +59,9 @@
                     :disable="loading"
                   ></q-input>
                 </div>
-                <div class="col-lg-12 col-11 col-sm-5 col-md-5 q-px-sm q-mt-sm">
+                <div
+                  class="col-lg-12 col-11 col-sm-10 col-md-10  q-px-sm q-mt-sm"
+                >
                   Nome Fantasia*
                   <q-input
                     :rules="[
@@ -59,7 +74,9 @@
                     dense
                   ></q-input>
                 </div>
-                <div class="col-lg-12 col-11 col-sm-5 col-md-5 q-px-sm q-mt-sm">
+                <div
+                  class="col-lg-12 col-11 col-sm-10 col-md-5 col-md-10  q-px-sm q-mt-sm"
+                >
                   CNPJ*
                   <q-input
                     mask="##.###.###/####-##"
@@ -103,9 +120,38 @@
                 </div>
                 <div class="col-lg-6 col-11 col-sm-5 col-md-5 q-px-sm q-mt-sm ">
                   Ramo de atividade*
-                  <q-input
-                    v-model="dados.ramo"
+                  <q-select
+                    use-input
+                    style="border-radius:5px"
+                    class="bg-white"
+                    label-color="primary"
                     outlined
+                    :rules="[
+                      val =>
+                        (val) || 'Este campo é obrigatório!'
+                    ]"
+                    dense
+                    :options="ramosAtividades"
+                    :option-label="(item) => item ? item.cod + ' - ' + item.desc : ''"
+                    @filter="filterFn"
+                    label="Escolha o ramo de atividade"
+                    v-model="dados.ramo_atividade"
+                  >
+                    <template v-slot:no-option>
+                      <q-item>
+                        <q-item-section class="text-grey">
+                          Sem resultados
+                        </q-item-section>
+                      </q-item>
+                    </template>
+                  </q-select>
+                </div>
+                <div class="col-lg-6 col-11 col-sm-5 col-md-5 q-px-sm q-mt-sm ">
+                  Quantidade de funcionarios*
+                  <q-input
+                    v-model="dados.qtd_funcionarios"
+                    outlined
+                    mask="#####################"
                     :disable="loading"
                     :rules="[
                       val =>
@@ -114,7 +160,20 @@
                     dense
                   ></q-input>
                 </div>
-                <div class="col-lg-6 col-11 col-sm-5 col-md-5 q-px-sm q-mt-sm ">
+                <div
+                  class="col-lg-6 col-11 col-sm-5 col-md-5 q-px-sm q-mt-sm  q-mb-md "
+                >
+                  Site
+                  <q-input
+                    v-model="dados.link_site"
+                    outlined
+                    :disable="loading"
+                    dense
+                  ></q-input>
+                </div>
+                <div
+                  class="col-lg-6 col-11 col-sm-5 col-md-5 q-px-sm q-mt-sm  q-mb-md"
+                >
                   Inscrição social
                   <q-input
                     v-model="dados.inscricao_social"
@@ -123,13 +182,13 @@
                     dense
                   ></q-input>
                 </div>
-                <div class="col-lg-12 col-11 col-sm-10 col-md-10 q-my-md">
-                  <q-separator> </q-separator>
+                <div class="col-lg-12 col-11  col-sm-10 col-md-10 q-my-md">
+                  <q-separator color="primary"> </q-separator>
                 </div>
               </div>
               <div class="row justify-center text-subtitle2">
                 <div class="col-lg-12 col-sm-10 col-md-10 col-11 q-mb-md">
-                  <div class="q-px-sm">
+                  <div class="q-px-sm text-primary">
                     Endereço
                   </div>
                 </div>
@@ -149,7 +208,7 @@
                   ></q-input>
                 </div>
                 <div class="col-lg-6 col-11 col-sm-5 col-md-5 q-px-sm q-mt-sm">
-                  Endereço*
+                  Rua*
                   <q-input
                     :rules="[
                       val =>
@@ -199,12 +258,32 @@
                     dense
                   ></q-input>
                 </div>
-                <div class="col-lg-12 col-11 col-sm-5 col-md-10  q-my-md">
-                  <q-separator> </q-separator>
+                <div class="col-lg-8 col-11  col-sm-5 col-md-5 q-px-sm q-mt-sm">
+                  Cidade*
+                  <q-input
+                    v-model="dados.endereco.localidade"
+                    outlined
+                    :disable="loading"
+                    dense
+                  ></q-input>
+                </div>
+                <div class="col-lg-8 col-11  col-sm-5 col-md-5 q-px-sm q-mt-sm">
+                  UF*
+                  <q-input
+                    v-model="dados.endereco.uf"
+                    outlined
+                    :disable="loading"
+                    dense
+                  ></q-input>
+                </div>
+                <div class="col-lg-12 col-11 col-sm-10 col-md-10  q-my-md">
+                  <q-separator color="primary"> </q-separator>
                 </div>
               </div>
               <div class="row justify-center text-subtitle2">
-                <div class="col-lg-12 col-sm-10 col-md-10 col-11 q-mb-md">
+                <div
+                  class="col-lg-12  text-primary col-sm-10 col-md-10 col-11 q-mb-md"
+                >
                   <div class="q-px-sm">
                     Dados de acesso
                   </div>
@@ -230,6 +309,11 @@
                     :type="isPwd ? 'password' : 'text'"
                     v-model="dados.password"
                     outlined
+                    :rules="[
+                      val =>
+                        (val && val.length > 5) ||
+                        'Informe uma senha com no mínimo 6 caracteres.'
+                    ]"
                     :disable="loading"
                     dense
                   >
@@ -241,21 +325,26 @@
                       /> </template
                   ></q-input>
                 </div>
-                <div class="col-lg-12 col-11 col-sm-5 col-md-10  q-my-md">
-                  <q-separator> </q-separator>
+                <div class="col-lg-12 col-11 col-sm-10 col-md-10  q-my-md">
+                  <q-separator color="primary"> </q-separator>
                 </div>
               </div>
-              <div class="row justify-center q-mb-md">
+              <div class="row justify-center  q-mb-md">
+                <div class="col-lg-12 col-11  q-px-sm col-sm-10 col-md-10">
+                  <q-checkbox v-model="termos"></q-checkbox>Eu aceito os
+                  <a href="">Termos de uso</a>
+                </div>
                 <div class="col-lg-12 col-11  q-px-sm col-sm-10 col-md-10">
                   <q-btn
                     @click="validaCampos()"
-                    class=" full-width bg-secondary text-white"
+                    class=" full-width bg-primary text-white"
                     >Criar Conta</q-btn
                   >
                 </div>
               </div>
             </q-form>
           </div>
+          <div class="col-lg-6 col-md-2"></div>
         </div>
       </div>
     </div>
@@ -263,23 +352,30 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'CadastroEm',
   data () {
     return {
+      termos: false,
       isPwd: true,
       contrato: false,
       loading: false,
       idUser: 5,
+      ramosAtividades: [],
       dados: {
         razao_social: '',
         nome_fantasia: '',
         email: '',
         cnpj: '',
+        ramo_atividade: null,
         password: '',
         celular: '',
         data_abertura: '',
         inscricao_social: '',
+        qtd_funcionarios: '',
+        link_site: '',
+        estrela: 0,
         endereco: {
           logradouro: '',
           numero: '',
@@ -288,17 +384,23 @@ export default {
           bairro: '',
           uf: ''
         },
-        type: 'pj'
+        type: 'pequena'
       }
     }
   },
   computed: {},
-  mounted () {},
+  mounted () {
+    this.ramosAtividades = this.getCnae()
+    this.addEmpresaData({ dados: this.dados })
+  },
   methods: {
+    ...mapGetters('usuarios', ['getCnae']),
+    ...mapActions('empresas', ['addEmpresa', 'addEmpresaData']),
     validaCampos () {
       this.$refs.formCadastro.validate().then(success => {
         if (success) {
-          console.log('dsadsa')
+          console.log('HEHEHEHEHE')
+          this.salvarDados()
         } else {
           this.$q.notify({
             message:
@@ -389,6 +491,49 @@ export default {
       if (resto === 10 || resto === 11) resto = 0
       if (resto !== parseInt(inputCPF.substring(10, 11))) return false
       return true
+    },
+    filterFn (val, update) {
+      if (val === '') {
+        update(() => {
+          this.ramosAtividades = this.getCnae()
+        })
+        return
+      }
+
+      update(() => {
+        const needle = val.toLowerCase()
+        this.ramosAtividades = this.getCnae().filter(
+          v =>
+            v.desc.toLowerCase().indexOf(needle) > -1 ||
+            v.cod.toLowerCase().indexOf(needle) > -1
+        )
+      })
+    },
+    salvarDados () {
+      console.log('SALVAR DADOS')
+      this.addEmpresa({
+        dados: this.dados
+      }).then((res) => {
+        this.addEmpresaData({ dados: res }).then(res => {
+          console.log('🚀 ~ file: CadastroEmp.vue ~ line 517 ~ salvarDados ~ res', res)
+          console.log('THEN DO SALVAR DADOS')
+          this.$q.notify({
+            position: 'bottom',
+            color: 'positive',
+            textColor: 'white',
+            icon: 'check',
+            message: 'Empresa cadastrada com sucesso!'
+          })
+        })
+      }).catch(err => {
+        this.$q.notify({
+          position: 'bottom',
+          color: 'negative',
+          textColor: 'white',
+          icon: 'close',
+          message: err.message
+        })
+      })
     }
   }
 }

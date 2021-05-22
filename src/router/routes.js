@@ -1,19 +1,39 @@
-
 const routes = [
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('pages/Index.vue') }]
+    children: [
+      {
+        path: '/administrador/home',
+        name: 'index',
+        component: () => import('src/pages/admin/HomeAdm.vue')
+      },
+      {
+        path: '/administrador/mural',
+        name: 'mural',
+        component: () => import('src/pages/admin/Mural.vue')
+      },
+      {
+        path: '/administrador/servicos',
+        name: 'servicos',
+        component: () => import('src/pages/admin/ServicosADM.vue')
+      },
+      {
+        path: '/administrador/gerenciar-acessos',
+        name: 'acesso',
+        component: () => import('src/pages/admin/GerenciarAcessos.vue')
+      }
+    ]
   },
   {
     path: '/login',
     component: () => import('layouts/LayoutClean.vue'),
     children: [
-      { path: '', name: 'login', component: () => import('pages/Login.vue') },
+      { path: '', name: 'login', component: () => import('src/pages/auth/Login.vue') },
       {
         path: '/cadastro',
         name: 'cadastro',
-        component: () => import('pages/CadastroEmp.vue')
+        component: () => import('src/pages/auth/CadastroEmp.vue')
       }
     ]
   },
