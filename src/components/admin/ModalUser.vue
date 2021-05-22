@@ -39,6 +39,10 @@
         Celular
         <q-input mask="(##) #####-####" v-model="dados.celular" dense outlined></q-input>
       </q-card-section>
+      <q-card-section class="q-mr-xs" style="font-size:12px">
+          *Campos obrigatórios<br>
+        Ao registrar um usuário, as credencias de acesso serão enviadas ao e-mail.
+      </q-card-section>
       <q-card-actions align="right">
         <q-btn flat label="CANCELAR" color="primary" />
         <q-btn  label="ADICIONAR" color="primary" />
