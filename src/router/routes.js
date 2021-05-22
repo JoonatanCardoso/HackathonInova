@@ -9,8 +9,8 @@ const routes = [
         component: () => import('src/pages/admin/HomeAdm.vue')
       },
       {
-        path: 'mural',
-        name: 'mural',
+        path: 'noticias',
+        name: 'noticias',
         component: () => import('src/pages/admin/Noticias.vue')
       },
       {
