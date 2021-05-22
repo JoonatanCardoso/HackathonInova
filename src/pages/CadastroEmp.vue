@@ -1,7 +1,7 @@
 <template>
   <q-page>
     <div class="row justify-center bg-grey-3">
-      <div class="col-lg-8 ">
+      <div class="col-lg-8 col-md-7  ">
         <q-btn
           :to="{ name: 'login' }"
           flat
@@ -11,29 +11,37 @@
           >voltar ao login</q-btn
         >
       </div>
-      <div class="col-lg-8 q-px-sm text-h3 q-my-lg">
+      <div class="col-lg-8 col-md-7 q-px-md text-h3 q-my-lg">
         Cadastro de empresa
       </div>
     </div>
     <div class="row justify-center">
-      <div class="col-lg-8">
-        <div class="row justify-center q-mt-lg">
+      <div class="col-lg-8 col-md-8">
+        <div class="row justify-center text-subtitle2 q-mt-lg">
+          <div class="q-px-sm q-mb-md col-11 text-primary col-sm-10 col-lg-12">
+            Dados inicias
+          </div>
           <div class="q-px-sm col-11 col-sm-10 col-lg-12">
             Qual o tipo da sua empresa?
           </div>
           <div class="col-lg-12 col-sm-10 col-11">
-            <q-radio v-model="dados.type" size="sm" val="pf" label="Pequena" />
             <q-radio
               v-model="dados.type"
               size="sm"
-              val="pj"
+              val="pequena"
+              label="Pequena"
+            />
+            <q-radio
+              v-model="dados.type"
+              size="sm"
+              val="media_grande"
               label="Média/Grande"
             />
           </div>
           <div class="col-lg-6">
             <q-form ref="formCadastro">
               <div class="row justify-center  text-subtitle2  q-mt-md">
-                <div class="col-lg-12 col-11 col-sm-5 col-md-5 q-mt-sm q-px-sm">
+                <div class="col-lg-12 col-11 col-sm-5 col-md-10 q-mt-sm q-px-sm">
                   Razão social*
                   <q-input
                     :rules="[
@@ -46,7 +54,7 @@
                     :disable="loading"
                   ></q-input>
                 </div>
-                <div class="col-lg-12 col-11 col-sm-5 col-md-5 q-px-sm q-mt-sm">
+                <div class="col-lg-12 col-11 col-sm-5 col-md-5 col-md-10  q-px-sm q-mt-sm">
                   Nome Fantasia*
                   <q-input
                     :rules="[
@@ -59,7 +67,7 @@
                     dense
                   ></q-input>
                 </div>
-                <div class="col-lg-12 col-11 col-sm-5 col-md-5 q-px-sm q-mt-sm">
+                <div class="col-lg-12 col-11 col-sm-5 col-md-5 col-md-10  q-px-sm q-mt-sm">
                   CNPJ*
                   <q-input
                     mask="##.###.###/####-##"
@@ -115,6 +123,29 @@
                   ></q-input>
                 </div>
                 <div class="col-lg-6 col-11 col-sm-5 col-md-5 q-px-sm q-mt-sm ">
+                  Quantiade de funcionarios*
+                  <q-input
+                    v-model="dados.qtd_funcionarios"
+                    outlined
+                    mask="#####################"
+                    :disable="loading"
+                    :rules="[
+                      val =>
+                        (val && val.length > 0) || 'Este campo é obrigatório!'
+                    ]"
+                    dense
+                  ></q-input>
+                </div>
+                <div class="col-lg-6 col-11 col-sm-5 col-md-5 q-px-sm q-mt-sm ">
+                  Site
+                  <q-input
+                    v-model="dados.link_site"
+                    outlined
+                    :disable="loading"
+                    dense
+                  ></q-input>
+                </div>
+                <div class="col-lg-6 col-11 col-sm-5 col-md-5 q-px-sm q-mt-sm ">
                   Inscrição social
                   <q-input
                     v-model="dados.inscricao_social"
@@ -123,13 +154,13 @@
                     dense
                   ></q-input>
                 </div>
-                <div class="col-lg-12 col-11 col-sm-10 col-md-10 q-my-md">
-                  <q-separator> </q-separator>
+                <div class="col-lg-12 col-11  col-sm-10 col-md-10 q-my-md">
+                  <q-separator color="primary"> </q-separator>
                 </div>
               </div>
               <div class="row justify-center text-subtitle2">
                 <div class="col-lg-12 col-sm-10 col-md-10 col-11 q-mb-md">
-                  <div class="q-px-sm">
+                  <div class="q-px-sm text-primary">
                     Endereço
                   </div>
                 </div>
@@ -149,7 +180,7 @@
                   ></q-input>
                 </div>
                 <div class="col-lg-6 col-11 col-sm-5 col-md-5 q-px-sm q-mt-sm">
-                  Endereço*
+                  Rua*
                   <q-input
                     :rules="[
                       val =>
@@ -200,11 +231,13 @@
                   ></q-input>
                 </div>
                 <div class="col-lg-12 col-11 col-sm-5 col-md-10  q-my-md">
-                  <q-separator> </q-separator>
+                  <q-separator color="primary"> </q-separator>
                 </div>
               </div>
               <div class="row justify-center text-subtitle2">
-                <div class="col-lg-12 col-sm-10 col-md-10 col-11 q-mb-md">
+                <div
+                  class="col-lg-12  text-primary col-sm-10 col-md-10 col-11 q-mb-md"
+                >
                   <div class="q-px-sm">
                     Dados de acesso
                   </div>
@@ -230,6 +263,11 @@
                     :type="isPwd ? 'password' : 'text'"
                     v-model="dados.password"
                     outlined
+                    :rules="[
+                      val =>
+                        (val && val.length > 5) ||
+                        'Informe uma senha com no mínimo 6 caracteres.'
+                    ]"
                     :disable="loading"
                     dense
                   >
@@ -242,20 +280,21 @@
                   ></q-input>
                 </div>
                 <div class="col-lg-12 col-11 col-sm-5 col-md-10  q-my-md">
-                  <q-separator> </q-separator>
+                  <q-separator color="primary"> </q-separator>
                 </div>
               </div>
-              <div class="row justify-center q-mb-md">
+              <div class="row justify-center  q-mb-md">
                 <div class="col-lg-12 col-11  q-px-sm col-sm-10 col-md-10">
                   <q-btn
                     @click="validaCampos()"
-                    class=" full-width bg-secondary text-white"
+                    class=" full-width bg-primary text-white"
                     >Criar Conta</q-btn
                   >
                 </div>
               </div>
             </q-form>
           </div>
+          <div class="col-lg-6 col-md-2"></div>
         </div>
       </div>
     </div>
@@ -276,10 +315,13 @@ export default {
         nome_fantasia: '',
         email: '',
         cnpj: '',
+        ramo: '',
         password: '',
         celular: '',
         data_abertura: '',
         inscricao_social: '',
+        qtd_funcionarios: '',
+        link_site: '',
         endereco: {
           logradouro: '',
           numero: '',
@@ -288,7 +330,7 @@ export default {
           bairro: '',
           uf: ''
         },
-        type: 'pj'
+        type: 'pequena'
       }
     }
   },
