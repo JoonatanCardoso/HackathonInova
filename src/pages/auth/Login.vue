@@ -15,7 +15,7 @@
                   <q-icon color="primary" name="person" /> </template></q-input
             ></q-card-section>
             <q-card-section
-              ><q-input bg-color="grey-4" v-model="senha" :type="isPwd ? 'password' : 'text'"  dense outlined>
+              ><q-input bg-color="grey-4" v-model="password" :type="isPwd ? 'password' : 'text'"  dense outlined>
                 <template v-slot:prepend>
                   <q-icon color="primary" name="lock" />
                 </template>
@@ -44,7 +44,9 @@
                 style="width:45%"
                 flat
                 class=" bg-grey-4 text-primary q-py-xs"
-                >Login</q-btn
+                >
+                Login
+              </q-btn
               ></q-card-section
             >
             <q-card-section class="text-center"> </q-card-section>
@@ -56,19 +58,58 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'Login',
   data () {
     return {
       email: '',
-      senha: '',
+      password: '',
       isPwd: true,
       loading: false
     }
   },
   methods: {
-    login () {
-      this.loading = true
+    ...mapActions('userAuth', ['loginUser']),
+    async login () {
+      const vm = this
+      vm.loading = true
+      if ((this.email || this.password) === '') {
+        this.notify('Preencha todos os campos!', 'red-10', 'top')
+        vm.loading = false
+      } else if (this.email === '') {
+        this.notify('Campo de email não preenchido!', 'red-10', 'top')
+        vm.loading = false
+      } else if (this.password === '') {
+        this.notify('Campo de senha não preenchido!', 'red-10', 'top')
+        vm.loading = false
+      } else {
+        try {
+          await this.loginUser({
+            dados: {
+              email: vm.email,
+              password: vm.password
+            }
+          }).then((res) => {
+            console.log('res', res)
+            switch (res.data.typeUser) {
+              case 'empresa':
+                this.$router.replace({ name: 'algo' }) // TROCAR ROTA
+                break
+              case 'usuario':
+                this.$router.replace({ name: 'algo' }) // TROCAR ROTA
+                break
+              default:
+                this.$router.replace({ name: 'algo' }) // TROCAR ROTA
+                break
+            }
+          })
+        } catch (error) {
+          console.log(error)
+          this.loading = false
+        }
+      }
     }
   }
 }
