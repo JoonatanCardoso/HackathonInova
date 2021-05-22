@@ -124,39 +124,43 @@ export const addUsuarios = ({ dispatch }, { dados }) => {
 
 export const addUsuariosData = ({ dispatch }, { dados }) => {
   return new Promise((resolve, reject) => {
-    console.log('🚀 ~ file: actions.js ~ line 124 ~ addUsuariosData ~ dados', dados)
-    Firebase.firestore()
-      .collection('usuarios')
-      .doc(dados.uid)
-      .set(dados)
-      .then(function (docRef) {
-        console.log('🚀 ~ file: actions.js ~ line 131 ~ docRef', docRef)
-        Axios.post(
-          'https://us-central1-hackathoninova-b8cef.cloudfunctions.net/sendPasswordNewUser',
-          {
-            email: dados.email,
-            destinatario: dados.email,
-            senha: dados.password,
-            nome: dados.nome,
-            status: dados.status
-          }
-        )
-          .then(res => {
-            console.log('🚀 ~ file: actions.js ~ line 141 ~ res', res)
-            this.$q.notify({
-              position: 'bottom',
-              color: 'secondary',
-              textColor: 'white',
-              icon: 'email',
-              message: 'E-mail enviado!'
+    if (!dados.email) {
+      reject()
+    } else {
+      console.log('🚀 ~ file: actions.js ~ line 124 ~ addUsuariosData ~ dados', dados)
+      Firebase.firestore()
+        .collection('usuarios')
+        .doc(dados.uid)
+        .set(dados)
+        .then(function (docRef) {
+          console.log('🚀 ~ file: actions.js ~ line 131 ~ docRef', docRef)
+          Axios.post(
+            'https://us-central1-hackathoninova-b8cef.cloudfunctions.net/sendPasswordNewUser',
+            {
+              email: dados.email,
+              destinatario: dados.email,
+              senha: dados.password,
+              nome: dados.nome,
+              status: dados.status
+            }
+          )
+            .then(res => {
+              console.log('🚀 ~ file: actions.js ~ line 141 ~ res', res)
+              this.$q.notify({
+                position: 'bottom',
+                color: 'secondary',
+                textColor: 'white',
+                icon: 'email',
+                message: 'E-mail enviado!'
+              })
             })
-          })
-          .catch(error => {
-            console.log('🚀 ~ file: actions.js ~ line 150 ~ error', error)
-          })
-        dispatch('getUsuarios')
-        resolve(docRef)
-      })
+            .catch(error => {
+              console.log('🚀 ~ file: actions.js ~ line 150 ~ error', error)
+            })
+          dispatch('getUsuarios')
+          resolve(docRef)
+        })
+    }
   })
 }
 
@@ -200,9 +204,9 @@ export const delUsuarios = ({ dispatch }, { docid }) => {
       .delete()
       .then(function () {
         // delete acesso do authentication
-        Firebase.auth().deleteUser(docid)
         dispatch('getUsuarios')
         resolve()
+        Firebase.auth().deleteUser(docid)
       })
       .catch(function (error) {
         console.error('Error removing document: ', error)
