@@ -1,5 +1,4 @@
 import { Notify } from 'quasar'
-import Axios from 'axios'
 import Firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
