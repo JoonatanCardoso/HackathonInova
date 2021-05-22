@@ -3,6 +3,15 @@
 Application made with Quasar.js technology, VueJS.
 Storage and hosting using Firebase
 
+Stacks
+ - Quasar.js
+ - VueJS
+ - Firebase 
+   - Hosting 
+   - Storage
+   - Functions
+   - Firestore
+
 ## Install the dependencies
 ```bash
 yarn
