@@ -6,7 +6,7 @@
           <q-card class="bg-primary">
             <q-card-section class="text-center text-accent  text-h5 ">
               <span class="text-h4 text-weight-bolder text-white"
-                >Acelera Araguaína</span
+                >Acelera <span class="text-red">Araguaína</span></span
               ><br />Supply chain
             </q-card-section>
             <q-card-section

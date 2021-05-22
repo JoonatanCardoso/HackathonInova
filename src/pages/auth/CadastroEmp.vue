@@ -11,7 +11,10 @@
           >voltar ao login</q-btn
         >
       </div>
-      <div class="col-lg-8 col-md-7 col-11 col-sm-10 text-h3 q-my-lg" :class="$q.screen.lt.md ? 'q-px-sm': 'q-px-md'">
+      <div
+        class="col-lg-8 col-md-7 col-11 col-sm-10 text-h3 q-my-lg"
+        :class="$q.screen.lt.md ? 'q-px-sm' : 'q-px-md'"
+      >
         Cadastro de empresa
       </div>
     </div>
@@ -41,7 +44,9 @@
           <div class="col-lg-6">
             <q-form ref="formCadastro">
               <div class="row justify-center  text-subtitle2  q-mt-md">
-                <div class="col-lg-12 col-11 col-sm-10 col-md-10 q-mt-sm q-px-sm">
+                <div
+                  class="col-lg-12 col-11 col-sm-10 col-md-10 q-mt-sm q-px-sm"
+                >
                   Razão social*
                   <q-input
                     :rules="[
@@ -54,7 +59,9 @@
                     :disable="loading"
                   ></q-input>
                 </div>
-                <div class="col-lg-12 col-11 col-sm-10 col-md-10  q-px-sm q-mt-sm">
+                <div
+                  class="col-lg-12 col-11 col-sm-10 col-md-10  q-px-sm q-mt-sm"
+                >
                   Nome Fantasia*
                   <q-input
                     :rules="[
@@ -67,7 +74,9 @@
                     dense
                   ></q-input>
                 </div>
-                <div class="col-lg-12 col-11 col-sm-10 col-md-5 col-md-10  q-px-sm q-mt-sm">
+                <div
+                  class="col-lg-12 col-11 col-sm-10 col-md-5 col-md-10  q-px-sm q-mt-sm"
+                >
                   CNPJ*
                   <q-input
                     mask="##.###.###/####-##"
@@ -136,7 +145,9 @@
                     dense
                   ></q-input>
                 </div>
-                <div class="col-lg-6 col-11 col-sm-5 col-md-5 q-px-sm q-mt-sm  q-mb-md ">
+                <div
+                  class="col-lg-6 col-11 col-sm-5 col-md-5 q-px-sm q-mt-sm  q-mb-md "
+                >
                   Site
                   <q-input
                     v-model="dados.link_site"
@@ -145,7 +156,9 @@
                     dense
                   ></q-input>
                 </div>
-                <div class="col-lg-6 col-11 col-sm-5 col-md-5 q-px-sm q-mt-sm  q-mb-md">
+                <div
+                  class="col-lg-6 col-11 col-sm-5 col-md-5 q-px-sm q-mt-sm  q-mb-md"
+                >
                   Inscrição social
                   <q-input
                     v-model="dados.inscricao_social"
@@ -284,6 +297,10 @@
                 </div>
               </div>
               <div class="row justify-center  q-mb-md">
+                <div
+                  class="col-lg-12 col-11  q-px-sm col-sm-10 col-md-10"
+                ><q-checkbox v-model="termos"></q-checkbox>Eu aceito os <a href="" >Termos de uso</a>
+                </div>
                 <div class="col-lg-12 col-11  q-px-sm col-sm-10 col-md-10">
                   <q-btn
                     @click="validaCampos()"
@@ -307,6 +324,7 @@ export default {
   name: 'CadastroEm',
   data () {
     return {
+      termos: false,
       isPwd: true,
       contrato: false,
       loading: false,
