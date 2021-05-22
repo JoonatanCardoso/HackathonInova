@@ -1,36 +1,36 @@
 const routes = [
   {
-    path: '/administrador/hom',
+    path: '/administrador/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {
-        path: '',
+        path: 'home',
         name: 'index',
         component: () => import('src/pages/admin/HomeAdm.vue')
       },
       {
-        path: '/administrador/mural',
+        path: 'mural',
         name: 'mural',
-        component: () => import('src/pages/admin/Mural.vue')
+        component: () => import('src/pages/admin/Noticias.vue')
       },
       {
-        path: '/administrador/servicos',
+        path: 'servicos',
         name: 'servicos',
         component: () => import('src/pages/admin/ServicosADM.vue')
       },
       {
-        path: '/administrador/gerenciar-acessos',
+        path: 'gerenciar-acessos',
         name: 'acesso',
         component: () => import('src/pages/admin/GerenciarAcessos.vue')
       }
     ]
   },
   {
-    path: '/empresa/noticias',
+    path: '/empresa/',
     component: () => import('layouts/LayoutEmpresa.vue'),
     children: [
       {
-        path: '',
+        path: 'mural',
         name: 'noticiasUser',
         component: () => import('src/pages/empresa/NoticiasUser.vue')
       },
