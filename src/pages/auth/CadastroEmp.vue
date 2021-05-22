@@ -336,7 +336,9 @@ export default {
     }
   },
   computed: {},
-  mounted () {},
+  mounted () {
+    console.log(this.getCnae())
+  },
   methods: {
     ...mapGetters('usuarios', ['getCnae']),
     validaCampos () {
