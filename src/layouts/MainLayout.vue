@@ -3,6 +3,7 @@
     <q-header elevated>
       <q-toolbar>
         <q-btn
+          v-if="$q.platform.is.mobile"
           flat
           dense
           round
@@ -12,7 +13,7 @@
         />
 
         <q-toolbar-title v-if="$q.platform.is.desktop" class="text-left q-pa-sm">
-          <span  class="text-h6">Acelera Araguaína - Supply Chain</span>
+          <span class="text-h6">Acelera Araguaína - Supply Chain</span>
         </q-toolbar-title>
         <q-toolbar-title v-if="$q.platform.is.mobile" class="text-center q-pa-sm">
           <span class="text-h5">Acelera Araguaína</span>
@@ -28,59 +29,60 @@
       bordered
       content-class="bg-grey-1"
     >
-      <q-list>
-        <EssentialLink
+      <q-list class="text-grey-8">
+        <q-item
           class="text-grey-9"
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
+          :to="{ name: 'dash' }"
+        >
+          <q-icon name="web" size="30px"/>
+          <q-item-label class="text-black self-center q-px-md text-h6">
+            Início
+          </q-item-label>
+        </q-item>
+        <q-item
+          class="text-grey-9"
+          :to="{ name: 'mural' }"
+        >
+          <q-icon name="grid_view" size="30px"/>
+          <q-item-label class="text-black self-center q-px-md text-h6"
+          >Mural
+          </q-item-label>
+        </q-item>
+        <q-item
+          class="text-grey-9"
+          :to="{ name: 'servicos' }"
+        >
+          <q-icon name="home_repair_service" size="30px"/>
+          <q-item-label class="text-black self-center q-px-md text-h6"
+          >Serviços
+          </q-item-label>
+        </q-item>
+        <q-item
+          class="text-grey-9"
+          :to="{ name: 'acesso' }"
+        >
+          <q-icon name="groups" size="30px"/>
+          <q-item-label class="text-black self-center q-px-md text-h6"
+          >Acesso
+          </q-item-label>
+        </q-item>
       </q-list>
     </q-drawer>
 
     <q-page-container>
-      <router-view />
+      <router-view/>
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
-import EssentialLink from 'components/EssentialLink.vue'
-
-const linksData = [
-  {
-    title: 'Inicio',
-    caption: '',
-    icon: 'web',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Mural',
-    caption: '',
-    icon: 'edit_calendar',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Serviços',
-    caption: '',
-    icon: 'home_repair_service',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Acessos',
-    caption: '',
-    icon: 'groups',
-    link: 'https://chat.quasar.dev'
-  }
-]
 
 export default {
   name: 'MainLayout',
-  components: { EssentialLink },
+  components: {},
   data () {
     return {
-      leftDrawerOpen: false,
-      essentialLinks: linksData
+      leftDrawerOpen: false
     }
   }
 }
