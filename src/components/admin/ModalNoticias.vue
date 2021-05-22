@@ -15,7 +15,7 @@
       </q-bar>
       <q-card-section>
         <div class="text-h6 text-center text-weight-bolder text-primary">
-          Cadastro de Notícia
+          Cadastro de item
         </div>
       </q-card-section>
 

@@ -5,7 +5,7 @@
         Notícias
       </div>
       <div class="col-xl-2 col-lg-2 col-md-2 col-sm-3 col-xs-11" :class="$q.screen.gt.xs ? 'q-my-lg' : ' q-mb-lg'">
-        <q-btn class="bg-primary text-white text-bold q-mx-md" no-caps no-wrap label="Cadastrar Notícias" @click="open()"/>
+        <q-btn class="bg-primary text-white text-bold q-mx-md" no-caps no-wrap label="Cadastrar item" @click="open()"/>
       </div>
     </div>
     <div class="row justify-center">
