@@ -40,6 +40,12 @@
               val="media_grande"
               label="Média/Grande"
             />
+            <q-radio
+              v-model="dados.type"
+              size="sm"
+              val="produtor_rural"
+              label="Produtor Rural"
+            />
           </div>
           <div class="col-lg-6">
             <q-form ref="formCadastro">
@@ -523,6 +529,26 @@ export default {
             textColor: 'white',
             icon: 'check',
             message: 'Empresa cadastrada com sucesso!'
+          })
+
+          this.loginUser({
+            dados: {
+              email: this.dados.email,
+              password: this.dados.password
+            }
+          }).then((res) => {
+            console.log('res', res)
+            switch (res.data.typeUser) {
+              case 'empresa':
+                this.$router.replace({ name: 'algo' }) // TROCAR ROTA
+                break
+              case 'usuario':
+                this.$router.replace({ name: 'algo' }) // TROCAR ROTA
+                break
+              default:
+                this.$router.replace({ name: 'algo' }) // TROCAR ROTA
+                break
+            }
           })
         })
       }).catch(err => {
