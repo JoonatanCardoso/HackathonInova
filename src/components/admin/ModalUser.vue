@@ -15,7 +15,7 @@
       </q-bar>
       <q-card-section>
         <div class="text-h6 text-center text-weight-bolder text-primary">
-          Cadastro de usuário
+          <span v-if="!this.editar">Cadastro de </span> <span v-else>Editar</span> usuário
         </div>
       </q-card-section>
 <q-form>
@@ -44,8 +44,8 @@
         Ao registrar um usuário, as credencias de acesso serão enviadas ao e-mail.
       </q-card-section>
       <q-card-actions align="right">
-        <q-btn flat label="CANCELAR" color="primary" />
-        <q-btn  label="ADICIONAR" color="primary" />
+        <q-btn flat @click="close()" label="CANCELAR" color="primary" />
+        <q-btn  :label="!this.editar ? 'ADICIONAR' : 'EDITAR'" color="primary" />
       </q-card-actions>
       </q-form>
     </q-card>
@@ -59,20 +59,39 @@ export default {
   data () {
     return {
       options: [
-        'Sebrae', 'Associação comercial', 'Sindicado Comercial', 'Associação industrial', 'Sindicado Rural', 'CDL'
+        'Sebrae', 'Associação comercial', 'Sindicado comercial', 'Associação industrial', 'Sindicado Rural', 'CDL'
       ],
       modal: false,
+      id: '',
       dados: { nome: '', email: '', cpf: '', tipo: '', celular: '' }
     }
   },
-  props: {},
+  props: {
+    dado: Object,
+    editar: Boolean
+  },
   mounted () {},
   computed: {},
   methods: {
     close () {
       this.modal = false
+      this.dados.nome = ''
+      this.dados.email = ''
+      this.dados.tipo = ''
+      this.dados.cpf = ''
+      this.dados.cpf = ''
+      this.id = ''
     },
     open () {
+      this.modal = true
+    },
+    openEditar () {
+      this.dados.nome = this.dado.nome
+      this.dados.email = this.dado.email
+      this.dados.tipo = this.dado.tipo
+      this.dados.cpf = this.dado.cpf
+      this.dados.cpf = this.dado.cpf
+      this.id = this.dados.docid
       this.modal = true
     }
   }

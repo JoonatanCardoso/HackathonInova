@@ -144,7 +144,7 @@
             </div>
             <div class="col-lg-3 col-sm-4 col-md-3 q-mb-sm">
               <div class="text-justify q-px-xs">
-                <q-badge color="red">Qtd - 4</q-badge> - Palestras
+                <q-badge color="red">Qtd - 4</q-badge> - Webinars
               </div>
             </div>
             <div class="col-lg-3 col-sm-4 col-md-3 q-mb-sm">
