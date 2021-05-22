@@ -95,7 +95,7 @@ export default {
             console.log('res', res)
             switch (res.data.typeUser) {
               case 'empresa':
-                this.$router.replace({ name: 'noticiasUser' }) // TROCAR ROTA
+                this.$router.replace({ name: 'index' }) // TROCAR ROTA
                 break
               case 'usuario':
                 this.$router.replace({ name: 'index' }) // TROCAR ROTA

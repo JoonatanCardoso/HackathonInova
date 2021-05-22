@@ -92,7 +92,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'ModalUser',
@@ -116,7 +116,6 @@ export default {
   },
   computed: {},
   methods: {
-    ...mapGetters('usuarios', ['getListaUsuarios']),
     ...mapActions('usuarios', ['addUsuarios', 'addUsuariosData', 'putUsuariosMerge']),
     close () {
       this.modal = false
@@ -124,7 +123,7 @@ export default {
       this.dados.email = ''
       this.dados.tipo = ''
       this.dados.cpf = ''
-      this.dados.cpf = ''
+      this.dados.celular = ''
       this.id = ''
     },
     open () {
@@ -135,7 +134,7 @@ export default {
       this.dados.email = this.dado.email
       this.dados.tipo = this.dado.tipo
       this.dados.cpf = this.dado.cpf
-      this.dados.cpf = this.dado.cpf
+      this.dados.celular = this.dado.celular
       this.id = this.dados.docid
       this.modal = true
     },
@@ -228,6 +227,7 @@ export default {
                 icon: 'check',
                 message: 'Usuário cadastrado com sucesso!'
               })
+              this.close()
             }).catch(_err => {
               console.log('🚀 ~ file: ModalUser.vue ~ line 228 ~ this.addUsuariosData ~ _err', _err)
               this.$q.notify({
@@ -239,7 +239,6 @@ export default {
               })
             })
         })
-        // METODO DE ADICIONAR
       } else {
         console.log('EDITAR', this.dados)
         // METODO DE EDITAR
