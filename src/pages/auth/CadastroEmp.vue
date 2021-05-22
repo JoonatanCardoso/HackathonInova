@@ -530,6 +530,26 @@ export default {
             icon: 'check',
             message: 'Empresa cadastrada com sucesso!'
           })
+
+          this.loginUser({
+            dados: {
+              email: this.dados.email,
+              password: this.dados.password
+            }
+          }).then((res) => {
+            console.log('res', res)
+            switch (res.data.typeUser) {
+              case 'empresa':
+                this.$router.replace({ name: 'algo' }) // TROCAR ROTA
+                break
+              case 'usuario':
+                this.$router.replace({ name: 'algo' }) // TROCAR ROTA
+                break
+              default:
+                this.$router.replace({ name: 'algo' }) // TROCAR ROTA
+                break
+            }
+          })
         })
       }).catch(err => {
         this.$q.notify({
