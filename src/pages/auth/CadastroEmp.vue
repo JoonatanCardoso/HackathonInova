@@ -40,6 +40,12 @@
               val="media_grande"
               label="Média/Grande"
             />
+            <q-radio
+              v-model="dados.type"
+              size="sm"
+              val="produtor_rural"
+              label="Produtor Rural"
+            />
           </div>
           <div class="col-lg-6">
             <q-form ref="formCadastro">

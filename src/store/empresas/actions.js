@@ -83,7 +83,7 @@ export const addEmpresaData = ({ dispatch }, { dados }) => {
   console.log('🚀 ~ file: actions.js ~ line 80 ~ addEmpresaData ~ dados', dados)
   return new Promise((resolve, reject) => {
     Firebase.firestore()
-      .collection('usuarios')
+      .collection('empresas')
       .doc(dados.uid)
       .set(dados)
       .then(function (docRef) {
