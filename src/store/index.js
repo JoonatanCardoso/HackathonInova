@@ -6,6 +6,7 @@ import usuarios from './usuarios'
 import empresas from './empresas'
 import mural from './mural'
 import servicos from './servicos'
+import userAuth from './user-auth'
 
 Vue.use(Vuex)
 
@@ -24,7 +25,8 @@ export default function (/* { ssrContext } */) {
       usuarios,
       empresas,
       mural,
-      servicos
+      servicos,
+      userAuth
     },
     plugins: [
       createPersistedState({
@@ -34,7 +36,8 @@ export default function (/* { ssrContext } */) {
           'usuarios',
           'empresas',
           'mural',
-          'servicos'
+          'servicos',
+          'userAuth'
         ]
       })
     ],
