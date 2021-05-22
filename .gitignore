@@ -33,5 +33,5 @@ yarn-error.log*
 *.sln
 
 #Firebase related directories and files
-firebase.config.js
+firebase.conf.js
 function/node_modules
