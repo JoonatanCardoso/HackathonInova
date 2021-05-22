@@ -68,23 +68,33 @@ export const addEmpresa = ({ dispatch }, { dados }) => {
 
     console.log(dados)
 
-    Firebase.auth()
+    const auth = Firebase.auth()
       .createUserWithEmailAndPassword(dados.email, dados.password)
-      .then(user => {
-        console.log('USER.USER', user.user)
-        Firebase.firestore()
-          .collection('empresas')
-          .doc(user.user.uid)
-          .set(dados)
-          .then(function (docRef) {
-            console.log('UHUL')
-            resolve(docRef)
-          })
-          .catch(function (error) {
-            reject(error)
-            console.log('Error getting document:', error)
-          })
-      })
+      .then(user => { return { status: true, user } })
+      .catch(error => { return { status: false, error } })
+
+    console.log('🚀 ~ file: actions.js ~ line 71 ~ returnnewPromise ~ auth', auth)
+    if (auth.status) {
+      const empresas = Firebase.firestore()
+        .collection('empresas')
+        .doc(auth.user.user.uid)
+        .set(dados)
+        .then(docRef => {
+          return { status: true, docRef }
+        })
+        .catch(error => {
+          return { status: false, error }
+        })
+
+      console.log('🚀 ~ file: actions.js ~ line 78 ~ returnnewPromise ~ empresas', empresas)
+      if (empresas.status) {
+        resolve(empresas)
+      } else {
+        reject(empresas)
+      }
+    } else {
+      reject(auth.error)
+    }
   })
 }
 
