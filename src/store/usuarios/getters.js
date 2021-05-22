@@ -1,4 +1,4 @@
-const cnaes = require('cnae.json')
+const cnaes = require('./cnae.json')
 export function getListaUsuarios (state) {
   return state.usuarios
 }
