@@ -50,14 +50,9 @@
           </q-card-section>
 
           <!------------------------ RODAPE ------------------------>
-          <q-card-section class="q-mr-xs" style="font-size:12px">
-            *Campos obrigatórios<br />
-            Ao registrar um usuário, as credencias de acesso serão enviadas ao
-            e-mail.
-          </q-card-section>
-          <q-card-actions align="right">
+          <q-card-actions class="q-gutter-y-md" align="right">
             <q-btn
-              class="float-right float"
+              class="float-right float full-width"
               flat
               @click="limpaInputs()"
               label="Limpar todos os campos"
@@ -65,20 +60,21 @@
             />
 
             <q-btn
-              class="q-mt-xs"
+              class="q-mt-xs full-width"
               label="Salvar e adicionar sub-item"
               color="primary"
               @click="addSubItem()"
             />
             <q-btn
               @click="salvar()"
+              class="full-width bg-accent text-black"
               :label="!this.editar ? 'FINALIZAR' : 'EDITAR'"
               color="primary"
             />
           </q-card-actions>
         </q-form>
       </div>
-      <div class="col-sm-12 col-md-6 col-lg-6">
+      <div class="col-sm-12 col-12 q-px-sm col-md-6 col-lg-6">
         <div v-if="dados.titulo">
           <p class="text-h6 q-pt-md">Pergunta principal</p>
           <q-btn
@@ -91,7 +87,7 @@
           <p>{{ dados.titulo }}</p>
           <p>{{ dados.descricao }}</p>
         </div>
-        <div>
+        <div class="q-mb-md">
           <p class="text-h6 q-pt-md">Perguntas vinculadas</p>
           <div class="q-pr-md">
             <q-card
