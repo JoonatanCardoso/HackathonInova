@@ -112,7 +112,7 @@
                 <div class="col-lg-6 col-11 col-sm-5 col-md-5 q-px-sm q-mt-sm ">
                   Ramo de atividade*
                   <q-input
-                    v-model="dados.ramo"
+                    v-model="dados.ramo_atividade"
                     outlined
                     :disable="loading"
                     :rules="[
@@ -315,7 +315,7 @@ export default {
         nome_fantasia: '',
         email: '',
         cnpj: '',
-        ramo: '',
+        ramo_atividade: '',
         password: '',
         celular: '',
         data_abertura: '',
