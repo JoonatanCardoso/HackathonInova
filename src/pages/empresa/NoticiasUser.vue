@@ -14,11 +14,11 @@
       </div>
     </div>
     <div class="row justify-center text-subtitle1 q-px-sm ">
-      <div class="col-lg-10 q-mt-sm">
+      <div class="col-lg-10 col-md-10 q-mt-sm">
         Últimos itens adicionados ou nosso mural:
       </div>
     </div>
-    <div class="row justify-center text-center  text-subtitle2 q-px-sm">
+    <div class="row justify-center text-center q-mt-md  text-subtitle2 q-px-sm">
       <q-card class="shadow-0 bg-grey-2">
         <div class="col-lg-10 col-10 q-mt-sm">
           Legenda
@@ -45,8 +45,8 @@
         </div>
       </q-card>
     </div>
-    <div class="row justify-center q-mt-lg  text-subtitle2 ">
-      <div class="col-lg-2 col-12  q-px-sm">
+    <div class="row justify-center q-my-lg  q-gutter-y-md  text-subtitle2 ">
+      <div class="col-lg-2 col-12 col-md-4 col-sm-5 q-px-sm">
         <a
           href=""
           style="text-decoration: none"
@@ -69,6 +69,76 @@
           ></q-card>
         </a>
       </div>
+            <div class="col-lg-2 col-12 col-md-4 col-sm-5  q-px-sm">
+        <a
+          href=""
+          style="text-decoration: none"
+          target="_blank"
+          class="cursor-pointer text-black"
+        >
+          <q-card v-ripple>
+            <div :style="'background-color:' + corTeste">
+              <br />
+            </div>
+            <q-card-section class="text-justify">
+              <span class="text-weight-bold">
+                Evento do Sebrae bem brabo
+              </span>
+              <br />
+              Realização: 22/05/2021
+            </q-card-section>
+            <div :style="'background-color:' + corTeste">
+              <br /></div
+          ></q-card>
+        </a>
+      </div>
+            <div class="col-lg-2 col-12 col-md-4 col-sm-5  q-px-sm">
+        <a
+          href=""
+          style="text-decoration: none"
+          target="_blank"
+          class="cursor-pointer text-black"
+        >
+          <q-card v-ripple>
+            <div :style="'background-color:' + corTeste">
+              <br />
+            </div>
+            <q-card-section class="text-justify">
+              <span class="text-weight-bold">
+                Evento do Sebrae bem brabo
+              </span>
+              <br />
+              Realização: 22/05/2021
+            </q-card-section>
+            <div :style="'background-color:' + corTeste">
+              <br /></div
+          ></q-card>
+        </a>
+      </div>
+            <div class="col-lg-2 col-12 col-md-4 col-sm-5  q-px-sm">
+        <a
+          href=""
+          style="text-decoration: none"
+          target="_blank"
+          class="cursor-pointer text-black"
+        >
+          <q-card v-ripple>
+            <div :style="'background-color:' + corTeste">
+              <br />
+            </div>
+            <q-card-section class="text-justify">
+              <span class="text-weight-bold">
+                Evento do Sebrae bem brabo
+              </span>
+              <br />
+              Realização: 22/05/2021
+            </q-card-section>
+            <div :style="'background-color:' + corTeste">
+              <br /></div
+          ></q-card>
+        </a>
+      </div>
+
     </div>
   </q-page>
 </template>
