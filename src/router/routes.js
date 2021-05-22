@@ -3,11 +3,25 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', name: 'index', component: () => import('pages/Index.vue') },
       {
-        path: '/mural',
+        path: '/administrador/home',
+        name: 'index',
+        component: () => import('pages/HomeAdm.vue')
+      },
+      {
+        path: '/administrador/mural',
         name: 'mural',
         component: () => import('pages/Mural.vue')
+      },
+      {
+        path: '/administrador/servicos',
+        name: 'servicos',
+        component: () => import('pages/ServicosADM.vue')
+      },
+      {
+        path: '/administrador/gerenciar-acessos',
+        name: 'acesso',
+        component: () => import('pages/GerenciarAcessos.vue')
       }
     ]
   },
