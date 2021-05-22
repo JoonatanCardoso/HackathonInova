@@ -98,26 +98,27 @@ export const addUsuarios = ({ dispatch }, { dados }) => {
     // dados.data_cadastro = new Date()
     dados.create_at = moment().format()
     dados.update_at = moment().format()
-    if (!dados.senha) {
+    if (!dados.password) {
       reject({ status: false, message: 'Senha não informada!' })
     }
     if (!dados.email) {
       reject({ status: false, message: 'Email não informado!' })
     }
-    Firebase.firestore()
-      .collection('usuarios')
-      .add(dados)
-      .then(function (docRef) {
-        Firebase.auth().createUserWithEmailAndPassword(
-          dados.email,
-          dados.senha
-        )
-        dispatch('getUsuarios')
-        resolve(docRef)
-      })
-      .catch(function (error) {
-        reject(error)
-        console.log('Error getting document:', error)
+    Firebase.auth()
+      .createUserWithEmailAndPassword(dados.email, dados.password)
+      .then(user => {
+        Firebase.firestore()
+          .collection('usuarios')
+          .doc(user.user.uid)
+          .set({ ...dados }, { merge: true })
+          .then(function (docRef) {
+            dispatch('getUsuarios')
+            resolve(docRef)
+          })
+          .catch(function (error) {
+            reject(error)
+            console.log('Error getting document:', error)
+          })
       })
   })
 }
