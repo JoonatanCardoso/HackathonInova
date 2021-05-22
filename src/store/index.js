@@ -4,6 +4,8 @@ import createPersistedState from 'vuex-persistedstate'
 
 import usuarios from './usuarios'
 import empresas from './empresas'
+import mural from './mural'
+import servicos from './servicos'
 
 Vue.use(Vuex)
 
@@ -20,13 +22,20 @@ export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
       usuarios,
-      empresas
+      empresas,
+      mural,
+      servicos
     },
     plugins: [
       createPersistedState({
         storage: window.localStorage,
         key: 'acelera-ariguaina-vuex',
-        paths: ['usuarios', 'empresas']
+        paths: [
+          'usuarios',
+          'empresas',
+          'mural',
+          'servicos'
+        ]
       })
     ],
 
