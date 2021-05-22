@@ -200,9 +200,9 @@ export const delUsuarios = ({ dispatch }, { docid }) => {
       .delete()
       .then(function () {
         // delete acesso do authentication
-        Firebase.auth().deleteUser(docid)
         dispatch('getUsuarios')
         resolve()
+        Firebase.auth().deleteUser(docid)
       })
       .catch(function (error) {
         console.error('Error removing document: ', error)
