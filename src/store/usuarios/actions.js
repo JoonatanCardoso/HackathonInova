@@ -81,6 +81,13 @@ export const getUsuarioById = ({ dispatch }, { docid }) => {
 }
 
 /**
+ * dados: {
+ *  -email
+ * -password
+ * -tipo
+ * -cpf
+ * -telefone
+ * }
  * adiciona um novo usuário
  * @param dispatch
  * @param dados

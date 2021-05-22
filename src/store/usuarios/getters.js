@@ -12,5 +12,5 @@ export function getEmpresa (state) {
   return state.empresa
 }
 export function getCnae (state) {
-  return JSON.parse(cnaes)
+  return cnaes
 }
