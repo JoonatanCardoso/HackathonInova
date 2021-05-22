@@ -1,7 +1,7 @@
 <template>
   <q-page>
-    <div class="row justify-center bg-grey-3">
-      <div class="col-lg-8 col-md-7  ">
+    <div class="row justify-center bg-grey-3 q-mb-sm">
+      <div class="col-lg-8 col-md-7 col-sm-10 col-11  ">
         <q-btn
           :to="{ name: 'login' }"
           flat
@@ -11,7 +11,7 @@
           >voltar ao login</q-btn
         >
       </div>
-      <div class="col-lg-8 col-md-7 q-px-md text-h3 q-my-lg">
+      <div class="col-lg-8 col-md-7 col-11 col-sm-10 text-h3 q-my-lg" :class="$q.screen.lt.md ? 'q-px-sm': 'q-px-md'">
         Cadastro de empresa
       </div>
     </div>
@@ -41,7 +41,7 @@
           <div class="col-lg-6">
             <q-form ref="formCadastro">
               <div class="row justify-center  text-subtitle2  q-mt-md">
-                <div class="col-lg-12 col-11 col-sm-5 col-md-10 q-mt-sm q-px-sm">
+                <div class="col-lg-12 col-11 col-sm-10 col-md-10 q-mt-sm q-px-sm">
                   Razão social*
                   <q-input
                     :rules="[
@@ -54,7 +54,7 @@
                     :disable="loading"
                   ></q-input>
                 </div>
-                <div class="col-lg-12 col-11 col-sm-5 col-md-5 col-md-10  q-px-sm q-mt-sm">
+                <div class="col-lg-12 col-11 col-sm-10 col-md-10  q-px-sm q-mt-sm">
                   Nome Fantasia*
                   <q-input
                     :rules="[
@@ -67,7 +67,7 @@
                     dense
                   ></q-input>
                 </div>
-                <div class="col-lg-12 col-11 col-sm-5 col-md-5 col-md-10  q-px-sm q-mt-sm">
+                <div class="col-lg-12 col-11 col-sm-10 col-md-5 col-md-10  q-px-sm q-mt-sm">
                   CNPJ*
                   <q-input
                     mask="##.###.###/####-##"
@@ -136,7 +136,7 @@
                     dense
                   ></q-input>
                 </div>
-                <div class="col-lg-6 col-11 col-sm-5 col-md-5 q-px-sm q-mt-sm ">
+                <div class="col-lg-6 col-11 col-sm-5 col-md-5 q-px-sm q-mt-sm  q-mb-md ">
                   Site
                   <q-input
                     v-model="dados.link_site"
@@ -145,7 +145,7 @@
                     dense
                   ></q-input>
                 </div>
-                <div class="col-lg-6 col-11 col-sm-5 col-md-5 q-px-sm q-mt-sm ">
+                <div class="col-lg-6 col-11 col-sm-5 col-md-5 q-px-sm q-mt-sm  q-mb-md">
                   Inscrição social
                   <q-input
                     v-model="dados.inscricao_social"
@@ -230,7 +230,7 @@
                     dense
                   ></q-input>
                 </div>
-                <div class="col-lg-12 col-11 col-sm-5 col-md-10  q-my-md">
+                <div class="col-lg-12 col-11 col-sm-10 col-md-10  q-my-md">
                   <q-separator color="primary"> </q-separator>
                 </div>
               </div>
@@ -279,7 +279,7 @@
                       /> </template
                   ></q-input>
                 </div>
-                <div class="col-lg-12 col-11 col-sm-5 col-md-10  q-my-md">
+                <div class="col-lg-12 col-11 col-sm-10 col-md-10  q-my-md">
                   <q-separator color="primary"> </q-separator>
                 </div>
               </div>
