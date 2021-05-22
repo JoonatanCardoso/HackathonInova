@@ -95,13 +95,13 @@ export default {
             console.log('res', res)
             switch (res.data.typeUser) {
               case 'empresa':
-                this.$router.replace({ name: 'algo' }) // TROCAR ROTA
+                this.$router.replace({ name: 'noticiasUser' }) // TROCAR ROTA
                 break
               case 'usuario':
-                this.$router.replace({ name: 'algo' }) // TROCAR ROTA
+                this.$router.replace({ name: 'index' }) // TROCAR ROTA
                 break
               default:
-                this.$router.replace({ name: 'algo' }) // TROCAR ROTA
+                this.$router.replace({ name: 'login' }) // TROCAR ROTA
                 break
             }
           })

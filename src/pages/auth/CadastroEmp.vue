@@ -461,43 +461,6 @@ export default {
         return false
       }
     },
-    validarCPF (cpf) {
-      let soma = 0
-      let i
-      let resto
-      const inputCPF = cpf.replace(/[^\w\s]/gi, '')
-      if (
-        inputCPF === '00000000000' ||
-        inputCPF === '11111111111' ||
-        inputCPF === '22222222222' ||
-        inputCPF === '33333333333' ||
-        inputCPF === '44444444444' ||
-        inputCPF === '55555555555' ||
-        inputCPF === '66666666666' ||
-        inputCPF === '77777777777' ||
-        inputCPF === '88888888888' ||
-        inputCPF === '99999999999'
-      ) {
-        return false
-      }
-      for (i = 1; i <= 9; i++) {
-        soma = soma + parseInt(inputCPF.substring(i - 1, i)) * (11 - i)
-      }
-      resto = (soma * 10) % 11
-
-      if (resto === 10 || resto === 11) resto = 0
-      if (resto !== parseInt(inputCPF.substring(9, 10))) return false
-
-      soma = 0
-      for (i = 1; i <= 10; i++) {
-        soma = soma + parseInt(inputCPF.substring(i - 1, i)) * (12 - i)
-      }
-      resto = (soma * 10) % 11
-
-      if (resto === 10 || resto === 11) resto = 0
-      if (resto !== parseInt(inputCPF.substring(10, 11))) return false
-      return true
-    },
     filterFn (val, update) {
       if (val === '') {
         update(() => {

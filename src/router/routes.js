@@ -1,17 +1,17 @@
 const routes = [
   {
-    path: '/',
+    path: '/administrador/hom',
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {
-        path: '/administrador/home',
+        path: '',
         name: 'index',
         component: () => import('src/pages/admin/HomeAdm.vue')
       },
       {
         path: '/administrador/mural',
         name: 'mural',
-        component: () => import('src/pages/admin/Mural.vue')
+        component: () => import('pages/admin/Noticias.vue')
       },
       {
         path: '/administrador/servicos',
@@ -26,10 +26,25 @@ const routes = [
     ]
   },
   {
-    path: '/login',
+    path: '/empresa/noticias',
+    component: () => import('layouts/LayoutEmpresa.vue'),
+    children: [
+      {
+        path: '',
+        name: 'noticiasUser',
+        component: () => import('src/pages/empresa/NoticiasUser.vue')
+      }
+    ]
+  },
+  {
+    path: '/',
     component: () => import('layouts/LayoutClean.vue'),
     children: [
-      { path: '', name: 'login', component: () => import('src/pages/auth/Login.vue') },
+      {
+        path: '',
+        name: 'login',
+        component: () => import('src/pages/auth/Login.vue')
+      },
       {
         path: '/cadastro',
         name: 'cadastro',
