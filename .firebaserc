@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "hackathoninova-b8cef"
+  },
+  "targets": {
+    "hackathoninova-b8cef": {
+      "hosting": {
+        "aceleraaraguaina": [
+          "aceleraaraguaina"
+        ]
+      }
+    }
   }
 }

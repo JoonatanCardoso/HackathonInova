@@ -38,6 +38,7 @@ export const loginUser = ({ commit }, { dados }) => {
             }
           })
           .catch((error) => { return { error, status: false } })
+        dadosuser.typeUser = 'usuario'
 
         if (!dadosuser.status) {
           dadosuser = await Firebase.firestore()
@@ -59,6 +60,7 @@ export const loginUser = ({ commit }, { dados }) => {
             .catch(error => {
               return { error, status: false }
             })
+          dadosuser.typeUser = 'empresa'
         }
 
         if (!dadosuser.status) {
