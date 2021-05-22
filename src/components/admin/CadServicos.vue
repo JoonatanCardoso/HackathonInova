@@ -13,7 +13,7 @@
 
         <q-btn @click="close()" dense flat icon="close" v-close-popup> </q-btn>
       </q-bar>
-      <div class="col-sm-6 col-md-6 col-lg-6">
+      <div class="col-sm-12 col-md-6 col-lg-6">
         <q-card-section>
           <div class="text-h6 text-center text-weight-bolder text-primary">
             <span v-if="!this.editar">Cadastro de </span>
@@ -63,20 +63,22 @@
               label="Limpar todos os campos"
               color="primary"
             />
-            <q-btn
-              :label="!this.editar ? 'ADICIONAR' : 'EDITAR'"
-              color="primary"
-            />
+
             <q-btn
               class="q-mt-xs"
               label="Salvar e adicionar sub-item"
               color="primary"
               @click="addSubItem()"
             />
+            <q-btn
+              @click="salvar()"
+              :label="!this.editar ? 'FINALIZAR' : 'EDITAR'"
+              color="primary"
+            />
           </q-card-actions>
         </q-form>
       </div>
-      <div class="col-sm-6 col-md-6 col-lg-6">
+      <div class="col-sm-12 col-md-6 col-lg-6">
         <div v-if="dados.titulo">
           <p class="text-h6 q-pt-md">Pergunta principal</p>
           <q-btn
@@ -101,7 +103,10 @@
                 <q-btn
                   class="float-right float"
                   flat
-                  @click="input = item; sub = idx"
+                  @click="
+                    input = item;
+                    sub = idx;
+                  "
                   icon="edit"
                   color="primary"
                 />
@@ -123,7 +128,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'CadServicos',
   ref: 'CadServicos',
@@ -175,6 +180,7 @@ export default {
   computed: {},
   methods: {
     ...mapGetters('userAuth', ['getUser']),
+    ...mapActions('servicos', ['addServico']),
     addSubItem () {
       if (!this.dados.titulo || this.principal) {
         this.dados.titulo = this.input.titulo
@@ -202,6 +208,53 @@ export default {
       this.input.tipo = this.dados.tipo
       this.input.telefone = this.dados.telefone
       this.input.link = this.dados.link
+    },
+    salvar () {
+      if (!this.editar) {
+        console.log('ADICIONAR', this.dados)
+        if (!this.dados.titulo) {
+          this.$q.notify({
+            position: 'bottom',
+            color: 'negative',
+            textColor: 'white',
+            icon: 'close',
+            message: 'Informe todos os dados'
+          })
+        } else {
+          this.addServico({
+            dados: this.dados
+          }).then((res) => {
+            this.$q.notify({
+              position: 'bottom',
+              color: 'positive',
+              textColor: 'white',
+              icon: 'check',
+              message: 'Serviço cadastrado com sucesso!'
+            })
+          }).catch(_err => {
+            console.log('🚀 ~ file: ModalUser.vue ~ line 228 ~ this.addUsuariosData ~ _err', _err)
+            this.$q.notify({
+              position: 'bottom',
+              color: 'negative',
+              textColor: 'white',
+              icon: 'close',
+              message: 'Erro ao tentar realizar o cadastro do serviço, tente novamente mais tarde!'
+            })
+          })
+        }
+        // METODO DE ADICIONAR
+      } else {
+        console.log('EDITAR', this.dados)
+        this.$q.notify({
+          position: 'bottom',
+          color: 'positive',
+          textColor: 'white',
+          icon: 'check',
+          message: 'Serviço editado com sucesso!'
+        })
+        this.close()
+        // METODO DE EDITAR
+      }
     },
     close () {
       this.modal = false
