@@ -45,7 +45,7 @@
       </q-card-section>
       <q-card-actions align="right">
         <q-btn flat @click="close()" label="CANCELAR" color="primary" />
-        <q-btn  :label="!this.editar ? 'ADICIONAR' : 'EDITAR'" color="primary" />
+        <q-btn :label="!this.editar ? 'ADICIONAR' : 'EDITAR'" color="primary" />
       </q-card-actions>
       </q-form>
     </q-card>
