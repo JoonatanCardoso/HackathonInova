@@ -39,14 +39,14 @@
         <q-item active-class="selected" :to="{ name: 'index' }">
           <q-icon name="web" size="30px"/>
           <q-item-label class="text-black self-center q-px-md text-h6">
-            Início
+            Noticias
           </q-item-label>
         </q-item>
-        <q-separator/>
-        <q-item active-class="selected" :to="{ name: 'mural' }">
+                <q-separator/>
+    <!-- <q-item active-class="selected" :to="{ name: 'mural' }">
           <q-icon name="grid_view" size="30px"/>
           <q-item-label class="text-black self-center q-px-md text-h6"
-          >Notícias
+          >Mural
           </q-item-label>
         </q-item>
         <q-separator/>
@@ -55,12 +55,11 @@
           <q-item-label class="text-black self-center q-px-md text-h6"
           >Serviços
           </q-item-label>
-        </q-item>
-        <q-separator/>
-        <q-item active-class="selected" :to="{ name: 'acesso' }">
+        </q-item> -->
+        <q-item active-class="selected">
           <q-icon name="groups" size="30px"/>
           <q-item-label class="text-black self-center q-px-md text-h6"
-          >Acessos
+          >Perfil
           </q-item-label>
         </q-item>
         <q-separator/>
@@ -75,7 +74,7 @@
 
 <script>
 export default {
-  name: 'MainLayout',
+  name: 'LayoutEmpresa',
   components: {},
   data () {
     return {
