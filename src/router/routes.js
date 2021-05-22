@@ -6,22 +6,22 @@ const routes = [
       {
         path: '/administrador/home',
         name: 'index',
-        component: () => import('pages/HomeAdm.vue')
+        component: () => import('src/pages/admin/HomeAdm.vue')
       },
       {
         path: '/administrador/mural',
         name: 'mural',
-        component: () => import('pages/Mural.vue')
+        component: () => import('src/pages/admin/Mural.vue')
       },
       {
         path: '/administrador/servicos',
         name: 'servicos',
-        component: () => import('pages/ServicosADM.vue')
+        component: () => import('src/pages/admin/ServicosADM.vue')
       },
       {
         path: '/administrador/gerenciar-acessos',
         name: 'acesso',
-        component: () => import('pages/GerenciarAcessos.vue')
+        component: () => import('src/pages/admin/GerenciarAcessos.vue')
       }
     ]
   },
@@ -29,11 +29,11 @@ const routes = [
     path: '/login',
     component: () => import('layouts/LayoutClean.vue'),
     children: [
-      { path: '', name: 'login', component: () => import('pages/Login.vue') },
+      { path: '', name: 'login', component: () => import('src/pages/auth/Login.vue') },
       {
         path: '/cadastro',
         name: 'cadastro',
-        component: () => import('pages/CadastroEmp.vue')
+        component: () => import('src/pages/auth/CadastroEmp.vue')
       }
     ]
   },
