@@ -112,7 +112,7 @@ export const addUsuarios = ({ dispatch }, { dados }) => {
           .doc(user.user.uid)
           .set({ ...dados }, { merge: true })
           .then(function (docRef) {
-            Axios.post(process.env.API + 'sendPasswordNewUser', {
+            Axios.post('https://us-central1-hackathoninova-b8cef.cloudfunctions.net/sendPasswordNewUser', {
               destinatario: dados.email,
               password,
               nome: dados.nome,
