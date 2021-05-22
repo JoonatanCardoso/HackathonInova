@@ -67,21 +67,31 @@ export const addEmpresa = ({ dispatch }, { dados }) => {
       .createUserWithEmailAndPassword(dados.email, dados.password)
       .then(user => {
         delete dados.password
-
-        Firebase.firestore()
-          .collection('usuarios')
-          .doc(user.user.uid)
-          .set({ ...dados }, { merge: true })
-          .then(function (docRef) {
-            resolve(docRef)
-          })
-          .catch(function (error) {
-            reject(error)
-            console.log('Error getting document:', error)
-          })
+        dados.uid = user.user.uid
+        resolve(dados)
       })
       .catch(error => {
         reject({ error, status: false, message: 'Não foi possivel cadastrar a empresa, verifique o email!' })
+      })
+  })
+}
+
+export const addEmpresaData = ({ dispatch }, { dados }) => {
+  dados.create_at = moment().format()
+  dados.update_at = moment().format()
+
+  console.log('🚀 ~ file: actions.js ~ line 80 ~ addEmpresaData ~ dados', dados)
+  return new Promise((resolve, reject) => {
+    Firebase.firestore()
+      .collection('usuarios')
+      .doc(dados.uid)
+      .set(dados)
+      .then(function (docRef) {
+        resolve(docRef)
+      })
+      .catch(function (error) {
+        reject(error)
+        console.log('Error getting document:', error)
       })
   })
 }
