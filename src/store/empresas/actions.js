@@ -59,30 +59,42 @@ export const getEmpresaById = ({ dispatch }, { docid }) => {
  * @returns {Promise<unknown>}
  */
 export const addEmpresa = ({ dispatch }, { dados }) => {
-  dados.create_at = moment().format()
-  dados.update_at = moment().format()
-
+  console.log('ADD EMPRESA')
   return new Promise((resolve, reject) => {
-    Firebase.auth()
-      .createUserWithEmailAndPassword(dados.email, dados.password)
-      .then(user => {
-        delete dados.password
+    dados.create_at = moment().format()
+    dados.update_at = moment().format()
 
-        Firebase.firestore()
-          .collection('usuarios')
-          .doc(user.user.uid)
-          .set({ ...dados }, { merge: true })
-          .then(function (docRef) {
-            resolve(docRef)
-          })
-          .catch(function (error) {
-            reject(error)
-            console.log('Error getting document:', error)
-          })
-      })
-      .catch(error => {
-        reject({ error, status: false, message: 'Não foi possivel cadastrar a empresa, verifique o email!' })
-      })
+    console.log('RETURN DO ADD EMPRESA')
+
+    console.log(dados)
+
+    const auth = Firebase.auth()
+      .createUserWithEmailAndPassword(dados.email, dados.password)
+      .then(user => { return { status: true, user } })
+      .catch(error => { return { status: false, error } })
+
+    console.log('🚀 ~ file: actions.js ~ line 71 ~ returnnewPromise ~ auth', auth)
+    if (auth.status) {
+      const empresas = Firebase.firestore()
+        .collection('empresas')
+        .doc(auth.user.user.uid)
+        .set(dados)
+        .then(docRef => {
+          return { status: true, docRef }
+        })
+        .catch(error => {
+          return { status: false, error }
+        })
+
+      console.log('🚀 ~ file: actions.js ~ line 78 ~ returnnewPromise ~ empresas', empresas)
+      if (empresas.status) {
+        resolve(empresas)
+      } else {
+        reject(empresas)
+      }
+    } else {
+      reject(auth.error)
+    }
   })
 }
 
