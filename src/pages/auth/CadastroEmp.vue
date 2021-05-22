@@ -120,16 +120,31 @@
                 </div>
                 <div class="col-lg-6 col-11 col-sm-5 col-md-5 q-px-sm q-mt-sm ">
                   Ramo de atividade*
-                  <q-input
-                    v-model="dados.ramo_atividade"
+                  <q-select
+                    use-input
+                    style="border-radius:5px"
+                    class="bg-white"
+                    label-color="primary"
                     outlined
-                    :disable="loading"
                     :rules="[
                       val =>
-                        (val && val.length > 0) || 'Este campo é obrigatório!'
+                        (val) || 'Este campo é obrigatório!'
                     ]"
                     dense
-                  ></q-input>
+                    :options="ramosAtividades"
+                    :option-label="(item) => item ? item.cod + ' - ' + item.desc : ''"
+                    @filter="filterFn"
+                    label="Escolha o ramo de atividade"
+                    v-model="dados.ramo_atividade"
+                  >
+                    <template v-slot:no-option>
+                      <q-item>
+                        <q-item-section class="text-grey">
+                          Sem resultados
+                        </q-item-section>
+                      </q-item>
+                    </template>
+                  </q-select>
                 </div>
                 <div class="col-lg-6 col-11 col-sm-5 col-md-5 q-px-sm q-mt-sm ">
                   Quantiade de funcionarios*
@@ -297,9 +312,9 @@
                 </div>
               </div>
               <div class="row justify-center  q-mb-md">
-                <div
-                  class="col-lg-12 col-11  q-px-sm col-sm-10 col-md-10"
-                ><q-checkbox v-model="termos"></q-checkbox>Eu aceito os <a href="" >Termos de uso</a>
+                <div class="col-lg-12 col-11  q-px-sm col-sm-10 col-md-10">
+                  <q-checkbox v-model="termos"></q-checkbox>Eu aceito os
+                  <a href="">Termos de uso</a>
                 </div>
                 <div class="col-lg-12 col-11  q-px-sm col-sm-10 col-md-10">
                   <q-btn
@@ -329,12 +344,13 @@ export default {
       contrato: false,
       loading: false,
       idUser: 5,
+      ramosAtividades: [],
       dados: {
         razao_social: '',
         nome_fantasia: '',
         email: '',
         cnpj: '',
-        ramo_atividade: '',
+        ramo_atividade: null,
         password: '',
         celular: '',
         data_abertura: '',
@@ -355,7 +371,7 @@ export default {
   },
   computed: {},
   mounted () {
-    console.log(this.getCnae())
+    this.ramosAtividades = this.getCnae()
   },
   methods: {
     ...mapGetters('usuarios', ['getCnae']),
@@ -453,6 +469,23 @@ export default {
       if (resto === 10 || resto === 11) resto = 0
       if (resto !== parseInt(inputCPF.substring(10, 11))) return false
       return true
+    },
+    filterFn (val, update) {
+      if (val === '') {
+        update(() => {
+          this.ramosAtividades = this.getCnae()
+        })
+        return
+      }
+
+      update(() => {
+        const needle = val.toLowerCase()
+        this.ramosAtividades = this.getCnae().filter(
+          v =>
+            v.desc.toLowerCase().indexOf(needle) > -1 ||
+            v.cod.toLowerCase().indexOf(needle) > -1
+        )
+      })
     }
   }
 }
