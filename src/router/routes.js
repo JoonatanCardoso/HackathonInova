@@ -33,6 +33,11 @@ const routes = [
         path: '',
         name: 'noticiasUser',
         component: () => import('src/pages/empresa/NoticiasUser.vue')
+      },
+      {
+        path: 'orcamentos',
+        name: 'orcamentos',
+        component: () => import('src/pages/empresa/Orcamentos.vue')
       }
     ]
   },
