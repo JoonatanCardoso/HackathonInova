@@ -111,11 +111,13 @@ export default {
     dado: Object,
     editar: Boolean
   },
-  mounted () {},
+  mounted () {
+    this.addUsuariosData({ dados: this.dados })
+  },
   computed: {},
   methods: {
     ...mapGetters('usuarios', ['getListaUsuarios']),
-    ...mapActions('usuarios', ['addUsuarios', 'putUsuariosMerge']),
+    ...mapActions('usuarios', ['addUsuarios', 'addUsuariosData', 'putUsuariosMerge']),
     close () {
       this.modal = false
       this.dados.nome = ''
@@ -215,13 +217,27 @@ export default {
         this.addUsuarios({
           dados: this.dados
         }).then((res) => {
-          this.$q.notify({
-            position: 'bottom',
-            color: 'positive',
-            textColor: 'white',
-            icon: 'check',
-            message: 'Usuário cadastrado com sucesso!'
-          })
+          console.log('🚀 ~ file: ModalUser.vue ~ line 217 ~ salvarDados ~ res', res)
+          this.addUsuariosData({ dados: res })
+            .then((data) => {
+              console.log('🚀 ~ file: ModalUser.vue ~ line 220 ~ .then ~ data', data)
+              this.$q.notify({
+                position: 'bottom',
+                color: 'positive',
+                textColor: 'white',
+                icon: 'check',
+                message: 'Usuário cadastrado com sucesso!'
+              })
+            }).catch(_err => {
+              console.log('🚀 ~ file: ModalUser.vue ~ line 228 ~ this.addUsuariosData ~ _err', _err)
+              this.$q.notify({
+                position: 'bottom',
+                color: 'negative',
+                textColor: 'white',
+                icon: 'close',
+                message: 'Usuário não cadastrado!'
+              })
+            })
         })
         // METODO DE ADICIONAR
       } else {
