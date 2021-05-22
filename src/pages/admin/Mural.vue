@@ -7,6 +7,7 @@
       <div class="col-xl-2 col-lg-2 col-md-2 col-sm-3 col-xs-11" :class="$q.screen.gt.xs ? 'q-my-lg' : ' q-mb-lg'">
         <q-btn class="bg-primary text-white text-bold q-mx-md" no-caps no-wrap label="Cadastrar item" @click="open()"/>
       </div>
+      <add :dado="dadosEditar" :editar="edit" ref="ModalUser"></add>
     </div>
     <div class="row justify-center">
       <div class="col-xl-8 col-lg-8 col-md-8 col-sm-10 col-xs-10">
