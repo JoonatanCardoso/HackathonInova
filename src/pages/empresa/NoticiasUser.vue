@@ -25,19 +25,19 @@
         </div>
         <div class="col-lg-5 q-mb-md q-mx-sm">
           <q-badge class="q-mx-xs" style="background-color:#1976d2">
-            Eventos
+            Evento
           </q-badge>
           <q-badge class="q-mx-xs" style="background-color:#26a69a">
-            Cursos
+            Curso
           </q-badge>
           <q-badge class="q-mx-xs" style="background-color:#9c27b0">
-            Oficinas
+            Oficina
           </q-badge>
           <q-badge class="q-mx-xs" style="background-color:#21ba45">
-            Webinars
+            Webinar
           </q-badge>
           <q-badge class="q-mx-xs" style="background-color:#c10015">
-            Consultorias
+            Consultoria
           </q-badge>
           <q-badge class="q-mx-xs" style="background-color:#f2c037">
             Outros

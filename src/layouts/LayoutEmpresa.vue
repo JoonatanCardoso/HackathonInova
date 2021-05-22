@@ -56,7 +56,7 @@
           >Serviços
           </q-item-label>
         </q-item> -->
-        <q-item active-class="selected">
+        <q-item active-class="selected" :to="{ name: 'orcamentos' }">
           <q-icon name="home_repair_service" size="30px"/>
           <q-item-label class="text-black self-center q-px-md text-h6"
           >Orçamentos
