@@ -60,7 +60,7 @@
         <q-item active-class="selected" :to="{ name: 'acesso' }">
           <q-icon name="groups" size="30px"/>
           <q-item-label class="text-black self-center q-px-md text-h6"
-          >Acesso
+          >Acessos
           </q-item-label>
         </q-item>
         <q-separator/>

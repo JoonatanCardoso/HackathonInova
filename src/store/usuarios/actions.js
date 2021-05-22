@@ -1,6 +1,7 @@
 import Firebase from 'firebase/app'
 import 'firebase/auth'
 import moment from 'moment'
+import Axios from 'axios'
 /**
  * get de todos os usuários cadastrado no sistema
  * @param dispatch
@@ -98,20 +99,33 @@ export const addUsuarios = ({ dispatch }, { dados }) => {
     // dados.data_cadastro = new Date()
     dados.create_at = moment().format()
     dados.update_at = moment().format()
-    if (!dados.password) {
-      reject({ status: false, message: 'Senha não informada!' })
-    }
-    if (!dados.email) {
-      reject({ status: false, message: 'Email não informado!' })
-    }
+
+    const password = Math.random()
+      .toString(36)
+      .slice(-6)
+
     Firebase.auth()
-      .createUserWithEmailAndPassword(dados.email, dados.password)
+      .createUserWithEmailAndPassword(dados.email, password)
       .then(user => {
         Firebase.firestore()
           .collection('usuarios')
           .doc(user.user.uid)
           .set({ ...dados }, { merge: true })
           .then(function (docRef) {
+            Axios.post(process.env.API + 'sendPasswordNewUser', {
+              destinatario: dados.email,
+              password,
+              nome: dados.nome,
+              status: dados.status
+            }).then(res => {
+              this.$q.notify({
+                position: 'bottom',
+                color: 'secondary',
+                textColor: 'white',
+                icon: 'email',
+                message: 'E-mail enviado!'
+              })
+            })
             dispatch('getUsuarios')
             resolve(docRef)
           })
