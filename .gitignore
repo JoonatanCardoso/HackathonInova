@@ -36,3 +36,4 @@ yarn-error.log*
 #Firebase related directories and files
 firebase.conf.js
 function/node_modules
+function/env.yaml
