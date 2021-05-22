@@ -121,7 +121,7 @@
                 <div class="col-lg-6 col-11 col-sm-5 col-md-5 q-px-sm q-mt-sm ">
                   Ramo de atividade*
                   <q-input
-                    v-model="dados.ramo"
+                    v-model="dados.ramo_atividade"
                     outlined
                     :disable="loading"
                     :rules="[
@@ -319,6 +319,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'CadastroEm',
   data () {
@@ -333,7 +334,7 @@ export default {
         nome_fantasia: '',
         email: '',
         cnpj: '',
-        ramo: '',
+        ramo_atividade: '',
         password: '',
         celular: '',
         data_abertura: '',
@@ -353,8 +354,11 @@ export default {
     }
   },
   computed: {},
-  mounted () {},
+  mounted () {
+    console.log(this.getCnae())
+  },
   methods: {
+    ...mapGetters('usuarios', ['getCnae']),
     validaCampos () {
       this.$refs.formCadastro.validate().then(success => {
         if (success) {
