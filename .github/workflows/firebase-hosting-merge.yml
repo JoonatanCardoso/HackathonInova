@@ -7,11 +7,18 @@ name: Deploy to Firebase Hosting on merge
     branches:
       - main
 jobs:
-  build_and_deploy:
+  install_dependences:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: npm i && npm run build-pwa
+      - run: npm i
+
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    needs: install_dependences
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm run build-pwa-firebase
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
