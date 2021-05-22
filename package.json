@@ -1,19 +1,22 @@
 {
-  "name": "hackthoninova",
+  "name": "aceleraariguaina",
   "version": "0.0.1",
-  "description": "A Quasar Framework app",
-  "productName": "Quasar App",
+  "description": "Acelara Ariguaina",
+  "productName": "Acelara Ariguaina",
   "author": "Lucas Gabriel Lima <eslucasgabriel@gmail.com>",
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.vue ./",
     "test": "echo \"No test specified\" && exit 0",
-    "dev": "quasar dev"
+    "build-pwa-firebase": "quasar build -m pwa && firebase deploy",
+    "dev": "quasar dev",
+    "build-pwa": "quasar build -m pwa"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "firebase": "^8.6.2",
     "quasar": "^1.0.0"
   },
   "devDependencies": {

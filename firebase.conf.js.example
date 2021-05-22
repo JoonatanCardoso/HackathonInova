@@ -1,0 +1,13 @@
+/**
+* insira as configs do firebase para conseguir inicializar o projeto
+**/
+module.exports = {
+  apiKey: '',
+  authDomain: '',
+  databaseURL: '',
+  projectId: '',
+  storageBucket: '',
+  messagingSenderId: '',
+  appId: '',
+  measurementId: ''
+}
