@@ -5,7 +5,7 @@ const routes = [
     children: [
       {
         path: 'home',
-        name: 'index',
+        name: 'home',
         component: () => import('src/pages/admin/HomeAdm.vue')
       },
       {
