@@ -107,32 +107,46 @@ export const addUsuarios = ({ dispatch }, { dados }) => {
     Firebase.auth()
       .createUserWithEmailAndPassword(dados.email, password)
       .then(user => {
-        Firebase.firestore()
-          .collection('usuarios')
-          .doc(user.user.uid)
-          .set({ ...dados }, { merge: true })
-          .then(function (docRef) {
-            Axios.post('https://us-central1-hackathoninova-b8cef.cloudfunctions.net/sendPasswordNewUser', {
-              destinatario: dados.email,
-              password,
-              nome: dados.nome,
-              status: dados.status
-            }).then(res => {
-              this.$q.notify({
-                position: 'bottom',
-                color: 'secondary',
-                textColor: 'white',
-                icon: 'email',
-                message: 'E-mail enviado!'
-              })
-            })
-            dispatch('getUsuarios')
-            resolve(docRef)
+        delete dados.password
+        dados.uid = user.user.uid
+        resolve(dados)
+      })
+      .catch(error => {
+        reject({
+          error,
+          status: false,
+          message: 'Não foi possivel cadastrar o usuário, verifique o email!'
+        })
+      })
+  })
+}
+
+export const addUsuariosData = ({ dispatch }, { dados }) => {
+  return new Promise((resolve, reject) => {
+    Firebase.firestore()
+      .collection('usuarios')
+      .doc(dados.uid)
+      .set(dados)
+      .then(function (docRef) {
+        Axios.post(
+          'https://us-central1-hackathoninova-b8cef.cloudfunctions.net/sendPasswordNewUser',
+          {
+            destinatario: dados.email,
+            password: dados.password,
+            nome: dados.nome,
+            status: dados.status
+          }
+        ).then(res => {
+          this.$q.notify({
+            position: 'bottom',
+            color: 'secondary',
+            textColor: 'white',
+            icon: 'email',
+            message: 'E-mail enviado!'
           })
-          .catch(function (error) {
-            reject(error)
-            console.log('Error getting document:', error)
-          })
+        })
+        dispatch('getUsuarios')
+        resolve(docRef)
       })
   })
 }
