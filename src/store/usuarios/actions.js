@@ -115,6 +115,7 @@ export const addUsuarios = ({ dispatch }, { dados }) => {
             Axios.post(process.env.API + 'sendPasswordNewUser', {
               destinatario: dados.email,
               password,
+              nome: dados.nome,
               status: dados.status
             }).then(res => {
               this.$q.notify({
