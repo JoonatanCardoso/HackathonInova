@@ -302,6 +302,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'CadastroEm',
   data () {
@@ -337,6 +338,7 @@ export default {
   computed: {},
   mounted () {},
   methods: {
+    ...mapGetters('usuarios', ['getCnae']),
     validaCampos () {
       this.$refs.formCadastro.validate().then(success => {
         if (success) {
