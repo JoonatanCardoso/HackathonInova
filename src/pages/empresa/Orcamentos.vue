@@ -50,12 +50,12 @@
             clickable
             @click="openInfo()"
           >
-          <div class="col-10">
+          <div class="col-8">
             <span>(Cod. 624) Produção de Uniformes</span>
             </div>
             <div class="col-2">
               <q-badge color="primary" text-color="white" icon="event">
-                28/06/2021 vencimento
+                28/06/2021 venc.
               </q-badge>
             </div>
           </q-item>
@@ -83,7 +83,7 @@
             clickable
             @click="openEdit()"
           >
-            <div class="col-10">
+            <div class="col-9">
               <span>Produção de Marmitas</span>
             </div>
             <div class="col-2">
@@ -107,7 +107,7 @@
             clickable
             @click="openHist()"
           >
-            <div class="col-10">
+            <div class="col-9">
               <span>Produção de Xícaras</span>
             </div>
             <div class="col-2">
