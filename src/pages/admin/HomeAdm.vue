@@ -3,7 +3,7 @@
     <div class="row justify-center q-px-sm ">
       <div class="col-lg-8 col-11 col-md-8 col-sm-8 q-my-lg text-subtitle1">
         {{ msg }}, seja bem vindo(a)
-        <span class="text-weight-bold text-primary">{{ ' ' +  getUser().data.nome }}</span>
+        <span class="text-weight-bold text-primary">{{ getUser().data.nome }}</span>
       </div>
       <div
         class="col-lg-2 col-md-2 col-sm-3 col-11 text-subtitle1"
