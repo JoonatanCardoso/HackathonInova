@@ -14,9 +14,10 @@
 
         <q-toolbar-title
           v-if="$q.platform.is.desktop"
-          class="text-left q-pa-sm"
+          class="row justify-between q-pa-sm"
         >
           <span class="text-h6">Acelera Araguaína - Supply Chain</span>
+          <q-btn round color="green-6" icon="logout" @click="logout()"/>
         </q-toolbar-title>
         <q-toolbar-title
           v-if="$q.platform.is.mobile"
@@ -74,7 +75,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
   name: 'MainLayout',
   tipoAdm: '',
@@ -89,6 +90,13 @@ export default {
   },
   computed: {
     ...mapState('userAuth', ['user'])
+  },
+  methods: {
+    ...mapActions('userAuth', ['logoutUser']),
+    logout () {
+      this.logoutUser()
+      this.$router.replace({ name: 'login' })
+    }
   }
 }
 </script>
