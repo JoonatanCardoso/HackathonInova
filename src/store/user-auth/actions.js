@@ -41,6 +41,7 @@ export const loginUser = ({ commit }, { dados }) => {
               : { status: false }
           })
           .catch((error) => { return { error, status: false } })
+        console.log('🚀 ~ file: actions.js ~ line 45 ~ .then ~ dadosuser', dadosuser)
         dadosuser.typeUser = 'usuario'
 
         if (!dadosuser.status) {
@@ -69,7 +70,7 @@ export const loginUser = ({ commit }, { dados }) => {
           dadosuser.typeUser = 'empresa'
         }
 
-        if (!dadosuser.status) {
+        if (dadosuser.status) {
           commit('SET_USER', dadosuser)
           resolve(dadosuser)
         } else {
