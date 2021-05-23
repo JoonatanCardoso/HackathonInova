@@ -36,39 +36,46 @@
               url="http://localhost:4444/upload"
             />
           </q-card-section>
-          <q-card-section class="q-pt-none text-justify">
-            Prazo de entrega
-            <q-input dense
-                     outlined
-                     v-model="dataE"
-                     mask="##/##/####"
-            >
-              <template v-slot:prepend>
-                <q-icon name="event" class="cursor-pointer">
-                  <q-popup-proxy transition-show="scale" transition-hide="scale">
-                    <q-date v-model="date" mask="YYYY-MM-DD HH:mm">
-                      <div class="row items-center justify-end">
-                        <q-btn v-close-popup label="Close" color="primary" flat />
-                      </div>
-                    </q-date>
-                  </q-popup-proxy>
-                </q-icon>
-              </template>
-
-              <template v-slot:append>
-                <q-icon name="access_time" class="cursor-pointer">
-                  <q-popup-proxy transition-show="scale" transition-hide="scale">
-                    <q-time v-model="date" mask="YYYY-MM-DD HH:mm" format24h>
-                      <div class="row items-center justify-end">
-                        <q-btn v-close-popup label="Close" color="primary" flat />
-                      </div>
-                    </q-time>
-                  </q-popup-proxy>
-                </q-icon>
-              </template>
-            </q-input>
+          <q-card-section>
+            <div class="row justify-between">
+              <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                Data
+                <q-input outlined dense v-model="dataO" mask="date" :rules="['date']">
+                  <template v-slot:append>
+                    <q-icon name="event" class="cursor-pointer">
+                      <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
+                        <q-date v-model="date">
+                          <div class="row items-center justify-end">
+                            <q-btn v-close-popup label="Close" color="primary" flat />
+                          </div>
+                        </q-date>
+                      </q-popup-proxy>
+                    </q-icon>
+                  </template>
+                </q-input>
+              </div>
+              <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                Horas
+                <q-input outlined dense v-model="horaO" mask="time" :rules="['time']">
+                  <template v-slot:append>
+                    <q-icon name="access_time" class="cursor-pointer">
+                      <q-popup-proxy transition-show="scale" transition-hide="scale">
+                        <q-time v-model="time">
+                          <div class="row items-center justify-end">
+                            <q-btn v-close-popup label="Close" color="primary" flat />
+                          </div>
+                        </q-time>
+                      </q-popup-proxy>
+                    </q-icon>
+                  </template>
+                </q-input>
+              </div>
+            </div>
           </q-card-section>
-
+          <q-card-actions class="q-pa-md" align="right">
+            <q-btn class="text-primary" label="cancelar" outline/>
+            <q-btn class="bg-primary text-white" label="Cadastrar"/>
+          </q-card-actions>
         </q-form>
       </div>
     </q-card>
@@ -83,6 +90,8 @@ export default {
     return {
       orcamento: false,
       criterios: '',
+      dataO: '',
+      horaO: '',
       valor: ''
     }
   },
