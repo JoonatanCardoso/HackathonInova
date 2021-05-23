@@ -44,21 +44,15 @@
           </q-item-label>
         </q-item>
                 <q-separator/>
-    <!-- <q-item active-class="selected" :to="{ name: 'mural' }">
-          <q-icon name="grid_view" size="30px"/>
+        <q-item active-class="selected" :to="{ name: 'servicosUser' }">
+          <q-icon name="home_repair_service" size="30px"/>
           <q-item-label class="text-black self-center q-px-md text-h6"
-          >Mural
+          >Serviços Oferecidos
           </q-item-label>
         </q-item>
-        <q-separator/>
-        <q-item active-class="selected" :to="{ name: 'servicos' }">
-          <q-icon name="home_repair_service" size="30px"/>
-          <q-item-label class="text-black self-center q-px-md text-h6"
-          >Serviços
-          </q-item-label>
-        </q-item> -->
+                <q-separator/>
         <q-item active-class="selected" :to="{ name: 'orcamentos' }">
-          <q-icon name="home_repair_service" size="30px"/>
+          <q-icon name="file_present" size="30px"/>
           <q-item-label class="text-black self-center q-px-md text-h6"
           >Orçamentos
           </q-item-label>
