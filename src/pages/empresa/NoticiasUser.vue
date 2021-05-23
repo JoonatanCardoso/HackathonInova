@@ -109,13 +109,13 @@ export default {
       this.msg = new Date().getDay() > 5 ? (this.msg.dia > 12 ? this.msg.tarde : this.msg.noite) : ''
     },
     pegarData () {
-      this.dataHoje = moment().format('DD-MM-YYYY HH:mm')
+      this.dataHoje = moment().format('DD/MM/YYYY HH:mm')
       setInterval(() => {
-        this.dataHoje = moment().format('DD-MM-YYYY HH:mm')
+        this.dataHoje = moment().format('DD/MM/YYYY HH:mm')
       }, 30000)
     },
     pegaDia () {
-      this.diaHoje = moment().locale('pt').format('dddd - DD-MM-YYYY')
+      this.diaHoje = moment().locale('pt').format('dddd - DD/MM/YYYY')
     }
   }
 }
