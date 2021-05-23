@@ -85,7 +85,7 @@
                 <q-item class="q-mt-sm justify-between">
                     <div class="text-bold col-6 text-left content">Sabor Brasil LTDA</div>
                     <div class="col-6 text-right">
-                      <q-btn dense outline>Detalhes</q-btn>
+                      <q-btn dense outline @click="detalOrcamento = true">Detalhes</q-btn>
                     </div>
                 </q-item>
                 <q-separator/>
@@ -101,12 +101,46 @@
 
           <q-card-actions class="q-pa-md" align="right">
             <q-btn class="text-primary" label="Fechar" outline v-close-popup/>
-            <q-btn class="text-red" label="Deletar" outline v-close-popup/>
-            <q-btn class="bg-primary text-white" label="Editar" v-close-popup/>
+            <q-btn class="text-red" label="Deletar" outline @click="delorcamento = true"/>
+            <q-btn class="bg-primary text-white" label="Salvar" v-close-popup/>
           </q-card-actions>
         </q-form>
       </div>
     </q-card>
+    <q-dialog v-model="detalOrcamento">
+      <div class="row bg-white justify-center text-center" style="border:solid 10px; border-radius: 20px; color: #008b35">
+        <div class="text-primary col-12 q-pa-xl">
+          <div class="text-h6 text-center text-weight-bolder text-primary">
+            <span>Propostas para Orçamento</span>
+          </div>
+          <div class="q-pt-md text-justify">
+            Arquivo enviado por <b>Sabor Brasil LTDA</b>
+            <q-uploader
+              class="q-mt-md full-width"
+              url="http://localhost:4444/upload"
+            />
+          </div>
+          <div class="text-center">
+          <q-btn class="q-ma-xs text-bold q-mt-lg" outline label="Fechar" no-caps v-close-popup/>
+          <q-btn class="q-ma-xs text-bold bg-red text-white q-mt-lg" label="Recusar" no-caps @click="editorcamento = false" v-close-popup/>
+          <q-btn class="q-ma-xs text-bold bg-primary text-white q-mt-lg" label="Aceitar" no-caps @click="editorcamento = false" v-close-popup/>
+          </div>
+        </div>
+      </div>
+    </q-dialog>
+    <q-dialog v-model="delorcamento">
+      <div class="row bg-white justify-center text-center" style="border:solid 10px; border-radius: 20px; color: #008b35">
+        <div class="text-primary col-12 q-pa-xl">
+          <div class="text-h6 text-center text-weight-bolder text-primary">
+            <span>Deseja realmente deletar esse orçamento?</span>
+          </div>
+          <div class="text-center">
+            <q-btn class="q-ma-xs text-bold bg-red text-white q-mt-lg" label="Não" no-caps @click="editorcamento = false" v-close-popup/>
+            <q-btn class="q-ma-xs text-bold bg-primary text-white q-mt-lg" label="Sim" no-caps @click="editorcamento = false" v-close-popup/>
+          </div>
+        </div>
+      </div>
+    </q-dialog>
   </q-dialog>
 </template>
 
@@ -117,6 +151,8 @@ export default {
   data () {
     return {
       editorcamento: false,
+      delorcamento: false,
+      detalOrcamento: false,
       tituloOr: 'Produção de Marmitas',
       ramoOr: 'Alimentício',
       dataOr: '21/07/2021',

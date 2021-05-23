@@ -46,13 +46,11 @@
       </div>
       <div v-if="aprovacao == true" class="col-xl-9 col-lg-9 col-md-9 col-sm-11 col-xs-11 q-mt-lg" style="border:solid 2px; border-radius: 5px; color: #008b35">
         <q-list>
-          <q-item class="bg-grey-2 text-black q-pa-md">
+          <q-item class="bg-grey-2 text-black q-pa-md" clickable  @click="openHist()">
             <span>Produção de Xícaras</span>
           </q-item>
+          <horc ref="HistOrcamento"></horc>
           <q-separator/>
-          <q-item class="bg-grey-2 text-black q-pa-md">
-            <span>Produção de Xícaras</span>
-          </q-item>
         </q-list>
       </div>
     </div>
@@ -63,6 +61,7 @@
 import CadOrcamento from 'components/empresa/CadOrcamento.vue'
 import InfoOrcamento from 'components/empresa/InfoOrcamento.vue'
 import EditOrcamento from 'components/empresa/EditOrcamento.vue'
+import HistOrcamento from 'components/empresa/HistOrcamento.vue'
 
 export default {
   name: 'orcamentos',
@@ -76,7 +75,8 @@ export default {
   components: {
     orc: CadOrcamento,
     infoorc: InfoOrcamento,
-    editorc: EditOrcamento
+    editorc: EditOrcamento,
+    horc: HistOrcamento
   },
   methods: {
     open () {
@@ -87,6 +87,9 @@ export default {
     },
     openEdit () {
       this.$refs.EditOrcamento.open()
+    },
+    openHist () {
+      this.$refs.HistOrcamento.open()
     }
   }
 }
