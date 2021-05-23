@@ -171,7 +171,7 @@ export default {
     editar: Boolean
   },
   mounted () {
-    this.dados.tipo = this.getUser().tipo || ''
+    this.dados.tipo = this.getUser().data.tipo || ''
   },
   computed: {},
   methods: {
@@ -181,7 +181,7 @@ export default {
       if (!this.dados.titulo || this.principal) {
         this.dados.titulo = this.input.titulo
         this.dados.descricao = this.input.descricao
-        this.dados.tipo = this.getUser().tipo || ''
+        this.dados.tipo = this.getUser().data.tipo || ''
         this.dados.telefone = this.input.telefone
         this.dados.link = this.input.link
         this.limpaInputs()
