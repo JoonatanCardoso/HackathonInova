@@ -37,20 +37,16 @@
             v-model="dados.tipo"
             dense
             outlined
-            :rules="[
-              val =>(val && val.length > 0) || 'Este campo é obrigatório!'
-            ]"
           />
         </q-card-section>
         <q-card-section class="q-pt-none text-justify">
           Link*
           <q-input
-            mask="###.###.###-##"
             v-model="dados.link"
             dense
             outlined
             :rules="[
-              val =>(val && val.length > 0) ||'Este campo é obrigatório!'
+              val =>(val && val.length > 0) || 'Este campo é obrigatório!'
             ]"
           />
         </q-card-section>
@@ -60,7 +56,6 @@
             type="date"
             v-model="dados.data_validade"
             outlined
-            :disable="loading"
             :rules="[
               val =>(val && val.length > 0) || 'Este campo é obrigatório!'
             ]"
@@ -85,37 +80,58 @@ export default {
   data () {
     return {
       options: [
-        'Evento', 'Curso', 'Oficina', 'Webinar', 'Consultoria', 'Outros'
+        {
+          label: 'Evento',
+          value: '#1976d2'
+        },
+        {
+          label: 'Curso',
+          value: '#26a69a'
+        },
+        {
+          label: 'Oficina',
+          value: '#9c27b0'
+        },
+        {
+          label: 'Webinar',
+          value: '#21ba45'
+        },
+        {
+          label: 'Consultoria',
+          value: '#c10015'
+        },
+        {
+          label: 'Outros',
+          value: '#f2c037'
+        }
       ],
       modal: false,
       id: '',
-      dados: { titulo: '', tipo: '', link: '', data_validade: '' }
+      dados: { titulo: '', tipo: '', link: '', data_validade: '', cor: '' }
     }
   },
   props: {
     dado: Object,
     editar: Boolean
   },
-  mounted () {
-    this.add({ dados: this.dados })
-  },
+  mounted () {},
   computed: {},
   methods: {
-    ...mapActions('usuarios', ['addUsuarios', 'addUsuariosData', 'putUsuariosMerge']),
+    ...mapActions('mural', ['addMural', 'putMural']),
     close () {
       this.modal = false
-      this.dados.nome = ''
-      this.dados.email = ''
+      this.dados.titulo = ''
       this.dados.tipo = ''
-      this.dados.cpf = ''
-      this.dados.celular = ''
+      this.dados.link = ''
+      this.dados.data_validade = ''
       this.id = ''
     },
     open () {
       this.modal = true
+      console.log(this.dado)
     },
     openEditar () {
-      this.dados.nome = this.dado.nome
+      this.dados.titulo = this.dado.nome
       this.dados.email = this.dado.email
       this.dados.tipo = this.dado.tipo
       this.dados.cpf = this.dado.cpf
@@ -138,32 +154,19 @@ export default {
     },
     salvarDados () {
       if (!this.editar) {
-        console.log('ADICIONAR', this.dados)
-        this.addUsuarios({
+        this.dados.cor = this.dados.tipo.value
+        this.dados.tipo = this.dados.tipo.label
+        this.addMural({
           dados: this.dados
         }).then((res) => {
-          console.log('🚀 ~ file: ModalUser.vue ~ line 217 ~ salvarDados ~ res', res)
-          this.addUsuariosData({ dados: res })
-            .then((data) => {
-              console.log('🚀 ~ file: ModalUser.vue ~ line 220 ~ .then ~ data', data)
-              this.$q.notify({
-                position: 'bottom',
-                color: 'positive',
-                textColor: 'white',
-                icon: 'check',
-                message: 'Usuário cadastrado com sucesso!'
-              })
-              this.close()
-            }).catch(_err => {
-              console.log('🚀 ~ file: ModalUser.vue ~ line 228 ~ this.addUsuariosData ~ _err', _err)
-              this.$q.notify({
-                position: 'bottom',
-                color: 'negative',
-                textColor: 'white',
-                icon: 'close',
-                message: 'Usuário não cadastrado!'
-              })
-            })
+          this.$q.notify({
+            position: 'bottom',
+            color: 'positive',
+            textColor: 'white',
+            icon: 'check',
+            message: 'Item cadastrado com sucesso!'
+          })
+          this.modal = false
         })
       } else {
         console.log('EDITAR', this.dados)

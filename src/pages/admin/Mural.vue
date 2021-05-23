@@ -1,21 +1,32 @@
 <template>
   <q-page>
     <div class="row justify-center bg-grey-3">
-      <div class="col-xl-8 col-lg-8 col-md-8 col-sm-6 col-xs-10 text-h4 q-my-lg">
+      <div
+        class="col-xl-8 col-lg-8 col-md-8 col-sm-10 col-xs-10 text-h4 q-my-lg"
+      >
         Mural
       </div>
-      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-3 col-xs-11" :class="$q.screen.gt.xs ? 'q-my-lg' : ' q-mb-lg'">
-        <q-btn class="bg-primary text-white text-bold q-mx-md" no-caps no-wrap label="Cadastrar item" @click="open()"/>
+      <div
+        class="col-xl-2 col-lg-2 col-md-2 col-sm-10 col-xs-10"
+        :class="$q.screen.gt.xs ? 'q-my-lg' : ' q-mb-lg'"
+      >
+        <q-btn
+          @click="open()"
+          class="bg-primary text-white text-bold"
+          no-caps
+          no-wrap
+          label="Cadastrar item"
+        />
       </div>
-      <add :dado="dadosEditar" :editar="edit" ref="ModalUser"></add>
+      <add :dado="dadosEditar" :editar="edit" ref="ModalNoticias"></add>
     </div>
     <div class="row justify-center">
-      <div class="col-xl-8 col-lg-8 ccol-md-11 col-sm-10 col-xs-10">
+      <div class="col-xl-8 col-lg-8 col-md-11 col-sm-10 col-xs-11">
         <div class="col-xl-11 col-lg-11 col-md-12 col-sm-12 col-xs-12 q-mt-xl">
           <q-table
             class="shadow-1 my-sticky-header-column-table text-weight-medium q-ml-md q-mr-md bg-white q-mb-md"
             :grid="$q.screen.sm || $q.screen.xs"
-            :data="data"
+            :data="getListaMurais"
             :columns="columns"
             :pagination="initialPagination"
             rows-per-page-label="Items por página"
@@ -61,12 +72,14 @@
                     class="bg-positive text-white text-bold"
                     icon="edit"
                     size="md"
+                    @click="openEdit(props)"
                     flat
                     dense
                   />
                   <q-btn
                     class="bg-negative text-white text-bold"
                     icon="delete"
+                    @click="openDelete(props)"
                     size="md"
                     flat
                     dense
@@ -90,8 +103,7 @@
                       </q-item-section>
                       <q-item-section side>
                         <q-item-label caption>
-                          <template>{{ col.value }}
-                          </template>
+                          <template>{{ col.value }} </template>
                         </q-item-label>
                       </q-item-section>
                     </q-item>
@@ -119,36 +131,53 @@
               </div>
             </template>
           </q-table>
+          <q-dialog persistent v-model="deletar">
+            <q-card>
+              <q-card-section>
+                <div class="text-h6">Deletar Item</div>
+              </q-card-section>
+
+              <q-card-section class="q-pt-none">
+                Tem certeza que deseja deletar permanente o item do mural?
+              </q-card-section>
+
+              <q-card-actions align="right">
+                <q-btn flat @click="deletar = false"  label="CANCELAR" color="primary" />
+                <q-btn label="EXCLUIR" color="primary"  @click="excluirItemMural()"/>
+              </q-card-actions>
+            </q-card>
+          </q-dialog>
         </div>
       </div>
     </div>
-
-    <cadmural ref="ModalNoticias"/>
   </q-page>
 </template>
 
 <script>
-import ModalNoticias from 'components/admin/ModalNoticias'
-
+import ModalNoticias from 'components/admin/ModalNoticias.vue'
+import { mapGetters, mapActions } from 'vuex'
 export default {
-  name: 'CadastroEm',
+  name: 'Mural',
   data () {
     return {
       filter: '',
       loading: false,
+      docid: '',
+      edit: false,
+      deletar: false,
+      dadosEditar: {},
       initialPagination: {
         sortBy: 'desc',
         descending: false,
         rowsPerPage: 15
         // rowsNumber: xx if getting data from a server
       },
-      data: [{ titulo: 'Titulo Teste', tipo: 'Tipo Teste', link: 'https://www.google.com.br', dataV: '20/06/2021' }],
       columns: [
         {
           name: 'titulo',
-          label: 'Título',
-          field: 'titulo',
+          label: 'Titulo',
           align: 'left',
+          field: 'titulo',
           sortable: true
         },
         {
@@ -166,9 +195,9 @@ export default {
           sortable: true
         },
         {
-          name: 'dataV',
-          label: 'Data Vencimento',
-          field: 'dataV',
+          name: 'data_validade',
+          label: 'Data Validade',
+          field: 'data_validade',
           align: 'left',
           sortable: true
         }
@@ -176,13 +205,50 @@ export default {
     }
   },
   components: {
-    cadmural: ModalNoticias
+    add: ModalNoticias
   },
-  computed: {},
-  mounted () {},
+  mounted () {
+    this.getMurais()
+  },
+  computed: {
+    ...mapGetters('mural', ['getListaMurais'])
+  },
   methods: {
+    ...mapActions('mural', ['getMurais']),
     open () {
+      this.edit = false
       this.$refs.ModalNoticias.open()
+    },
+    openDelete (row) {
+      this.docid = row.row.docid
+      console.log(this.docid)
+      this.deletar = true
+    },
+    openEdit (row) {
+      this.edit = true
+      this.dadosEditar = row.row
+      console.log(this.dadosEditar)
+      setTimeout(() => {
+        this.$refs.ModalNoticias.openEditar()
+        this.dadosEditar = { ...row.row }
+      }, 200)
+    },
+    excluirItemMural () {
+      if (this.docid) {
+        this.delMural({
+          docid: this.docid
+        }).then((res) => {
+          this.$q.notify({
+            position: 'bottom',
+            color: 'positive',
+            textColor: 'white',
+            icon: 'check',
+            message: 'Item excluído com sucesso!'
+          })
+          this.getMurais()
+          this.deletar = false
+        })
+      }
     }
   }
 }

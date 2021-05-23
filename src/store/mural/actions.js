@@ -113,7 +113,7 @@ export const putMuraisMerge = ({ dispatch }, { dados, docid }) => {
  * @param docid
  * @returns {Promise<unknown>}
  */
-export const delMarcas = ({ dispatch }, { docid }) => {
+export const delMural = ({ dispatch }, { docid }) => {
   return new Promise((resolve, reject) => {
     Firebase.firestore()
       .collection('murais')
@@ -136,7 +136,7 @@ export const delMarcas = ({ dispatch }, { docid }) => {
  * @param val
  */
 export function setMurais ({ commit }, val) {
-  commit('SET_MURAIS', val)
+  commit('setMurais', val)
 }
 
 /**
@@ -145,5 +145,5 @@ export function setMurais ({ commit }, val) {
  * @param val
  */
 export function setMural ({ commit }, val) {
-  commit('SET_MURAL', val)
+  commit('setMural', val)
 }
