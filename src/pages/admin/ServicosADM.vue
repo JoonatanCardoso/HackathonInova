@@ -26,7 +26,7 @@
           <q-table
             class="shadow-1 my-sticky-header-column-table text-weight-medium q-ml-md q-mr-md bg-white q-mb-md"
             :grid="$q.screen.sm || $q.screen.xs"
-            :data="data"
+            :data="servicos"
             :columns="columns"
             :pagination="initialPagination"
             rows-per-page-label="Items por página"
@@ -164,6 +164,7 @@
 
 <script>
 import CadServicos from 'components/admin/CadServicos.vue'
+import { mapState, mapActions } from 'vuex'
 export default {
   name: 'GerenciarServicos',
   data () {
@@ -226,7 +227,14 @@ export default {
   components: {
     add: CadServicos
   },
+  mounted () {
+    this.getServicos()
+  },
+  computed: {
+    ...mapState('servicos', ['servicos'])
+  },
   methods: {
+    ...mapActions('servicos', ['getServicos']),
     open () {
       this.edit = false
       this.$refs.CadServicos.open()
