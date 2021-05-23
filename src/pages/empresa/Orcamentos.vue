@@ -24,13 +24,11 @@
 
       <div v-if="lista == true" class="col-xl-9 col-lg-9 col-md-9 col-sm-11 col-xs-11 q-mt-lg" style="border:solid 2px; border-radius: 5px; color: #ffe600">
         <q-list>
-          <q-item class="bg-grey-2 text-black q-pa-md">
+          <q-item class="bg-grey-2 text-black q-pa-md" clickable @click="openInfo()">
             <span>Produção de Uniformes</span>
           </q-item>
+          <infoorc ref="InfoOrcamento"></infoorc>
           <q-separator/>
-          <q-item class="bg-grey-2 text-black q-pa-md">
-            <span>Produção de Uniformes</span>
-          </q-item>
         </q-list>
       </div>
       <div v-if="meus == true" class="col-xl-9 col-lg-9 col-md-9 col-sm-11 col-xs-11 q-mt-lg" style="border:solid 2px; border-radius: 5px; color: #f4110e">
@@ -65,6 +63,7 @@
 
 <script>
 import CadOrcamento from 'components/empresa/CadOrcamento.vue'
+import InfoOrcamento from 'components/empresa/InfoOrcamento.vue'
 
 export default {
   name: 'orcamentos',
@@ -76,11 +75,15 @@ export default {
     }
   },
   components: {
-    orc: CadOrcamento
+    orc: CadOrcamento,
+    infoorc: InfoOrcamento
   },
   methods: {
     open () {
       this.$refs.CadOrcamento.open()
+    },
+    openInfo () {
+      this.$refs.InfoOrcamento.open()
     }
   }
 }
