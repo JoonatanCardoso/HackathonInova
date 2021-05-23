@@ -38,6 +38,11 @@ const routes = [
         path: 'orcamentos',
         name: 'orcamentos',
         component: () => import('src/pages/empresa/Orcamentos.vue')
+      },
+      {
+        path: 'perfil',
+        name: 'perfil',
+        component: () => import('src/pages/empresa/PerfilEmp.vue')
       }
     ]
   },

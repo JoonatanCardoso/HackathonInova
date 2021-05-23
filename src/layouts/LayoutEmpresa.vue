@@ -63,8 +63,8 @@
           </q-item-label>
         </q-item>
         <q-separator/>
-        <q-item active-class="selected">
-          <q-icon name="groups" size="30px"/>
+        <q-item :to="{ name: 'perfil' }" active-class="selected">
+          <q-icon name="person" size="30px"/>
           <q-item-label class="text-black self-center q-px-md text-h6"
           >Perfil
           </q-item-label>
