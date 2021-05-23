@@ -196,7 +196,7 @@ export default {
         },
         {
           name: 'data_validade',
-          label: 'Data Validade',
+          label: 'Data Realização',
           field: 'data_validade',
           align: 'left',
           sortable: true

@@ -1,6 +1,7 @@
 export default function () {
   return {
     empresas: [],
-    empresa: {}
+    empresa: {},
+    estatisticas: { pequena: [], media_grande: [] }
   }
 }

@@ -29,6 +29,31 @@ export const getEmpresas = ({ dispatch }) => {
     })
 }
 
+export const getCountEmpresas = ({ dispatch }) => {
+  const getUsuarios = Firebase.firestore().collection('empresas')
+
+  return getUsuarios
+    .get()
+    .then(snapshot => {
+      const Empresas = {
+        pequena: [],
+        media_grande: []
+      }
+      snapshot.forEach(doc => {
+        if (!Empresas[doc.data().type]) {
+          Empresas[doc.data().type] = []
+        }
+        Empresas[doc.data().type].push({
+          docid: doc.id,
+          ...doc.data()
+        })
+      })
+    })
+    .catch(err => {
+      console.log('Error getting documents', err)
+    })
+}
+
 /**
  * get de Empresa pelo seu id
  * @param dispatch
@@ -132,7 +157,7 @@ export const putEmpresasMerge = ({ dispatch }, { dados, docid }) => {
  * @param val
  */
 export function setEmpresas ({ commit }, val) {
-  commit('SET_EMPRESAS', val)
+  commit('setEmpresas', val)
 }
 
 /**
@@ -141,5 +166,8 @@ export function setEmpresas ({ commit }, val) {
  * @param val
  */
 export function setEmpresa ({ commit }, val) {
-  commit('SET_EMPRESA', val)
+  commit('setEmpresa', val)
+}
+export function setEstatisticas ({ commit }, val) {
+  commit('setEstatisticas', val)
 }

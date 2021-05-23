@@ -14,8 +14,14 @@
         <q-card>
           <q-card bordered class="shadow-0 bg-white border">
             <q-card-section class="text-h4">
-              555
-              <br />
+              <p><q-circular-progress
+                v-if="loading.empresa"
+                indeterminate
+                size="50px"
+                color="red"
+                class="q-ma-md"
+              /></p>
+              <p v-if="!loading.empresa" >{{getEstatisticas().pequena.length}}</p>
               <span class="text-subtitle1 text-grey-7">Emp. Pequenas</span>
             </q-card-section>
           </q-card>
@@ -25,8 +31,14 @@
         <q-card>
           <q-card bordered class="shadow-0 bg-white border">
             <q-card-section class="text-h4">
-              555
-              <br />
+               <p><q-circular-progress
+                v-if="loading.empresa"
+                indeterminate
+                size="50px"
+                color="red"
+                class="q-ma-md"
+              /></p>
+              <p v-if="!loading.empresa" >{{getEstatisticas().media_grande.length}}</p>
               <span class="text-subtitle1 text-grey-7"
                 >Emp. Médias/Grandes</span
               >
@@ -38,8 +50,14 @@
         <q-card>
           <q-card bordered class="shadow-0 bg-white border">
             <q-card-section class="text-h4">
-              10
-              <br />
+              <p><q-circular-progress
+                v-if="loading.empresa"
+                indeterminate
+                size="50px"
+                color="red"
+                class="q-ma-md"
+              /></p>
+              <p v-if="!loading.empresa" >{{getEstatisticasMurais().geral}}</p>
               <span class="text-subtitle1 text-grey-7">Itens no mural</span>
             </q-card-section>
           </q-card>
@@ -49,8 +67,7 @@
         <q-card>
           <q-card bordered class="shadow-0 bg-white border">
             <q-card-section class="text-h4">
-              15
-              <br />
+              <p>165</p>
               <span class="text-subtitle1 text-grey-7">Serviços</span>
             </q-card-section>
           </q-card>
@@ -128,34 +145,19 @@
           </div>
           <div class="row justify-center q-px-sm q-gutter-x-sm">
             <div class="col-lg-3 col-sm-4 col-md-3 q-mb-sm">
-              <div class="text-justify q-px-xs">
-                <q-badge color="red">Qtd - 4</q-badge> - Eventos
+              <q-circular-progress
+                v-if="loading.mural"
+                indeterminate
+                size="50px"
+                color="red"
+                class="q-ma-md"
+              />
+              <div v-if="!loading.mural" >
+                <div class="text-justify q-px-xs" v-for="(item, idm) in getEstatisticasMurais()" :key="item.length * 12">
+                <div v-if="idm !== 'geral'"><q-badge color="red">Qtd - {{item.length}}</q-badge> - {{idm}}</div>
               </div>
-            </div>
-            <div class="col-lg-3 col-sm-4 col-md-3 q-mb-sm">
-              <div class="text-justify q-px-xs">
-                <q-badge color="red">Qtd - 4</q-badge> - Cursos
               </div>
-            </div>
-            <div class="col-lg-3 col-sm-4 col-md-3 q-mb-sm">
-              <div class="text-justify q-px-xs">
-                <q-badge color="red">Qtd - 4</q-badge> - Oficinas
-              </div>
-            </div>
-            <div class="col-lg-3 col-sm-4 col-md-3 q-mb-sm">
-              <div class="text-justify q-px-xs">
-                <q-badge color="red">Qtd - 4</q-badge> - Webinars
-              </div>
-            </div>
-            <div class="col-lg-3 col-sm-4 col-md-3 q-mb-sm">
-              <div class="text-justify q-px-xs">
-                <q-badge color="red">Qtd - 4</q-badge> - Consultorias
-              </div>
-            </div>
-            <div class="col-lg-3  col-sm-4 col-md-3 q-mb-sm">
-              <div class="text-justify q-px-xs">
-                <q-badge color="red">Qtd - 4</q-badge> - Outros
-              </div>
+
             </div>
           </div>
         </q-card>
@@ -165,6 +167,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 import moment from 'moment'
 export default {
   name: 'HomeAdm',
@@ -173,15 +176,22 @@ export default {
       nomeUser: 'Administrador',
       dataHoje: '',
       diaHoje: '',
-      msg: ''
+      msg: '',
+      loading: { mural: true, empresa: true }
     }
   },
   mounted () {
     this.pegarData()
     this.pegaDia()
     this.pegaMsg()
+    this.getCountEmpresas().then(_ => { this.loading.empresa = false })
+    this.getCountMurais().then(_ => { this.loading.mural = false })
   },
   methods: {
+    ...mapActions('empresas', ['getCountEmpresas']),
+    ...mapGetters('empresas', ['getEstatisticas']),
+    ...mapActions('mural', ['getCountMurais']),
+    ...mapGetters('mural', ['getEstatisticasMurais']),
     pegaMsg () {
       this.msg = {
         dia: 'Bom dia',
