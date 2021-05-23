@@ -3,7 +3,7 @@
     <div class="row justify-center q-px-sm ">
       <div class="col-lg-8 col-11 col-md-8 col-sm-8 q-my-lg text-subtitle1">
         {{ msg }}, seja bem vindo(a)
-        <span class="text-weight-bold text-primary">{{ nomeUser }}</span>
+        <span class="text-weight-bold text-primary">{{ ' ' +  getUser().data.nome }}</span>
       </div>
       <div
         class="col-lg-2 col-md-2 col-sm-3 col-11 text-subtitle1"
@@ -80,7 +80,16 @@
         <q-card>
           <q-card bordered class="shadow-0 bg-white border">
             <q-card-section class="text-h4">
-              <p>165</p>
+              <p>
+                <q-circular-progress
+                  v-if="loading.servicos"
+                  indeterminate
+                  size="50px"
+                  color="red"
+                  class="q-ma-md"
+                />
+              </p>
+              <p v-if="!loading.servicos">{{getAllServicos().length}}</p>
               <span class="text-subtitle1 text-grey-7">Serviços</span>
             </q-card-section>
           </q-card>
@@ -170,11 +179,10 @@ export default {
   name: 'HomeAdm',
   data () {
     return {
-      nomeUser: 'Administrador',
       dataHoje: '',
       diaHoje: '',
       msg: '',
-      loading: { mural: true, empresa: true }
+      loading: { mural: true, empresa: true, servicos: true }
     }
   },
   mounted () {
@@ -188,12 +196,18 @@ export default {
     this.getCountMurais().then(_ => {
       this.loading.mural = false
     })
+    this.getServicos().then(_ => {
+      this.loading.servicos = false
+    })
   },
   methods: {
     ...mapActions('empresas', ['getCountEmpresas']),
     ...mapGetters('empresas', ['getEstatisticas', 'getEstatisticasCnae']),
+    ...mapGetters('userAuth', ['getUser']),
     ...mapActions('mural', ['getCountMurais']),
     ...mapGetters('mural', ['getEstatisticasMurais']),
+    ...mapActions('servicos', ['getServicos']),
+    ...mapGetters('servicos', ['getAllServicos']),
     pegaMsg () {
       this.msg = {
         dia: 'Bom dia',
@@ -208,15 +222,15 @@ export default {
           : ''
     },
     pegarData () {
-      this.dataHoje = moment().format('DD-MM-YYYY HH:mm')
+      this.dataHoje = moment().format('DD/MM/YYYY HH:mm')
       setInterval(() => {
-        this.dataHoje = moment().format('DD-MM-YYYY HH:mm')
+        this.dataHoje = moment().format('DD/MM/YYYY HH:mm')
       }, 30000)
     },
     pegaDia () {
       this.diaHoje = moment()
         .locale('pt')
-        .format('dddd - DD-MM-YYYY')
+        .format('dddd - DD/MM/YYYY')
     }
   }
 }

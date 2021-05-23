@@ -1,6 +1,9 @@
 export function getServicos (state) {
   return state.servicos
 }
-export function getServico (state) {
+export function getServic (state) {
   return state.servico
+}
+export function getAllServicos (state) {
+  return state.servicos
 }
