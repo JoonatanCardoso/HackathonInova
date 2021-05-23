@@ -214,7 +214,7 @@ export default {
     ...mapGetters('mural', ['getListaMurais'])
   },
   methods: {
-    ...mapActions('mural', ['getMurais']),
+    ...mapActions('mural', ['getMurais', 'delMural']),
     open () {
       this.edit = false
       this.$refs.ModalNoticias.open()
