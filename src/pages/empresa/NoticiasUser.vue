@@ -152,7 +152,8 @@ export default {
       nomeUser: 'Administrador',
       dataHoje: '',
       diaHoje: '',
-      corTeste: '#21ba45'
+      corTeste: '#21ba45',
+      msg: ''
     }
   },
   mounted () {
