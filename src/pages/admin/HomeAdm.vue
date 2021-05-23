@@ -14,7 +14,7 @@
         <q-card>
           <q-card bordered class="shadow-0 bg-white border">
             <q-card-section class="text-h4">
-              555
+              {{getEstatisticas().pequena.length}}
               <br />
               <span class="text-subtitle1 text-grey-7">Emp. Pequenas</span>
             </q-card-section>
@@ -25,7 +25,7 @@
         <q-card>
           <q-card bordered class="shadow-0 bg-white border">
             <q-card-section class="text-h4">
-              555
+              {{getEstatisticas().media_grande.length}}
               <br />
               <span class="text-subtitle1 text-grey-7"
                 >Emp. Médias/Grandes</span
@@ -165,6 +165,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 import moment from 'moment'
 export default {
   name: 'HomeAdm',
@@ -180,8 +181,11 @@ export default {
     this.pegarData()
     this.pegaDia()
     this.pegaMsg()
+    this.getCountEmpresas()
   },
   methods: {
+    ...mapActions('empresas', ['getCountEmpresas']),
+    ...mapGetters('empresas', ['getEstatisticas']),
     pegaMsg () {
       this.msg = {
         dia: 'Bom dia',
