@@ -78,7 +78,7 @@ export default {
     async login () {
       const vm = this
       const rotas = {
-        empresa: 'noticiasUser',
+        empresa: 'orcamentos',
         usuario: 'home'
       }
       vm.loading = true
