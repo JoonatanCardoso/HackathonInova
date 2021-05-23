@@ -21,6 +21,7 @@ export const getServicos = ({ dispatch }) => {
           ...doc.data()
         })
       })
+      console.log(Servicos)
       dispatch('setServicos', Servicos)
     })
     .catch(err => {
@@ -114,7 +115,7 @@ export const putServicosMerge = ({ dispatch }, { dados, docid }) => {
  * @param docid
  * @returns {Promise<unknown>}
  */
-export const delMarcas = ({ dispatch }, { docid }) => {
+export const delServiço = ({ dispatch }, { docid }) => {
   return new Promise((resolve, reject) => {
     Firebase.firestore()
       .collection('servicos')
@@ -137,7 +138,7 @@ export const delMarcas = ({ dispatch }, { docid }) => {
  * @param val
  */
 export function setServicos ({ commit }, val) {
-  commit('SET_MURAIS', val)
+  commit('setServicos', val)
 }
 
 /**
