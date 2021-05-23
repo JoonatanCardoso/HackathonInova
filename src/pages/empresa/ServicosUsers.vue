@@ -2,11 +2,14 @@
   <q-page>
     <div class="row justify-center bg-grey-3">
       <div
-        class="col-xl-8 col-lg-8 col-md-8 col-sm-10 col-xs-10 text-h4 q-my-lg"
+        class="col-lg-10 col-md-10 col-sm-10 col-xs-10 text-h4 q-my-lg"
       >
         Serviços oferecidos
       </div>
     </div>
+          <div class="text-center text-h6 q-mt-md">
+                Nesta área nossos colaboradores conseguirão sanar as sua dúvidas.
+      </div>
     <q-btn
       class="q-px-lg"
       flat
@@ -25,7 +28,7 @@
       <div
         v-for="(item, key) in tipos"
         :key="key * 10"
-        class="col-lg-2 col-12 col-md-4 col-sm-5 q-px-sm"
+        class="col-lg-3 q-pa-sm col-12 col-md-4 col-sm-5 q-px-sm"
       >
         <div
           style="text-decoration: none"
