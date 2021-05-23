@@ -2,7 +2,7 @@
   <q-page>
     <div class="row justify-center q-px-sm ">
       <div class="col-lg-8 col-11 col-md-8 col-sm-8 q-my-lg text-subtitle1">
-        Olá, bem vindo(a) ao Acelara Araguína - Supply Chain,
+        {{msg}}, seja bem vindo(a) ao Acelara Araguína - Supply Chain,
         <span class="text-weight-bold text-primary">{{ nomeUser }}</span
         >!
       </div>
@@ -10,7 +10,7 @@
         class="col-lg-2 col-md-2 col-sm-3 col-11 text-subtitle1"
         :class="$q.screen.gt.xs ? 'q-my-lg' : ' q-mb-lg'"
       >
-        {{ diaHoje }} - {{ dataHoje }}
+        {{ diaHoje }}
       </div>
     </div>
     <div class="row justify-center text-subtitle1 q-px-sm ">
@@ -144,6 +144,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   name: 'NoticiasUser',
   data () {
@@ -157,28 +158,23 @@ export default {
   mounted () {
     this.pegarData()
     this.pegaDia()
+    this.pegaMsg()
   },
   methods: {
+    pegaMsg () {
+      this.msg = {
+        dia: 'Bom dia',
+        tarde: 'Boa tarde',
+        noite: 'Boa noite'
+      }
+      this.msg = new Date().getDay() > 5 ? (this.msg.dia > 12 ? this.msg.tarde : this.msg.noite) : ''
+    },
     pegarData () {
       this.dataHoje = new Date().toLocaleDateString()
       this.diaHoje = new Date().getDay()
     },
     pegaDia () {
-      if (this.diaHoje === 0) {
-        this.diaHoje = 'Domingo'
-      } else if (this.diaHoje === 1) {
-        this.diaHoje = 'Segunda-Feira'
-      } else if (this.diaHoje === 2) {
-        this.diaHoje = 'Terça-Feira'
-      } else if (this.diaHoje === 3) {
-        this.diaHoje = 'Quarta-Feira'
-      } else if (this.diaHoje === 4) {
-        this.diaHoje = 'Quinta-Feira'
-      } else if (this.diaHoje === 5) {
-        this.diaHoje = 'Sexta-Feira'
-      } else if (this.diaHoje === 6) {
-        this.diaHoje = 'Sábado'
-      }
+      this.diaHoje = moment().locale('pt').format('dddd - DD-MM-YYYY')
     }
   }
 }

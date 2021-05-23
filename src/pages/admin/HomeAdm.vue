@@ -6,7 +6,7 @@
         <span class="text-weight-bold text-primary">{{ nomeUser }}</span>
       </div>
       <div class="col-lg-2 col-md-2 col-sm-3 col-11 text-subtitle1" :class="$q.screen.gt.xs ? 'q-my-lg' : ' q-mb-lg'">
-        {{ diaHoje }} - {{ dataHoje }}
+        {{ diaHoje }}
       </div>
     </div>
     <div class="row justify-center q-gutter-y-md">
@@ -195,24 +195,9 @@ export default {
       setInterval(() => {
         this.dataHoje = moment().format('DD-MM-YYYY HH:mm')
       }, 30000)
-      this.diaHoje = new Date().getDay()
     },
     pegaDia () {
-      if (this.diaHoje === 0) {
-        this.diaHoje = 'Domingo'
-      } else if (this.diaHoje === 1) {
-        this.diaHoje = 'Segunda-Feira'
-      } else if (this.diaHoje === 2) {
-        this.diaHoje = 'Terça-Feira'
-      } else if (this.diaHoje === 3) {
-        this.diaHoje = 'Quarta-Feira'
-      } else if (this.diaHoje === 4) {
-        this.diaHoje = 'Quinta-Feira'
-      } else if (this.diaHoje === 5) {
-        this.diaHoje = 'Sexta-Feira'
-      } else if (this.diaHoje === 6) {
-        this.diaHoje = 'Sábado'
-      }
+      this.diaHoje = moment().locale('pt').format('dddd - DD-MM-YYYY')
     }
   }
 }
