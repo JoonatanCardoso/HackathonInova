@@ -170,8 +170,10 @@ export default {
       this.msg = new Date().getDay() > 5 ? (this.msg.dia > 12 ? this.msg.tarde : this.msg.noite) : ''
     },
     pegarData () {
-      this.dataHoje = new Date().toLocaleDateString()
-      this.diaHoje = new Date().getDay()
+      this.dataHoje = moment().format('DD-MM-YYYY HH:mm')
+      setInterval(() => {
+        this.dataHoje = moment().format('DD-MM-YYYY HH:mm')
+      }, 30000)
     },
     pegaDia () {
       this.diaHoje = moment().locale('pt').format('dddd - DD-MM-YYYY')
