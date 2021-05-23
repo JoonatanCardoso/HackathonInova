@@ -264,7 +264,7 @@
                     dense
                   ></q-input>
                 </div>
-                <div class="col-lg-8 col-11  col-sm-5 col-md-5 q-px-sm q-mt-sm">
+                <div class="col-lg-6 col-11  col-sm-5 col-md-5 q-px-sm q-mt-sm">
                   Cidade*
                   <q-input
                     v-model="dados.endereco.localidade"
@@ -273,7 +273,7 @@
                     dense
                   ></q-input>
                 </div>
-                <div class="col-lg-8 col-11  col-sm-5 col-md-5 q-px-sm q-mt-sm">
+                <div class="col-lg-6 col-11  col-sm-5 col-md-5 q-px-sm q-mt-sm">
                   UF*
                   <q-input
                     v-model="dados.endereco.uf"
