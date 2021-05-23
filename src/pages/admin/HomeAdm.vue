@@ -2,7 +2,7 @@
   <q-page>
     <div class="row justify-center q-px-sm ">
       <div class="col-lg-8 col-11 col-md-8 col-sm-8 q-my-lg text-subtitle1">
-        Olá, bem vindo(a)
+        {{msg}}, seja bem vindo(a)
         <span class="text-weight-bold text-primary">{{ nomeUser }}</span>
       </div>
       <div class="col-lg-2 col-md-2 col-sm-3 col-11 text-subtitle1" :class="$q.screen.gt.xs ? 'q-my-lg' : ' q-mb-lg'">
@@ -165,22 +165,36 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   name: 'HomeAdm',
   data () {
     return {
       nomeUser: 'Administrador',
       dataHoje: '',
-      diaHoje: ''
+      diaHoje: '',
+      msg: ''
     }
   },
   mounted () {
     this.pegarData()
     this.pegaDia()
+    this.pegaMsg()
   },
   methods: {
+    pegaMsg () {
+      this.msg = {
+        dia: 'Bom dia',
+        tarde: 'Boa tarde',
+        noite: 'Boa noite'
+      }
+      this.msg = new Date().getDay() > 5 ? (this.msg.dia > 12 ? this.msg.tarde : this.msg.noite) : ''
+    },
     pegarData () {
-      this.dataHoje = new Date().toLocaleDateString()
+      this.dataHoje = moment().format('DD-MM-YYYY HH:mm')
+      setInterval(() => {
+        this.dataHoje = moment().format('DD-MM-YYYY HH:mm')
+      }, 30000)
       this.diaHoje = new Date().getDay()
     },
     pegaDia () {
