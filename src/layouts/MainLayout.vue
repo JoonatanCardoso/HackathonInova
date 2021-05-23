@@ -57,7 +57,7 @@
           </q-item-label>
         </q-item>
         <q-separator/>
-        <q-item v-if="tipoAdm === 'Prefeitura'" active-class="selected" :to="{ name: 'acesso' }">
+        <q-item v-if="tipoAdm && tipoAdm === 'Prefeitura'" active-class="selected" :to="{ name: 'acesso' }">
           <q-icon name="groups" size="30px"/>
           <q-item-label class="text-black self-center q-px-md text-h6"
           >Acessos
@@ -84,9 +84,8 @@ export default {
       leftDrawerOpen: false
     }
   },
-  mounted () {
-    this.tipoAdm = this.user.tipo
-    console.log(this.tipoAdm)
+  created () {
+    this.tipoAdm = this.user.data.tipo
   },
   computed: {
     ...mapState('userAuth', ['user'])
