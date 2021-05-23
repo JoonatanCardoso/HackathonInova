@@ -25,7 +25,7 @@
       <div v-if="lista == true" class="col-xl-9 col-lg-9 col-md-9 col-sm-11 col-xs-11 q-mt-lg" style="border:solid 2px; border-radius: 5px; color: #ffe600">
         <q-list>
           <q-item class="bg-grey-2 text-black q-pa-md" clickable @click="openInfo()">
-            <span>Produção de Uniformes</span>
+            <span>(Cod. 624) Produção de Uniformes</span>
           </q-item>
           <infoorc ref="InfoOrcamento"></infoorc>
           <q-separator/>
@@ -37,9 +37,10 @@
           <orc ref="CadOrcamento"></orc>
         </div>
         <q-list>
-          <q-item class="bg-grey-2 text-black q-pa-md">
+          <q-item class="bg-grey-2 text-black q-pa-md" clickable @click="openEdit()">
             <span>Produção de Marmitas</span>
           </q-item>
+          <editorc ref="EditOrcamento"></editorc>
           <q-separator/>
           <q-item class="bg-grey-2 text-black q-pa-md">
             <span>Produção de Marmitas</span>
@@ -64,6 +65,7 @@
 <script>
 import CadOrcamento from 'components/empresa/CadOrcamento.vue'
 import InfoOrcamento from 'components/empresa/InfoOrcamento.vue'
+import EditOrcamento from 'components/empresa/EditOrcamento.vue'
 
 export default {
   name: 'orcamentos',
@@ -76,7 +78,8 @@ export default {
   },
   components: {
     orc: CadOrcamento,
-    infoorc: InfoOrcamento
+    infoorc: InfoOrcamento,
+    editorc: EditOrcamento
   },
   methods: {
     open () {
@@ -84,6 +87,9 @@ export default {
     },
     openInfo () {
       this.$refs.InfoOrcamento.open()
+    },
+    openEdit () {
+      this.$refs.EditOrcamento.open()
     }
   }
 }

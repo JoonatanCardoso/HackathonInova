@@ -5,7 +5,7 @@
     persistent
     :maximized="$q.platform.is.mobile"
     :full-width="$q.platform.is.mobile"
-    v-model="orcamento"
+    v-model="editorcamento"
   >
     <q-card class="row justify-center" style="width: 700px; max-width: 80vw;">
       <q-bar class="full-width bg-primary text-white">
@@ -86,11 +86,11 @@
 
 <script>
 export default {
-  name: 'CadOrcamento',
-  ref: 'CadOrcamento',
+  name: 'EditOrcamento',
+  ref: 'EditOrcamento',
   data () {
     return {
-      orcamento: false,
+      editorcamento: false,
       criterios: '',
       dataO: '',
       horaO: '',
@@ -101,7 +101,7 @@ export default {
   computed: {},
   methods: {
     open () {
-      this.orcamento = true
+      this.editorcamento = true
     }
   }
 }

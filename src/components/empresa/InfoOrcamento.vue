@@ -16,7 +16,7 @@
       <div class="justify-center col-xl-8 col-lg-8 col-md-8 col-sm-11 col-xs-11">
         <q-card-section>
           <div class="text-h6 text-center text-weight-bolder text-primary">
-            <span>Cadastrar Orçamento</span>
+            <span>Orçamento (Cod. 624)</span>
           </div>
         </q-card-section>
         <!------------------------ FORM ------------------------>
