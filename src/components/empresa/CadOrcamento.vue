@@ -42,7 +42,7 @@
             <div class="row justify-between">
               <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-xs-12">
                 Data
-                <q-input outlined dense v-model="dataO" mask="date" :rules="['date']">
+                <q-input outlined dense v-model="dataO" mask="##/##/####" :rules="['date']">
                   <template v-slot:append>
                     <q-icon name="event" class="cursor-pointer">
                       <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
