@@ -227,6 +227,7 @@ export default {
               icon: 'check',
               message: 'Serviço cadastrado com sucesso!'
             })
+            this.close()
           }).catch(_err => {
             console.log('🚀 ~ file: ModalUser.vue ~ line 228 ~ this.addUsuariosData ~ _err', _err)
             this.$q.notify({
