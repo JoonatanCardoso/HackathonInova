@@ -40,10 +40,10 @@ export const getCountEmpresas = ({ dispatch }) => {
         media_grande: []
       }
       snapshot.forEach(doc => {
-        if (!Empresas[doc.data().tipo]) {
-          Empresas[doc.data().tipo] = []
+        if (!Empresas[doc.data().type]) {
+          Empresas[doc.data().type] = []
         } else {
-          Empresas[doc.data().tipo].push({
+          Empresas[doc.data().type].push({
             docid: doc.id,
             ...doc.data()
           })
