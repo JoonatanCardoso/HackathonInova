@@ -10,12 +10,12 @@
               ><br />Supply chain
             </q-card-section>
             <q-card-section
-              ><q-input bg-color="grey-4" v-model="email" dense outlined>
+              ><q-input bg-color="grey-4" v-model="email" name="email" dense outlined>
                 <template v-slot:prepend>
                   <q-icon color="primary" name="person" /> </template></q-input
             ></q-card-section>
             <q-card-section
-              ><q-input bg-color="grey-4" v-model="password" :type="isPwd ? 'password' : 'text'"  dense outlined>
+              ><q-input bg-color="grey-4" v-model="password" :type="isPwd ? 'password' : 'text'"  name="password" dense outlined>
                 <template v-slot:prepend>
                   <q-icon color="primary" name="lock" />
                 </template>
@@ -70,10 +70,17 @@ export default {
       loading: false
     }
   },
+  mounted () {
+
+  },
   methods: {
     ...mapActions('userAuth', ['loginUser']),
     async login () {
       const vm = this
+      const rotas = {
+        empresa: 'noticiasUser',
+        usuario: 'home'
+      }
       vm.loading = true
       if ((this.email || this.password) === '') {
         this.notify('Preencha todos os campos!', 'red-10', 'top')
@@ -85,30 +92,18 @@ export default {
         this.notify('Campo de senha não preenchido!', 'red-10', 'top')
         vm.loading = false
       } else {
-        try {
-          await this.loginUser({
-            dados: {
-              email: vm.email,
-              password: vm.password
-            }
-          }).then((res) => {
-            console.log('res', res)
-            switch (res.data.typeUser) {
-              case 'empresa':
-                this.$router.replace({ name: 'index' }) // TROCAR ROTA
-                break
-              case 'usuario':
-                this.$router.replace({ name: 'index' }) // TROCAR ROTA
-                break
-              default:
-                this.$router.replace({ name: 'login' }) // TROCAR ROTA
-                break
-            }
-          })
-        } catch (error) {
+        await this.loginUser({
+          dados: {
+            email: vm.email,
+            password: vm.password
+          }
+        }).then((res) => {
+          console.log('res', res)
+          this.$router.push({ name: rotas[res.typeUser] || 'login' })
+        }).catch(error => {
           console.log(error)
           this.loading = false
-        }
+        })
       }
     }
   }

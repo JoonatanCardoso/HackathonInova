@@ -26,7 +26,7 @@
           <q-table
             class="shadow-1 my-sticky-header-column-table text-weight-medium q-ml-md q-mr-md bg-white q-mb-md"
             :grid="$q.screen.sm || $q.screen.xs"
-            :data="data"
+            :data="servicos"
             :columns="columns"
             :pagination="initialPagination"
             rows-per-page-label="Items por página"
@@ -137,12 +137,11 @@
           <q-dialog persistent v-model="deletar">
             <q-card>
               <q-card-section>
-                <div class="text-h6">Deletar Acesso</div>
+                <div class="text-h6">Deletar Serviço</div>
               </q-card-section>
 
               <q-card-section class="q-pt-none">
-                Tem certeza que deseja deletar permanente o acesso deste
-                usuário?
+                Tem certeza que deseja deletar permanente este serviço?
               </q-card-section>
 
               <q-card-actions align="right">
@@ -152,7 +151,7 @@
                   label="CANCELAR"
                   color="primary"
                 />
-                <q-btn label="ADICIONAR" color="primary" />
+                <q-btn @click="excluirServico()" label="Deletar" color="primary" />
               </q-card-actions>
             </q-card>
           </q-dialog>
@@ -164,6 +163,7 @@
 
 <script>
 import CadServicos from 'components/admin/CadServicos.vue'
+import { mapState, mapActions } from 'vuex'
 export default {
   name: 'GerenciarServicos',
   data () {
@@ -226,7 +226,14 @@ export default {
   components: {
     add: CadServicos
   },
+  mounted () {
+    this.getServicos()
+  },
+  computed: {
+    ...mapState('servicos', ['servicos'])
+  },
   methods: {
+    ...mapActions('servicos', ['getServicos', 'delServiço']),
     open () {
       this.edit = false
       this.$refs.CadServicos.open()
@@ -244,6 +251,22 @@ export default {
         this.$refs.CadServicos.openEditar()
         this.dadosEditar = { ...row.row }
       }, 200)
+    },
+    excluirServico () {
+      if (this.docid) {
+        this.delServiço({
+          docid: this.docid
+        }).then((res) => {
+          this.$q.notify({
+            position: 'bottom',
+            color: 'positive',
+            textColor: 'white',
+            icon: 'check',
+            message: 'Serviço excluído com sucesso!'
+          })
+          this.deletar = false
+        })
+      }
     }
   }
 }
