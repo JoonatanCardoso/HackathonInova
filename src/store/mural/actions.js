@@ -28,6 +28,34 @@ export const getMurais = ({ dispatch }) => {
     })
 }
 
+export const getCountMurais = ({ dispatch }) => {
+  const getUsuarios = Firebase.firestore().collection('murais')
+
+  return getUsuarios
+    .get()
+    .then(snapshot => {
+      const mural = []
+      const Murais = {
+        geral: 0
+      }
+      snapshot.forEach(doc => {
+        mural.push(doc.id)
+        if (!Murais[doc.data().tipo]) {
+          Murais[doc.data().tipo] = []
+        }
+        Murais[doc.data().tipo].push({
+          docid: doc.id,
+          ...doc.data()
+        })
+      })
+      Murais.geral = mural.length
+      dispatch('setEstatisticas', Murais)
+    })
+    .catch(err => {
+      console.log('Error getting documents', err)
+    })
+}
+
 /**
  * get de Mural pelo seu id
  * @param dispatch
@@ -146,4 +174,8 @@ export function setMurais ({ commit }, val) {
  */
 export function setMural ({ commit }, val) {
   commit('setMural', val)
+}
+
+export function setEstatisticas ({ commit }, val) {
+  commit('setEstatisticas', val)
 }

@@ -26,18 +26,22 @@ export const loginUser = ({ commit }, { dados }) => {
           .doc(user.user.uid)
           .get()
           .then((querySnapshot) => {
-            return {
-              operationType: user.operationType,
-              displayName: user.user.providerData[0].displayName,
-              email: user.user.providerData[0].email,
-              phoneNumber: user.user.providerData[0].phoneNumber,
-              photoURL: user.user.providerData[0].photoURL,
-              providerId: user.user.providerData[0].providerId,
-              uid: user.user.uid,
-              data: querySnapshot.data()
-            }
+            return querySnapshot.data()
+              ? {
+                  status: true,
+                  operationType: user.operationType,
+                  displayName: user.user.providerData[0].displayName,
+                  email: user.user.providerData[0].email,
+                  phoneNumber: user.user.providerData[0].phoneNumber,
+                  photoURL: user.user.providerData[0].photoURL,
+                  providerId: user.user.providerData[0].providerId,
+                  uid: user.user.uid,
+                  data: querySnapshot.data()
+                }
+              : { status: false }
           })
           .catch((error) => { return { error, status: false } })
+        console.log('🚀 ~ file: actions.js ~ line 45 ~ .then ~ dadosuser', dadosuser)
         dadosuser.typeUser = 'usuario'
 
         if (!dadosuser.status) {
@@ -46,16 +50,19 @@ export const loginUser = ({ commit }, { dados }) => {
             .doc(user.user.uid)
             .get()
             .then(querySnapshot => {
-              return {
-                operationType: user.operationType,
-                displayName: user.user.providerData[0].displayName,
-                email: user.user.providerData[0].email,
-                phoneNumber: user.user.providerData[0].phoneNumber,
-                photoURL: user.user.providerData[0].photoURL,
-                providerId: user.user.providerData[0].providerId,
-                uid: user.user.uid,
-                data: querySnapshot.data()
-              }
+              return querySnapshot.data()
+                ? {
+                    status: true,
+                    operationType: user.operationType,
+                    displayName: user.user.providerData[0].displayName,
+                    email: user.user.providerData[0].email,
+                    phoneNumber: user.user.providerData[0].phoneNumber,
+                    photoURL: user.user.providerData[0].photoURL,
+                    providerId: user.user.providerData[0].providerId,
+                    uid: user.user.uid,
+                    data: querySnapshot.data()
+                  }
+                : { status: false }
             })
             .catch(error => {
               return { error, status: false }
@@ -63,7 +70,7 @@ export const loginUser = ({ commit }, { dados }) => {
           dadosuser.typeUser = 'empresa'
         }
 
-        if (!dadosuser.status) {
+        if (dadosuser.status) {
           commit('SET_USER', dadosuser)
           resolve(dadosuser)
         } else {

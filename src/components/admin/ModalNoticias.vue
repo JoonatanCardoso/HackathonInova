@@ -51,7 +51,7 @@
           />
         </q-card-section>
         <q-card-section class="q-pt-none text-justify">
-          Data de validade*
+          Data de realização*
           <q-input
             type="date"
             v-model="dados.data_validade"

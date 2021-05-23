@@ -196,7 +196,7 @@ export default {
         },
         {
           name: 'data_validade',
-          label: 'Data Validade',
+          label: 'Data Realização',
           field: 'data_validade',
           align: 'left',
           sortable: true
@@ -214,7 +214,7 @@ export default {
     ...mapGetters('mural', ['getListaMurais'])
   },
   methods: {
-    ...mapActions('mural', ['getMurais']),
+    ...mapActions('mural', ['getMurais', 'delMural']),
     open () {
       this.edit = false
       this.$refs.ModalNoticias.open()

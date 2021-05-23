@@ -46,94 +46,25 @@
       </q-card>
     </div>
     <div class="row justify-center q-my-lg  q-gutter-y-md  text-subtitle2 ">
-      <div class="col-lg-2 col-12 col-md-4 col-sm-5 q-px-sm">
+      <div v-for="(item, key) in getListaMurais" :key="key" class="col-lg-2 col-12 col-md-4 col-sm-5 q-px-sm">
         <a
-          href=""
+          :href="item.link"
           style="text-decoration: none"
           target="_blank"
           class="cursor-pointer text-black"
         >
           <q-card v-ripple>
-            <div :style="'background-color:' + corTeste">
+            <div :style="'background-color:' + item.cor">
               <br />
             </div>
             <q-card-section class="text-justify">
               <span class="text-weight-bold">
-                Evento do Sebrae bem brabo
+                {{item.titulo}}
               </span>
               <br />
-              Realização: 22/05/2021
+              Realização: {{item.data_validade}}
             </q-card-section>
-            <div :style="'background-color:' + corTeste">
-              <br /></div
-          ></q-card>
-        </a>
-      </div>
-            <div class="col-lg-2 col-12 col-md-4 col-sm-5  q-px-sm">
-        <a
-          href=""
-          style="text-decoration: none"
-          target="_blank"
-          class="cursor-pointer text-black"
-        >
-          <q-card v-ripple>
-            <div :style="'background-color:' + corTeste">
-              <br />
-            </div>
-            <q-card-section class="text-justify">
-              <span class="text-weight-bold">
-                Evento do Sebrae bem brabo
-              </span>
-              <br />
-              Realização: 22/05/2021
-            </q-card-section>
-            <div :style="'background-color:' + corTeste">
-              <br /></div
-          ></q-card>
-        </a>
-      </div>
-            <div class="col-lg-2 col-12 col-md-4 col-sm-5  q-px-sm">
-        <a
-          href=""
-          style="text-decoration: none"
-          target="_blank"
-          class="cursor-pointer text-black"
-        >
-          <q-card v-ripple>
-            <div :style="'background-color:' + corTeste">
-              <br />
-            </div>
-            <q-card-section class="text-justify">
-              <span class="text-weight-bold">
-                Evento do Sebrae bem brabo
-              </span>
-              <br />
-              Realização: 22/05/2021
-            </q-card-section>
-            <div :style="'background-color:' + corTeste">
-              <br /></div
-          ></q-card>
-        </a>
-      </div>
-            <div class="col-lg-2 col-12 col-md-4 col-sm-5  q-px-sm">
-        <a
-          href=""
-          style="text-decoration: none"
-          target="_blank"
-          class="cursor-pointer text-black"
-        >
-          <q-card v-ripple>
-            <div :style="'background-color:' + corTeste">
-              <br />
-            </div>
-            <q-card-section class="text-justify">
-              <span class="text-weight-bold">
-                Evento do Sebrae bem brabo
-              </span>
-              <br />
-              Realização: 22/05/2021
-            </q-card-section>
-            <div :style="'background-color:' + corTeste">
+            <div :style="'background-color:' + item.cor">
               <br /></div
           ></q-card>
         </a>
@@ -144,6 +75,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import moment from 'moment'
 export default {
   name: 'NoticiasUser',
@@ -152,15 +84,21 @@ export default {
       nomeUser: 'Administrador',
       dataHoje: '',
       diaHoje: '',
-      corTeste: '#21ba45'
+      corTeste: '#21ba45',
+      msg: ''
     }
   },
   mounted () {
     this.pegarData()
     this.pegaDia()
     this.pegaMsg()
+    this.getMurais()
+  },
+  computed: {
+    ...mapGetters('mural', ['getListaMurais'])
   },
   methods: {
+    ...mapActions('mural', ['getMurais']),
     pegaMsg () {
       this.msg = {
         dia: 'Bom dia',
