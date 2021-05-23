@@ -2,8 +2,8 @@
   <q-page>
     <div class="row justify-center q-px-sm ">
       <div class="col-lg-8 col-11 col-md-8 col-sm-8 q-my-lg text-subtitle1">
-        {{msg}}, seja bem vindo(a) ao Acelara Araguína - Supply Chain,
-        <span class="text-weight-bold text-primary">{{ nomeUser }}</span
+        Olá, seja bem vindo(a) ao Acelara Araguína - Supply Chain,
+        <span class="text-weight-bold text-primary">{{ this.getUser().data.razao_social}}</span
         >!
       </div>
       <div
@@ -99,6 +99,7 @@ export default {
   },
   methods: {
     ...mapActions('mural', ['getMurais']),
+    ...mapGetters('userAuth', ['getUser']),
     pegaMsg () {
       this.msg = {
         dia: 'Bom dia',
