@@ -41,6 +41,7 @@ export const loginUser = ({ commit }, { dados }) => {
           })
           .catch((error) => { return { error, status: false } })
         dadosuser.typeUser = 'usuario'
+        console.log('🚀 ~ file: actions.js ~ line 44 ~ .then ~ dadosuser', dadosuser)
 
         if (!dadosuser.status) {
           dadosuser = await Firebase.firestore()
@@ -65,6 +66,7 @@ export const loginUser = ({ commit }, { dados }) => {
               return { error, status: false }
             })
           dadosuser.typeUser = 'empresa'
+          console.log('🚀 ~ file: actions.js ~ line 69 ~ .then ~ dadosuser', dadosuser)
         }
 
         if (!dadosuser.status) {
