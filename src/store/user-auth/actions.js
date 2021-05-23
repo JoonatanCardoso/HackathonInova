@@ -28,6 +28,7 @@ export const loginUser = ({ commit }, { dados }) => {
           .then((querySnapshot) => {
             return querySnapshot.data()
               ? {
+                  status: true,
                   operationType: user.operationType,
                   displayName: user.user.providerData[0].displayName,
                   email: user.user.providerData[0].email,
@@ -50,6 +51,7 @@ export const loginUser = ({ commit }, { dados }) => {
             .then(querySnapshot => {
               return querySnapshot.data()
                 ? {
+                    status: true,
                     operationType: user.operationType,
                     displayName: user.user.providerData[0].displayName,
                     email: user.user.providerData[0].email,
