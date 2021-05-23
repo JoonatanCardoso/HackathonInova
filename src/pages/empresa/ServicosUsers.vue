@@ -226,7 +226,8 @@ export default {
       window.open(url, '_blank')
     },
     abreWhats (tipo) {
-      const msg = `Olá${this.user.data.nome ? ' ,meu nome é ' + this.user.data.nome : ''}!
+      const nome = this.user.data.nome || this.user.data.nome_fantasia || ''
+      const msg = `Olá ${nome ? ', meu nome é ' + nome : ''}!
       %0DAcessei a Acelera Araguaína.
       %0DGostaria de saber mais sobre o *item*: ${tipo.titulo}. %0D*Descrição*: ${tipo.descricao}.%0D*Tipo*: ${tipo.tipo}`
       window.open('https://api.whatsapp.com/send?phone=55' + tipo.telefone.split(' ').join('').split('-').join('').split('(').join('').split(')').join('') + '&text=' + msg, '_blank')
