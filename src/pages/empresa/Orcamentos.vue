@@ -35,7 +35,7 @@
       </div>
       <div v-if="meus == true" class="col-xl-9 col-lg-9 col-md-9 col-sm-11 col-xs-11 q-mt-lg" style="border:solid 2px; border-radius: 5px; color: #f4110e">
         <div class="q-pa-lg text-center">
-          <q-btn class="full-width" outline label="Cadastrar Orçamento"/>
+          <q-btn class="full-width" outline label="Cadastrar Orçamento" @click="open()"/>
           <orc ref="CadOrcamento"></orc>
         </div>
         <q-list>
