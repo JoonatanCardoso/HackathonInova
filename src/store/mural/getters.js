@@ -1,4 +1,4 @@
-export function getMurais (state) {
+export function getListaMurais (state) {
   return state.murais
 }
 export function getMural (state) {
