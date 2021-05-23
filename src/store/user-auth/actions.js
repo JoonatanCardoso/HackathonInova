@@ -26,16 +26,18 @@ export const loginUser = ({ commit }, { dados }) => {
           .doc(user.user.uid)
           .get()
           .then((querySnapshot) => {
-            return {
-              operationType: user.operationType,
-              displayName: user.user.providerData[0].displayName,
-              email: user.user.providerData[0].email,
-              phoneNumber: user.user.providerData[0].phoneNumber,
-              photoURL: user.user.providerData[0].photoURL,
-              providerId: user.user.providerData[0].providerId,
-              uid: user.user.uid,
-              data: querySnapshot.data()
-            }
+            return querySnapshot.data()
+              ? {
+                  operationType: user.operationType,
+                  displayName: user.user.providerData[0].displayName,
+                  email: user.user.providerData[0].email,
+                  phoneNumber: user.user.providerData[0].phoneNumber,
+                  photoURL: user.user.providerData[0].photoURL,
+                  providerId: user.user.providerData[0].providerId,
+                  uid: user.user.uid,
+                  data: querySnapshot.data()
+                }
+              : { status: false }
           })
           .catch((error) => { return { error, status: false } })
         dadosuser.typeUser = 'usuario'
@@ -46,16 +48,18 @@ export const loginUser = ({ commit }, { dados }) => {
             .doc(user.user.uid)
             .get()
             .then(querySnapshot => {
-              return {
-                operationType: user.operationType,
-                displayName: user.user.providerData[0].displayName,
-                email: user.user.providerData[0].email,
-                phoneNumber: user.user.providerData[0].phoneNumber,
-                photoURL: user.user.providerData[0].photoURL,
-                providerId: user.user.providerData[0].providerId,
-                uid: user.user.uid,
-                data: querySnapshot.data()
-              }
+              return querySnapshot.data()
+                ? {
+                    operationType: user.operationType,
+                    displayName: user.user.providerData[0].displayName,
+                    email: user.user.providerData[0].email,
+                    phoneNumber: user.user.providerData[0].phoneNumber,
+                    photoURL: user.user.providerData[0].photoURL,
+                    providerId: user.user.providerData[0].providerId,
+                    uid: user.user.uid,
+                    data: querySnapshot.data()
+                  }
+                : { status: false }
             })
             .catch(error => {
               return { error, status: false }
