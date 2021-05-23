@@ -36,7 +36,7 @@
       content-class="bg-grey-1"
     >
       <q-list class="text-grey-7 ">
-        <q-item active-class="selected" :to="{ name: 'index' }">
+        <q-item active-class="selected" :to="{ name: 'home' }">
           <q-icon name="web" size="30px"/>
           <q-item-label class="text-black self-center q-px-md text-h6">
             Início
