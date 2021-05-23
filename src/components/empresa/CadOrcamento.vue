@@ -75,12 +75,23 @@
             </div>
           </q-card-section>
           <q-card-actions class="q-pa-md" align="right">
-            <q-btn class="text-primary" label="cancelar" outline/>
-            <q-btn class="bg-primary text-white" label="Cadastrar"/>
+            <q-btn class="text-primary" label="cancelar" outline v-close-popup/>
+            <q-btn class="bg-primary text-white" label="Cadastrar" @click="sucessoCad = true"/>
           </q-card-actions>
         </q-form>
       </div>
     </q-card>
+    <q-dialog v-model="sucessoCad">
+      <div class="row bg-white justify-center text-center" style="border:solid 10px; border-radius: 20px; color: #008b35">
+        <div class="text-primary col-12 q-pa-xl">
+          <p class="text-h2 text-bold">Parabéns!</p>
+          <p class="text-bold text-h5">Seu cadastro foi criado com sucesso.</p>
+          <p class="text-bold">
+            Para acompanhar o orçamento criado e acompanhar os ofertantes para o serviço basta entrar no painel "Meus de orçamentos" e clicar no botão detalhes, ao lado do nome do pretendente.</p>
+          <q-btn class="q-px-xl text-bold" outline label="Fechar" no-caps @click="cadorcamento = false" v-close-popup/>
+        </div>
+      </div>
+    </q-dialog>
   </q-dialog>
 </template>
 
@@ -91,6 +102,7 @@ export default {
   data () {
     return {
       orcamento: false,
+      sucessoCad: false,
       criterios: '',
       dataO: '',
       horaO: '',

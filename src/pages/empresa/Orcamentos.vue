@@ -42,9 +42,6 @@
           </q-item>
           <editorc ref="EditOrcamento"></editorc>
           <q-separator/>
-          <q-item class="bg-grey-2 text-black q-pa-md">
-            <span>Produção de Marmitas</span>
-          </q-item>
         </q-list>
       </div>
       <div v-if="aprovacao == true" class="col-xl-9 col-lg-9 col-md-9 col-sm-11 col-xs-11 q-mt-lg" style="border:solid 2px; border-radius: 5px; color: #008b35">

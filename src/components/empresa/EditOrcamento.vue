@@ -16,23 +16,21 @@
       <div class="justify-center col-xl-8 col-lg-8 col-md-8 col-sm-11 col-xs-11">
         <q-card-section>
           <div class="text-h6 text-center text-weight-bolder text-primary">
-            <span>Cadastrar Orçamento</span>
+            <span>Detalhes do Orçamento</span>
           </div>
         </q-card-section>
         <!------------------------ FORM ------------------------>
         <q-form>
           <q-card-section class="q-pt-none text-justify">
             Título*
-            <q-input v-model="titulo" dense outlined/>
+            <q-input v-model="tituloOr" dense outlined/>
           </q-card-section>
           <q-card-section class="q-pt-none text-justify">
             Ramo de atividade*
-            <q-select v-model="ramo" dense outlined/>
+            <q-select v-model="ramoOr" dense outlined/>
           </q-card-section>
           <q-card-section class="q-pt-none text-justify">
-            Fazer upload de um documento contendo: descrição do produto/serviço (marca), preço unitário, quantidade, total, condição de pagamento, prazo de entrega.
-            <br>
-            O documento deve ser em papel timbrado e assinado pelo responsável da empresa
+            Arquivo do orçamento
             <q-uploader
               class="full-width"
               url="http://localhost:4444/upload"
@@ -42,7 +40,7 @@
             <div class="row justify-between">
               <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-xs-12">
                 Data
-                <q-input outlined dense v-model="dataO" mask="date" :rules="['date']">
+                <q-input outlined dense v-model="dataOr" mask="date" :rules="['date']">
                   <template v-slot:append>
                     <q-icon name="event" class="cursor-pointer">
                       <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
@@ -58,7 +56,7 @@
               </div>
               <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-xs-12">
                 Horas
-                <q-input outlined dense v-model="horaO" mask="time" :rules="['time']">
+                <q-input outlined dense v-model="horaOr" mask="time" :rules="['time']">
                   <template v-slot:append>
                     <q-icon name="access_time" class="cursor-pointer">
                       <q-popup-proxy transition-show="scale" transition-hide="scale">
@@ -74,9 +72,37 @@
               </div>
             </div>
           </q-card-section>
+          <q-separator/>
+
+          <q-card-section>
+            <div class="text-h6 text-center text-weight-bolder text-primary">
+              <span>Propostas para Orçamento</span>
+            </div>
+
+            <div class="q-mt-lg">
+              <q-list>
+                <q-separator/>
+                <q-item class="q-mt-sm justify-between">
+                    <div class="text-bold col-6 text-left content">Sabor Brasil LTDA</div>
+                    <div class="col-6 text-right">
+                      <q-btn dense outline>Detalhes</q-btn>
+                    </div>
+                </q-item>
+                <q-separator/>
+                <q-item class="q-mt-sm">
+                  <div class="text-bold col-6 text-left content">Marmitaria João de Barro</div>
+                  <div class="col-6 text-right">
+                    <q-btn dense outline>Detalhes</q-btn>
+                  </div>
+                </q-item>
+              </q-list>
+            </div>
+          </q-card-section>
+
           <q-card-actions class="q-pa-md" align="right">
-            <q-btn class="text-primary" label="cancelar" outline/>
-            <q-btn class="bg-primary text-white" label="Cadastrar"/>
+            <q-btn class="text-primary" label="Fechar" outline v-close-popup/>
+            <q-btn class="text-red" label="Deletar" outline v-close-popup/>
+            <q-btn class="bg-primary text-white" label="Editar" v-close-popup/>
           </q-card-actions>
         </q-form>
       </div>
@@ -91,10 +117,10 @@ export default {
   data () {
     return {
       editorcamento: false,
-      criterios: '',
-      dataO: '',
-      horaO: '',
-      valor: ''
+      tituloOr: 'Produção de Marmitas',
+      ramoOr: 'Alimentício',
+      dataOr: '21/07/2021',
+      horaOr: '09:45'
     }
   },
   mounted () {},
