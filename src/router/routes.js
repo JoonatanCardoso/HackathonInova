@@ -43,6 +43,11 @@ const routes = [
         path: 'perfil',
         name: 'perfil',
         component: () => import('src/pages/empresa/PerfilEmp.vue')
+      },
+      {
+        path: 'servicosUser',
+        name: 'servicosUser',
+        component: () => import('src/pages/empresa/ServicosUsers.vue')
       }
     ]
   },
