@@ -1,35 +1,65 @@
 const routes = [
   {
-    path: '/',
+    path: '/administrador/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {
-        path: '/administrador/home',
-        name: 'index',
+        path: 'home',
+        name: 'home',
         component: () => import('src/pages/admin/HomeAdm.vue')
       },
       {
-        path: '/administrador/mural',
+        path: 'mural',
         name: 'mural',
         component: () => import('src/pages/admin/Mural.vue')
       },
       {
-        path: '/administrador/servicos',
+        path: 'servicos',
         name: 'servicos',
         component: () => import('src/pages/admin/ServicosADM.vue')
       },
       {
-        path: '/administrador/gerenciar-acessos',
+        path: 'gerenciar-acessos',
         name: 'acesso',
         component: () => import('src/pages/admin/GerenciarAcessos.vue')
       }
     ]
   },
   {
-    path: '/login',
+    path: '/empresa/',
+    component: () => import('layouts/LayoutEmpresa.vue'),
+    children: [
+      {
+        path: 'mural',
+        name: 'noticiasUser',
+        component: () => import('src/pages/empresa/NoticiasUser.vue')
+      },
+      {
+        path: 'orcamentos',
+        name: 'orcamentos',
+        component: () => import('src/pages/empresa/Orcamentos.vue')
+      },
+      {
+        path: 'perfil',
+        name: 'perfil',
+        component: () => import('src/pages/empresa/PerfilEmp.vue')
+      },
+      {
+        path: 'servicosUser',
+        name: 'servicosUser',
+        component: () => import('src/pages/empresa/ServicosUsers.vue')
+      }
+    ]
+  },
+  {
+    path: '/',
     component: () => import('layouts/LayoutClean.vue'),
     children: [
-      { path: '', name: 'login', component: () => import('src/pages/auth/Login.vue') },
+      {
+        path: '',
+        name: 'login',
+        component: () => import('src/pages/auth/Login.vue')
+      },
       {
         path: '/cadastro',
         name: 'cadastro',

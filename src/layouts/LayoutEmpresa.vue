@@ -17,14 +17,14 @@
           class="row justify-between q-pa-sm"
         >
           <span class="text-h6">Acelera Araguaína - Supply Chain</span>
-          <q-btn round color="green-6" icon="logout" @click="logout()"/>
+          <q-btn round color="green-6" icon="logout" @click="logout()" />
         </q-toolbar-title>
         <q-toolbar-title
           v-if="$q.platform.is.mobile"
           class="text-center q-pa-sm"
         >
           <span class="text-h5">Acelera Araguaína</span>
-          <br/>
+          <br />
           <span class="text-h6">Supply Chain</span>
         </q-toolbar-title>
       </q-toolbar>
@@ -37,59 +37,52 @@
       content-class="bg-grey-1"
     >
       <q-list class="text-grey-7 ">
-        <q-item active-class="selected" :to="{ name: 'home' }">
-          <q-icon name="web" size="30px"/>
+        <q-item active-class="selected" :to="{ name: 'orcamentos' }">
+          <q-icon name="file_present" size="30px" />
+          <q-item-label class="text-black self-center q-px-md text-h6"
+            >Orçamentos
+          </q-item-label>
+        </q-item>
+        <q-separator />
+        <q-item active-class="selected" :to="{ name: 'noticiasUser' }">
+          <q-icon name="web" size="30px" />
           <q-item-label class="text-black self-center q-px-md text-h6">
-            Início
+            Mural
           </q-item-label>
         </q-item>
-        <q-separator/>
-        <q-item active-class="selected" :to="{ name: 'mural' }">
-          <q-icon name="grid_view" size="30px"/>
+        <q-separator />
+        <q-item active-class="selected" :to="{ name: 'servicosUser' }">
+          <q-icon name="home_repair_service" size="30px" />
           <q-item-label class="text-black self-center q-px-md text-h6"
-          >Mural
+            >Serviços Oferecidos
           </q-item-label>
         </q-item>
-        <q-separator/>
-        <q-item active-class="selected" :to="{ name: 'servicos' }">
-          <q-icon name="home_repair_service" size="30px"/>
+        <q-separator />
+        <q-item :to="{ name: 'perfil' }" active-class="selected">
+          <q-icon name="person" size="30px" />
           <q-item-label class="text-black self-center q-px-md text-h6"
-          >Serviços
+            >Perfil
           </q-item-label>
         </q-item>
-        <q-separator/>
-        <q-item v-if="tipoAdm && tipoAdm === 'Prefeitura'" active-class="selected" :to="{ name: 'acesso' }">
-          <q-icon name="groups" size="30px"/>
-          <q-item-label class="text-black self-center q-px-md text-h6"
-          >Acessos
-          </q-item-label>
-        </q-item>
-        <q-separator/>
+        <q-separator />
       </q-list>
     </q-drawer>
 
     <q-page-container>
-      <router-view/>
+      <router-view />
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 export default {
-  name: 'MainLayout',
-  tipoAdm: '',
+  name: 'LayoutEmpresa',
   components: {},
   data () {
     return {
       leftDrawerOpen: false
     }
-  },
-  created () {
-    this.tipoAdm = this.user.data.tipo
-  },
-  computed: {
-    ...mapState('userAuth', ['user'])
   },
   methods: {
     ...mapActions('userAuth', ['logoutUser']),

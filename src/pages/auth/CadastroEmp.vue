@@ -40,6 +40,12 @@
               val="media_grande"
               label="Média/Grande"
             />
+            <q-radio
+              v-model="dados.type"
+              size="sm"
+              val="produtor_rural"
+              label="Produtor Rural"
+            />
           </div>
           <div class="col-lg-6">
             <q-form ref="formCadastro">
@@ -258,7 +264,7 @@
                     dense
                   ></q-input>
                 </div>
-                <div class="col-lg-8 col-11  col-sm-5 col-md-5 q-px-sm q-mt-sm">
+                <div class="col-lg-6 col-11  col-sm-5 col-md-5 q-px-sm q-mt-sm">
                   Cidade*
                   <q-input
                     v-model="dados.endereco.localidade"
@@ -267,7 +273,7 @@
                     dense
                   ></q-input>
                 </div>
-                <div class="col-lg-8 col-11  col-sm-5 col-md-5 q-px-sm q-mt-sm">
+                <div class="col-lg-6 col-11  col-sm-5 col-md-5 q-px-sm q-mt-sm">
                   UF*
                   <q-input
                     v-model="dados.endereco.uf"
@@ -455,43 +461,6 @@ export default {
         return false
       }
     },
-    validarCPF (cpf) {
-      let soma = 0
-      let i
-      let resto
-      const inputCPF = cpf.replace(/[^\w\s]/gi, '')
-      if (
-        inputCPF === '00000000000' ||
-        inputCPF === '11111111111' ||
-        inputCPF === '22222222222' ||
-        inputCPF === '33333333333' ||
-        inputCPF === '44444444444' ||
-        inputCPF === '55555555555' ||
-        inputCPF === '66666666666' ||
-        inputCPF === '77777777777' ||
-        inputCPF === '88888888888' ||
-        inputCPF === '99999999999'
-      ) {
-        return false
-      }
-      for (i = 1; i <= 9; i++) {
-        soma = soma + parseInt(inputCPF.substring(i - 1, i)) * (11 - i)
-      }
-      resto = (soma * 10) % 11
-
-      if (resto === 10 || resto === 11) resto = 0
-      if (resto !== parseInt(inputCPF.substring(9, 10))) return false
-
-      soma = 0
-      for (i = 1; i <= 10; i++) {
-        soma = soma + parseInt(inputCPF.substring(i - 1, i)) * (12 - i)
-      }
-      resto = (soma * 10) % 11
-
-      if (resto === 10 || resto === 11) resto = 0
-      if (resto !== parseInt(inputCPF.substring(10, 11))) return false
-      return true
-    },
     filterFn (val, update) {
       if (val === '') {
         update(() => {
@@ -523,6 +492,26 @@ export default {
             textColor: 'white',
             icon: 'check',
             message: 'Empresa cadastrada com sucesso!'
+          })
+
+          this.loginUser({
+            dados: {
+              email: this.dados.email,
+              password: this.dados.password
+            }
+          }).then((res) => {
+            console.log('res', res)
+            switch (res.data.typeUser) {
+              case 'empresa':
+                this.$router.replace({ name: 'algo' }) // TROCAR ROTA
+                break
+              case 'usuario':
+                this.$router.replace({ name: 'algo' }) // TROCAR ROTA
+                break
+              default:
+                this.$router.replace({ name: 'algo' }) // TROCAR ROTA
+                break
+            }
           })
         })
       }).catch(err => {

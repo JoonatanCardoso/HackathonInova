@@ -21,12 +21,12 @@
       <add :dado="dadosEditar" :editar="edit" ref="ModalUser"></add>
     </div>
     <div class="row justify-center">
-      <div class="col-xl-8 col-lg-8 col-md-8 col-sm-10 col-xs-11">
-        <div class="col-xl-11 col-lg-11 col-md-11 col-sm-12 col-xs-12 q-mt-xl">
+      <div class="col-xl-8 col-lg-8 col-md-11 col-sm-10 col-xs-11">
+        <div class="col-xl-11 col-lg-11 col-md-12 col-sm-12 col-xs-12 q-mt-xl">
           <q-table
             class="shadow-1 my-sticky-header-column-table text-weight-medium q-ml-md q-mr-md bg-white q-mb-md"
             :grid="$q.screen.sm || $q.screen.xs"
-            :data="data"
+            :data="getListaUsuarios"
             :columns="columns"
             :pagination="initialPagination"
             rows-per-page-label="Items por página"
@@ -144,7 +144,7 @@
 
               <q-card-actions align="right">
                 <q-btn flat @click="deletar = false"  label="CANCELAR" color="primary" />
-                <q-btn label="ADICIONAR" color="primary" />
+                <q-btn label="EXCLUIR" color="primary"  @click="excluirUsuario()"/>
               </q-card-actions>
             </q-card>
           </q-dialog>
@@ -156,6 +156,7 @@
 
 <script>
 import ModalUser from 'components/admin/ModalUser.vue'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'GerenciarAcessos',
   data () {
@@ -172,24 +173,6 @@ export default {
         rowsPerPage: 15
         // rowsNumber: xx if getting data from a server
       },
-      data: [
-        {
-          docid: 'AASDASDAGFGDSFSGDSGDSFDSFDS',
-          nome: 'aaa',
-          tipo: 'Sebrae',
-          email: 'asdadsadsa@email.com',
-          cpf: '041.048.531-43',
-          celular: ''
-        },
-        {
-          docid: 'AASDASDAGFGDSFSGDSGDSFDSFDS',
-          nome: 'aasdsa44788a',
-          tipo: 'Sindicado Comercial',
-          email: 'asdads48adsa@email.com',
-          cpf: '041.048.531-43',
-          celular: ''
-        }
-      ],
       columns: [
         {
           name: 'nome',
@@ -218,7 +201,14 @@ export default {
   components: {
     add: ModalUser
   },
+  mounted () {
+    this.getUsuarios()
+  },
+  computed: {
+    ...mapGetters('usuarios', ['getListaUsuarios'])
+  },
   methods: {
+    ...mapActions('usuarios', ['getUsuarios', 'delUsuarios']),
     open () {
       this.edit = false
       this.$refs.ModalUser.open()
@@ -236,6 +226,23 @@ export default {
         this.$refs.ModalUser.openEditar()
         this.dadosEditar = { ...row.row }
       }, 200)
+    },
+    excluirUsuario () {
+      if (this.docid) {
+        this.delUsuarios({
+          docid: this.docid
+        }).then((res) => {
+          this.$q.notify({
+            position: 'bottom',
+            color: 'positive',
+            textColor: 'white',
+            icon: 'check',
+            message: 'Usuário excluído com sucesso!'
+          })
+          this.getUsuarios()
+          this.deletar = false
+        })
+      }
     }
   }
 }

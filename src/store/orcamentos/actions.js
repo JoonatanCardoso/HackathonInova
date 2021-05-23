@@ -2,27 +2,26 @@ import Firebase from 'firebase/app'
 import 'firebase/auth'
 import moment from 'moment'
 /**
- * get all servicos
+ * get all murais
  * @param dispatch
  * @returns {Promise<void>}
  */
-export const getServicos = ({ dispatch }) => {
-  const getUsuarios = Firebase.firestore()
-    .collection('servicos')
+export const getOrcamentos = ({ dispatch }) => {
+  const getOrcamentos = Firebase.firestore()
+    .collection('orcamentos')
 
-  return getUsuarios
+  return getOrcamentos
     .get()
     .then(snapshot => {
-      const Servicos = []
+      const Orcamentos = []
       snapshot.forEach(doc => {
         // Esse foreach percorre todos os docs de uma Collection e cria um Objeto contendo o docId e os dados.
-        Servicos.push({
+        Orcamentos.push({
           docid: doc.id,
           ...doc.data()
         })
       })
-      console.log(Servicos)
-      dispatch('setServicos', Servicos)
+      dispatch('setOrcamentos', Orcamentos)
     })
     .catch(err => {
       console.log('Error getting documents', err)
@@ -30,14 +29,14 @@ export const getServicos = ({ dispatch }) => {
 }
 
 /**
- * get de Servico pelo seu id
+ * get de Mural pelo seu id
  * @param dispatch
  * @param docid
  * @returns {Promise<(*&{docid: string}) | void>}
  */
-export const getServicoById = ({ dispatch }, { docid }) => {
+export const getOrcamentoById = ({ dispatch }, { docid }) => {
   return Firebase.firestore()
-    .collection('servicos')
+    .collection('orcamentos')
     .doc(docid)
     .get()
     .then(snapshot => {
@@ -45,7 +44,7 @@ export const getServicoById = ({ dispatch }, { docid }) => {
         docid: snapshot.id,
         ...snapshot.data()
       }
-      dispatch('setServico', dados)
+      dispatch('setOrcamento', dados)
       return dados
     })
     .catch(err => {
@@ -55,25 +54,24 @@ export const getServicoById = ({ dispatch }, { docid }) => {
 
 /**
  * dados = {
- * titulo:
- * descricao:
- * celular: (whatsapp)
- * email:
- * link: (optional)
+ *  - titulo
+ * - tipo
+ * - link
+ * - data_validade
  * }
  * @param {*} dados
  * @returns {Promise<unknown>}
  */
-export const addServico = ({ dispatch }, { dados }) => {
+export const addOrcamento = ({ dispatch }, { dados }) => {
   return new Promise((resolve, reject) => {
     dados.create_at = moment().format()
     dados.update_at = moment().format()
 
     Firebase.firestore()
-      .collection('servicos')
+      .collection('orcamentos')
       .add(dados)
       .then(function (docRef) {
-        dispatch('getServicos')
+        dispatch('getOrcamentos')
         resolve(docRef)
       })
       .catch(function (error) {
@@ -90,16 +88,16 @@ export const addServico = ({ dispatch }, { dados }) => {
  * @param docid
  * @returns {Promise<unknown>}
  */
-export const putServicosMerge = ({ dispatch }, { dados, docid }) => {
+export const putOrcamentosMerge = ({ dispatch }, { dados, docid }) => {
   return new Promise((resolve, reject) => {
     dados.update_at = moment().format()
 
     Firebase.firestore()
-      .collection('servicos')
+      .collection('orcamentos')
       .doc(docid)
       .set(dados, { merge: true })
       .then(function (docRef) {
-        dispatch('getServicos')
+        dispatch('getOrcamentos')
         resolve(dados)
       })
       .catch(function (error) {
@@ -115,14 +113,14 @@ export const putServicosMerge = ({ dispatch }, { dados, docid }) => {
  * @param docid
  * @returns {Promise<unknown>}
  */
-export const delServiço = ({ dispatch }, { docid }) => {
+export const delOrcamentos = ({ dispatch }, { docid }) => {
   return new Promise((resolve, reject) => {
     Firebase.firestore()
-      .collection('servicos')
+      .collection('orcamentos')
       .doc(docid)
       .delete()
       .then(function () {
-        dispatch('getServicos')
+        dispatch('getOrcamentos')
         resolve()
       })
       .catch(function (error) {
@@ -137,8 +135,8 @@ export const delServiço = ({ dispatch }, { docid }) => {
  * @param commit
  * @param val
  */
-export function setServicos ({ commit }, val) {
-  commit('setServicos', val)
+export function setOrcamentos ({ commit }, val) {
+  commit('setOrcamentos', val)
 }
 
 /**
@@ -146,6 +144,6 @@ export function setServicos ({ commit }, val) {
  * @param commit
  * @param val
  */
-export function setServico ({ commit }, val) {
-  commit('SET_MURAL', val)
+export function setOrcamento ({ commit }, val) {
+  commit('setOrcamento', val)
 }
