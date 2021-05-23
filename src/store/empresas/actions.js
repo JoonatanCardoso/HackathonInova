@@ -42,12 +42,11 @@ export const getCountEmpresas = ({ dispatch }) => {
       snapshot.forEach(doc => {
         if (!Empresas[doc.data().type]) {
           Empresas[doc.data().type] = []
-        } else {
-          Empresas[doc.data().type].push({
-            docid: doc.id,
-            ...doc.data()
-          })
         }
+        Empresas[doc.data().type].push({
+          docid: doc.id,
+          ...doc.data()
+        })
       })
     })
     .catch(err => {
