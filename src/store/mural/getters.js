@@ -4,3 +4,6 @@ export function getMurais (state) {
 export function getMural (state) {
   return state.mural
 }
+export function getEstatisticasMurais (state) {
+  return state.estatisticas
+}

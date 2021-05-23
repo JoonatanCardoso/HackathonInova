@@ -1,6 +1,7 @@
 export default function () {
   return {
     murais: [],
-    mural: {}
+    mural: {},
+    estatisticas: { geral: 0 }
   }
 }
