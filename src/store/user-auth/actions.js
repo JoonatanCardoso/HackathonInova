@@ -28,6 +28,7 @@ export const loginUser = ({ commit }, { dados }) => {
           .then((querySnapshot) => {
             return querySnapshot.data()
               ? {
+                  status: true,
                   operationType: user.operationType,
                   displayName: user.user.providerData[0].displayName,
                   email: user.user.providerData[0].email,
@@ -41,7 +42,6 @@ export const loginUser = ({ commit }, { dados }) => {
           })
           .catch((error) => { return { error, status: false } })
         dadosuser.typeUser = 'usuario'
-        console.log('🚀 ~ file: actions.js ~ line 44 ~ .then ~ dadosuser', dadosuser)
 
         if (!dadosuser.status) {
           dadosuser = await Firebase.firestore()
@@ -51,6 +51,7 @@ export const loginUser = ({ commit }, { dados }) => {
             .then(querySnapshot => {
               return querySnapshot.data()
                 ? {
+                    status: true,
                     operationType: user.operationType,
                     displayName: user.user.providerData[0].displayName,
                     email: user.user.providerData[0].email,
@@ -66,7 +67,6 @@ export const loginUser = ({ commit }, { dados }) => {
               return { error, status: false }
             })
           dadosuser.typeUser = 'empresa'
-          console.log('🚀 ~ file: actions.js ~ line 69 ~ .then ~ dadosuser', dadosuser)
         }
 
         if (!dadosuser.status) {
