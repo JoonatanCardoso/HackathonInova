@@ -7,3 +7,6 @@ export function getEmpresa (state) {
 export function getEstatisticas (state) {
   return state.estatisticas
 }
+export function getEstatisticasCnae (state) {
+  return state.estatisticasCnae
+}

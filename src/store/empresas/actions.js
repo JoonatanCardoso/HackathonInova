@@ -39,6 +39,9 @@ export const getCountEmpresas = ({ dispatch }) => {
         pequena: [],
         media_grande: []
       }
+      const EmpresasCnae = {
+        Outros: []
+      }
       snapshot.forEach(doc => {
         if (!Empresas[doc.data().type]) {
           Empresas[doc.data().type] = []
@@ -47,7 +50,32 @@ export const getCountEmpresas = ({ dispatch }) => {
           docid: doc.id,
           ...doc.data()
         })
+        if (doc.data().ramo_atividade) {
+          if (!EmpresasCnae[doc.data().ramo_atividade.desc.split(' ').join('_')]) {
+            EmpresasCnae[doc.data().ramo_atividade.desc.split(' ').join('_')] = []
+          }
+          EmpresasCnae[
+            doc
+              .data()
+              .ramo_atividade.desc.split(' ')
+              .join('_')
+          ].push({
+            docid: doc.id,
+            ...doc.data()
+          })
+        } else {
+          EmpresasCnae.Outros.push({
+            docid: doc.id,
+            ...doc.data()
+          })
+        }
+        if (EmpresasCnae.Outros.length === 0) {
+          delete EmpresasCnae.Outros
+        }
       })
+      console.log('EmpresasCnae', EmpresasCnae)
+      dispatch('setEstatisticas', Empresas)
+      dispatch('setEstatisticasCnae', EmpresasCnae)
     })
     .catch(err => {
       console.log('Error getting documents', err)
@@ -170,4 +198,7 @@ export function setEmpresa ({ commit }, val) {
 }
 export function setEstatisticas ({ commit }, val) {
   commit('setEstatisticas', val)
+}
+export function setEstatisticasCnae ({ commit }, val) {
+  commit('setEstatisticasCnae', val)
 }
