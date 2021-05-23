@@ -80,7 +80,16 @@
         <q-card>
           <q-card bordered class="shadow-0 bg-white border">
             <q-card-section class="text-h4">
-              <p>165</p>
+              <p>
+                <q-circular-progress
+                  v-if="loading.servicos"
+                  indeterminate
+                  size="50px"
+                  color="red"
+                  class="q-ma-md"
+                />
+              </p>
+              <p v-if="!loading.servicos">{{getAllServicos().length}}</p>
               <span class="text-subtitle1 text-grey-7">Serviços</span>
             </q-card-section>
           </q-card>
@@ -174,7 +183,7 @@ export default {
       dataHoje: '',
       diaHoje: '',
       msg: '',
-      loading: { mural: true, empresa: true }
+      loading: { mural: true, empresa: true, servicos: true }
     }
   },
   mounted () {
@@ -188,12 +197,17 @@ export default {
     this.getCountMurais().then(_ => {
       this.loading.mural = false
     })
+    this.getServicos().then(_ => {
+      this.loading.servicos = false
+    })
   },
   methods: {
     ...mapActions('empresas', ['getCountEmpresas']),
     ...mapGetters('empresas', ['getEstatisticas', 'getEstatisticasCnae']),
     ...mapActions('mural', ['getCountMurais']),
     ...mapGetters('mural', ['getEstatisticasMurais']),
+    ...mapActions('servicos', ['getServicos']),
+    ...mapGetters('servicos', ['getAllServicos']),
     pegaMsg () {
       this.msg = {
         dia: 'Bom dia',
