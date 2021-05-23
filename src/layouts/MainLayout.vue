@@ -74,13 +74,22 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'MainLayout',
+  tipoAdm: '',
   components: {},
   data () {
     return {
       leftDrawerOpen: false
     }
+  },
+  mounted () {
+    this.tipoAdm = this.user.uid
+    console.log(this.tipoAdm)
+  },
+  computed: {
+    ...mapState('userAuth', ['user'])
   }
 }
 </script>
