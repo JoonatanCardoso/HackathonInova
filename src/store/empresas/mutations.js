@@ -7,3 +7,6 @@ export const setEmpresa = (state, val) => {
 export const setEstatisticas = (state, val) => {
   state.estatisticas = val
 }
+export const setEstatisticasCnae = (state, val) => {
+  state.estatisticasCnae = val
+}
